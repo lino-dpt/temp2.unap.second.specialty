@@ -1,0 +1,42 @@
+[
+    {
+        "id": "000",
+        "name": "SIN DOCUMENTO TRIBUTARIO | NO DOMINIO | SIN REGISTRO ÚNICO DE CONTRIBUYENTES",
+        "shortName": "SIN DOCUMENTO TRIBUTARIO"
+    },
+    {
+        "id": "001",
+        "name": "DOCUMENTO NACIONAL DE IDENTIDAD",
+        "shortName": "DNI"
+    },
+    {
+        "id": "004",
+        "name": "CARNET/CARNÉ DE EXTRANJERÍA",
+        "shortName": "CE"
+    },
+    {
+        "id": "007",
+        "name": "PASAPORTE",
+        "shortName": "PASAPORTE"
+    },
+    {
+        "id": "00A",
+        "name": "CÉDULA DIPLOMÁTICA DE IDENTIDAD",
+        "shortName": "CÉDULA DIPLOMÁTICA"
+    },
+    {
+        "id": "00F",
+        "name": "PERMISO TEMPORAL DE PERMANENCIA PTP",
+        "shortName": "PTP"
+    },
+    {
+        "id": "201",
+        "name": "DOCUMENTO EXTRANJERO - OTROS",
+        "shortName": "DOCUMENTO EXTRANJERO"
+    },
+    {
+        "id": "202",
+        "name": "CARNÉ DE IDENTIDAD",
+        "shortName": "CARNÉ DE IDENTIDAD"
+    }
+]

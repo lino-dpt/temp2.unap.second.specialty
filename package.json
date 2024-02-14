@@ -1,0 +1,26 @@
+{
+  "name": "unap.second.specialty.vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.6.7",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.5.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.3",
+    "sass": "^1.70.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.0",
+    "vite-plugin-vuetify": "^2.0.1",
+    "vue-tsc": "^1.8.27"
+  }
+}
