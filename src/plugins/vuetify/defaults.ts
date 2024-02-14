@@ -6,11 +6,9 @@ export default {
     density: "comfortable",
   },
   VAvatar: {
-    // ℹ️ Remove after next release
     variant: "flat",
   },
   VBadge: {
-    // set v-badge default color to primary
     color: "primary",
   },
   VBtn: {
@@ -40,11 +38,11 @@ export default {
     location: "top",
   },
 
-  // VList: {
-  //   VListItem: {
-  //     activeColor: 'primary',
-  //   },
-  // },
+  VList: {
+    VListItem: {
+      activeColor: 'primary',
+    },
+  },
   VCheckbox: {
     // set v-checkbox default color to primary
     color: "primary",
@@ -83,7 +81,7 @@ export default {
   VTextField: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
     clearable: true,
   },
@@ -91,41 +89,41 @@ export default {
   VSelect: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
     clearable: true,
   },
   VAutocomplete: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
     clearable: true,
   },
   VCombobox: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
     clearable: true,
   },
   VFileInput: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
   },
   VTextarea: {
     variant: "outlined",
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
     clearable: true,
   },
   VSwitch: {
     // set v-switch default color to primary
     density: "compact",
-    color: "secondary",
+    color: "primary",
     hideDetails: "auto",
   },
   VIcon: {
