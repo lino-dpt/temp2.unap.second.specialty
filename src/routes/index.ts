@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
+import sede from "./sede.ts";
 
 const routes = [
   {
@@ -50,6 +51,7 @@ const routes = [
         name: "Postulant",
         component: () => import("@/views/admin/postulants/show.vue"),
       },
+      ...sede,
     ],
   },
 ];
