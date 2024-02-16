@@ -40,7 +40,7 @@ export default {
 
   VList: {
     VListItem: {
-      activeColor: 'primary',
+      activeColor: "primary",
     },
   },
   VCheckbox: {
@@ -91,7 +91,7 @@ export default {
     density: "compact",
     color: "primary",
     hideDetails: "auto",
-    clearable: true,
+    clearable: false,
   },
   VAutocomplete: {
     variant: "outlined",

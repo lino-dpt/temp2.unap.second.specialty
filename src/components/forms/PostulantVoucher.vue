@@ -1,28 +1,30 @@
 <template>
   <v-form class="w-full" @submit.prevent="submit">
-    <v-card width="700" class="mx-auto" rounded="0" elevation="0">
+    <v-card width="450" class="mx-auto" rounded="0" elevation="0">
       <v-container>
         <v-row>
-          <v-col cols="12" md="6">
-            <v-row>
-              <v-col cols="12" md="12">
-                <v-text-field label="DNI" required />
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-divider></v-divider>
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-text-field label="serie" required />
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-text-field label="fehca" type="date" required />
-              </v-col>
-              <v-col cols="12" md="12">
-                <v-text-field label="monto" required />
-              </v-col>
-            </v-row>
+          <v-col cols="12" md="12" class="pb-1">
+            <v-radio-group inline >
+              <v-radio label="DNI" value="dni" required></v-radio>
+              <v-radio label="Carnet de ext." value="ce"></v-radio>
+            </v-radio-group>
           </v-col>
-          <v-col cols="12" md="6">
+
+          <v-col cols="12" md="12" class="py-1">
+            <v-text-field label="DNI" required />
+          </v-col>
+
+          <v-col cols="12" md="12">
+            <v-text-field label="serie" required />
+          </v-col>
+          <v-col cols="12" md="12">
+            <v-text-field label="fehca" type="date" required />
+          </v-col>
+          <v-col cols="12" md="12">
+            <v-text-field label="monto" required />
+          </v-col>
+
+          <v-col cols="12" md="12">
             <v-toolbar density="compact">
               <v-toolbar-title>
                 <small> Voucher </small>
@@ -52,9 +54,7 @@
             </v-card>
           </v-col>
           <v-col cols="12">
-            <v-btn type="submit" variant="flat" block>
-                Guardar
-            </v-btn>
+            <v-btn type="submit" variant="flat" block> Guardar </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -77,8 +77,7 @@ const preview_img = ref(null);
 const dialogExample = ref(false);
 
 const submit = () => {
-
-    emit("onSuccess");
+  emit("onSuccess");
   console.log("submit");
 };
 </script>

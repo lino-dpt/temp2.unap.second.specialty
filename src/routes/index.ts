@@ -50,6 +50,12 @@ const routes = [
         name: "Postulant",
         component: () => import("@/views/admin/postulants/show.vue"),
       },
+
+      {
+        path: "document-types",
+        name: "DocumentTypes",
+        component: () => import("@/views/admin/documentTypes/index.vue"),
+      },
     ],
   },
 ];

@@ -46,7 +46,7 @@ const props = defineProps({
   },
 });
 
-const district: Ref<string> = computed({
+const district: Ref<string | null> = computed({
   get: () => props.modelValue,
   set: (value) => {
     emit("update:modelValue", value);
@@ -59,7 +59,7 @@ const provincesItems = ref([]);
 const districtsItems = ref([]);
 
 const deparment: Ref<string> = ref("");
-const province: Ref<string> = ref("");
+const province: Ref<string | null> = ref(null);
 // const district: Ref<string> = ref("");
 
 const onSelectDepartment = async (value: string) => {

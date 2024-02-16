@@ -3,7 +3,7 @@
     <v-card width="700" class="mx-auto">
       <v-container>
         <v-row>
-          <v-col cols="12" md="6">
+          <!-- <v-col cols="12" md="6">
             <v-select
               v-model="form.typeDocument"
               :items="documentTypesItems"
@@ -18,7 +18,7 @@
               label="Número de documento"
               v-model="form.documentNumber"
             />
-          </v-col>
+          </v-col> -->
           <v-col cols="12" md="12">
             <v-text-field label="Nombres" v-model="form.name" />
           </v-col>
@@ -34,12 +34,7 @@
               v-model="form.motherSurname"
             />
           </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field
-              label="Apellido de casada"
-              v-model="form.marriedSurname"
-            />
-          </v-col>
+
           <v-col cols="12" md="6">
             <v-text-field
               label="Fecha de nacimiento"
@@ -69,13 +64,20 @@
             />
           </v-col>
 
+          <v-col cols="12" md="6">
+            <v-text-field
+              label="Apellido de casada"
+              v-model="form.marriedSurname"
+            />
+          </v-col>
+
           <v-col cols="12 pt-0">
             <v-card class="pb-1" flat>
               <v-card-title class="pt-0">
                 <small class="text-body-2">Lugar de nacimiento</small>
               </v-card-title>
               <v-row>
-                <UbigeoForm v-model="form.birthPlace" />
+                <UbigeoTwoForm v-model="form.birthPlace" />
               </v-row>
             </v-card>
           </v-col>
@@ -86,9 +88,32 @@
                 <small class="text-body-2">Lugar de residencia</small>
               </v-card-title>
               <v-row>
-                <UbigeoForm v-model="form.residencePlace" />
+                <UbigeoTwoForm v-model="form.residencePlace" />
               </v-row>
             </v-card>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              label="Teléfono"
+              v-model="form.phoneNumber"
+              type="number"
+            />
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <v-text-field
+              label="coreo electrónico"
+              v-model="form.email"
+              type="number"
+            />
+          </v-col>
+
+          <v-col cols="12" md="12">
+            <v-text-field
+              label="Dirección"
+              v-model="form.address"
+              type="number"
+            />
           </v-col>
 
           <v-col cols="12" md="6">
@@ -98,6 +123,7 @@
               type="number"
             />
           </v-col>
+
           <v-col cols="12" md="6">
             <v-checkbox
               v-model="form.isDisability"
@@ -130,7 +156,7 @@
 import axios from "axios";
 import { ref } from "vue";
 
-import UbigeoForm from "@/components/UbigeoForm.vue";
+import UbigeoTwoForm from "@/components/UbigeoTwoForm.vue";
 import documentTypesJson from "@/assets/data/json/documentTypes.json";
 
 const emit = defineEmits(["onSuccess"]);
@@ -161,6 +187,11 @@ const form = ref({
   birthPlace: "",
   residencePlace: "",
   graduationYear: "",
+
+  phoneNumber: "",
+  email: "",
+  address: "",
+
   maritalStatus: "",
   observations: "",
   isDisability: false,
@@ -168,23 +199,24 @@ const form = ref({
 });
 
 const submit = async () => {
+  console.log(form.value);
+
   emit("onSuccess");
   return;
 
-  let res = await axios.post(
-    "http://unap.specialty2.test/api/v1/postulants/",
-    form.value
-  );
+  // let res = await axios.post(
+  //   "http://unap.specialty2.postulants.test/api/v1/postulants/",
+  //   form.value
+  // );
 
-  if (res.status === 'success') {
-    emit("onSuccess");
-  }
-  console.log(res);
-
+  // if (res.status === 'success') {
+  //   emit("onSuccess");
+  // }
+  // console.log(res);
 };
 
 const init = async () => {
-  //   documentTypesItems.value = await publicApiService._DocumentTypes();
+ 
 };
 init();
 </script>

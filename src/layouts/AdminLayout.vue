@@ -72,9 +72,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container>
-        <router-view />
-      </v-container>
+      <router-view />
     </v-main>
     <v-footer app color="grey" height="44"></v-footer>
   </v-app>
@@ -146,11 +144,17 @@ const menu = ref([
         icon: "mdi-account-group",
         to: "/a/security",
       },
+    ],
+  },
+  {
+    title: "Configuración",
+    icon: "mdi-cog",
+    to: "/a/settings",
+    children: [
       {
-        title: "Configuración",
-        icon: "mdi-cog",
-        to: "/a/settings",
-        children: [],
+        title: "Tipos de documentos",
+        icon: "mdi-account-group",
+        to: "/a/document-types",
       },
     ],
   },

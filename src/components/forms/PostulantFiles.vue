@@ -7,13 +7,7 @@
             <span class="text-caption text-uppercase">
               Titulo universitario ó superior pedagogico
             </span>
-            <v-file-input
-              
-              label="Titulo"
-              show-size
-              counter
-             
-            ></v-file-input>
+            <v-file-input label="Titulo" show-size counter></v-file-input>
           </v-col>
           <v-col cols="12">
             <v-btn type="submit" variant="flat" block>Guardar</v-btn>
@@ -27,12 +21,7 @@
 import axios from "axios";
 import { ref } from "vue";
 
-//solicitud de inscpripcion
-//titulo universitario, superior pedagogico, tecnico, bachiller, copia fedateada por la institucion de origen
-//dni
-//declaracion jurada de no tener antecedentes penales
-//carta de compromiso
-//voucher de pago
+const emit = defineEmits(["onSuccess"]);
 
 const form = ref([
   {
@@ -75,6 +64,10 @@ const form = ref([
 
 const submit = async () => {
   console.log(form.value);
+
+  emit("onSuccess");
+
+  return;
 
   //convertir a formdata con
   const formData = new FormData();
