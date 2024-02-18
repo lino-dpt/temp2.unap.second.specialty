@@ -1,72 +1,90 @@
 <template>
-    <h1>Sedes</h1>
-    <div style="text-align: center;">
+  <h1>Sedes</h1>
+  <div style="text-align: center;">
 
-        <v-card title="Crear sedes" width="400" class="mx-auto">            
-            <form>
-                <v-text-field v-model="form.codigo" :rules="rules" label="Codigo"></v-text-field>
-                <v-text-field v-model="form.nombre" :rules="rules" label="Nombre sede"></v-text-field>
-                <v-text-field v-model="form.ubigeo" :rules="rules" label="Ubigeo"></v-text-field>
-                <v-text-field v-model="form.estado" :rules="rules" label="Estado"></v-text-field> 
-                <v-btn @click="save()" block class="mt-2">Enviar</v-btn>
-            </form>
-        </v-card>
-    </div>
-    <br>
-    <br>
-    <v-table>
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="sede in sedes" :key="sede.Id">
-            <td>{{ sede.Id }}</td>
-            <td>{{ sede.nombre }}</td>
-            <td>{{ sede.ubigeo }}</td>
-            <td>
-                <router-link :to="`/a/sedes/${sede.Id}`"> ver </router-link>
-                <router-link :to="`/a/sedes/${sede.Id}`"> eliminar </router-link>
-                <button @click="openEditModal(sede)">Editar</button>
-            </td>
-        </tr>
-        </tbody>
-    </v-table> 
+    <v-card title="Crear sedes" width="400" class="mx-auto">
+      <button @click="openCreateModal()">Crear</button>
+    </v-card>
+  </div>
+  <br>
+  <br>
+  <v-table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="sede in sedes" :key="sede.Id">
+        <td>{{ sede.Id }}</td>
+        <td>{{ sede.nombre }}</td>
+        <td>{{ sede.ubigeo }}</td>
+        <td>
+          <router-link :to="`/a/sedes/${sede.Id}`"> ver </router-link>
+          <router-link :to="`/a/sedes/${sede.Id}`"> eliminar </router-link>
+          <button @click="openEditModal(sede)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
 
 
-    <!-- Modal for editing -->
-    <v-dialog v-model="editModal" max-width="500px">
-      <v-card>
-        <v-card-title>Edit Sede</v-card-title>
-        <v-card-text>
-          <!-- Form for editing data -->
-          <v-form @submit.prevent="editarSede">
-            <v-text-field v-model="editedSede.codigo" label="Código"></v-text-field>
-            <v-text-field v-model="editedSede.nombre" label="Nombre"></v-text-field>
-            <v-text-field v-model="editedSede.ubigeo" label="Ubigeo"></v-text-field>
-            <v-text-field v-model="editedSede.estado" label="Estado"></v-text-field>
+  <!-- Modal for create -->
+  <v-dialog v-model="createModal" max-width="500px">
+    <v-card>
+      <v-card-title>Create Sede</v-card-title>
+      <v-card-text>
+        <!-- Form for create data -->
+        <!-- <form>
+            <v-text-field v-model="form.codigo" :rules="rules" label="Codigo"></v-text-field>
+            <v-text-field v-model="form.nombre" :rules="rules" label="Nombre sede"></v-text-field>
+            <v-text-field v-model="form.ubigeo" :rules="rules" label="Ubigeo"></v-text-field>
+            <v-text-field v-model="form.estado" :rules="rules" label="Estado"></v-text-field> 
+            <v-btn @click="save()" block class="mt-2">Enviar</v-btn>
+        </form> -->
 
-            <v-btn type="submit" color="primary">Guardar</v-btn>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    
+        <v-form @submit.prevent="save">
+          <v-text-field v-model="form.codigo" :rules="rules" label="Codigo"></v-text-field>
+          <v-text-field v-model="form.nombre" :rules="rules" label="Nombre sede"></v-text-field>
+          <v-text-field v-model="form.ubigeo" :rules="rules" label="Ubigeo"></v-text-field>
+          <v-text-field v-model="form.estado" :rules="rules" label="Estado"></v-text-field>
+          <v-btn type="submit" color="primary">Crear</v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+
+  <!-- Modal for editing -->
+  <v-dialog v-model="editModal" max-width="500px">
+    <v-card>
+      <v-card-title>Edit Sede</v-card-title>
+      <v-card-text>
+        <!-- Form for editing data -->
+        <v-form @submit.prevent="editarSede">
+          <v-text-field v-model="editedSede.codigo" label="Código"></v-text-field>
+          <v-text-field v-model="editedSede.nombre" label="Nombre"></v-text-field>
+          <v-text-field v-model="editedSede.ubigeo" label="Ubigeo"></v-text-field>
+          <v-text-field v-model="editedSede.estado" label="Estado"></v-text-field>
+
+          <v-btn type="submit" color="primary">Editar</v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup lang="ts">
 
 import axios from 'axios';
-import {ref, Ref, watch } from 'vue';
+import { ref, Ref, watch } from 'vue';
 
-const _sedes:Ref<object|null>= ref(null); 
+const _sedes: Ref<object | null> = ref(null);
 
 const sedes = ref<Sede[]>([]);
- 
+
 interface Sede {
   Id: number;
   codigo: string;
@@ -77,16 +95,25 @@ interface Sede {
   updated_at: string;
 }
 
-const form = ref({
-  id: null,
+let form = ref({
   codigo: "",
   nombre: "",
   ubigeo: "",
-  estado: "" 
+  estado: ""
 });
- // 'http://segundas.unap.pe/api/sedes/{id}
- const editModal = ref(false);
+// 'http://segundas.unap.pe/api/sedes/{id}
+const editModal = ref(false);
+const createModal = ref(false);
+
 const editedSede = ref({
+  Id: null,
+  codigo: '',
+  nombre: '',
+  ubigeo: '',
+  estado: '',
+});
+
+const createdSede = ref({
   Id: null,
   codigo: '',
   nombre: '',
@@ -102,6 +129,13 @@ const openEditModal = (sede) => {
   editModal.value = true;
 };
 
+const openCreateModal = () => {
+  // Set the data of the selected sede to the modal form
+  // createdSede.value = { ...sede };
+  createModal.value = true;
+
+};
+
 const editarSede = async () => {
   try {
     // Make an Axios request to update the sede
@@ -111,11 +145,29 @@ const editarSede = async () => {
 
     // Close the modal after successful update
     editModal.value = false;
-    
+    dataUpdated.value = true;
+
   } catch (error) {
     // Handle errors
     console.error(error);
   }
+};
+
+const save = async () => {
+  const response = await axios.post("http://segundas.unap.pe/api/sede", form.value);
+  console.log(response.data);
+
+  // Close the modal after successful craete
+  createModal.value = false;
+  dataUpdated.value = true;
+
+  form = ref({
+    codigo: "",
+    nombre: "",
+    ubigeo: "",
+    estado: ""
+  });
+
 };
 
 watch(dataUpdated, (newValue) => {
@@ -127,24 +179,20 @@ watch(dataUpdated, (newValue) => {
 });
 
 const get_sedes = async () => {
-    try {
-        const response = await axios.get('http://segundas.unap.pe/api/sedes', );
-        _sedes.value = response.data;
-        sedes.value = response.data.data.data || [];
-          
-    } catch (error) {
-        console.error('Error fetching sedes:', error);
-    } 
+  try {
+    const response = await axios.get('http://segundas.unap.pe/api/sedes',);
+    _sedes.value = response.data;
+    sedes.value = response.data.data.data || [];
+
+  } catch (error) {
+    console.error('Error fetching sedes:', error);
+  }
 };
 
-const save = async () => {
-    let res = await axios.post("http://segundas.unap.pe/api/sede", form.value);
-    console.log(res);
-};
 
 
 const rules = [
-    (v:any) => !!v || 'You must enter a first name.',
+  (v: any) => !!v || 'You must enter a first name.',
 ];
 
 get_sedes();
