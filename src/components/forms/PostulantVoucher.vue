@@ -99,13 +99,19 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import { isDni, isCE, isRequired, isNumber } from "@/helpers/validations";
 import CropCompressImage from "@/components/CropCompressImage.vue";
 
+import { PostulantInitPreInscription } from "@/types/postulantTypes";
+
 import PostulantService from "@/services/PostulantService";
+import FileService from "@/services/FileService";
+import PaymentService from "@/services/PaymentService";
 
 const postulantService = new PostulantService();
+const fileService = new FileService();
+const paymentService = new PaymentService();
 
 const emit = defineEmits(["onSuccess"]);
 const previewImg = ref(null);
@@ -126,14 +132,15 @@ const documentTypes = [
 
 const formRef = ref(null);
 
-const form = ref({
+const form: Ref<PostulantInitPreInscription> = ref({
   documentType: "001",
   documentNumber: "",
-
   paymentId: "",
   paymentDate: "",
   paymentAmount: "",
   paymentVoucher: null,
+  postulantId: null,
+  fileId: null,
 });
 
 const errorValidationImage = ref("");
@@ -167,15 +174,27 @@ const submit = async () => {
     errorValidationImage.value = "El archivo es requerido";
     return;
   }
+
   errorValidationImage.value = validateImage(form.value.paymentVoucher);
   if (!valid) return;
 
-  let res = postulantService.initzializePreinscription(form.value);
+  let postulant = await postulantService.initzializePreinscription(form.value);
+  form.value.postulantId = postulant.id;
+  let fileId = await fileService.store(form.value);
+  form.value.fileId = fileId.FileId;
+  let payment = await paymentService.store(form.value);
+  console.log(payment);
 
-  console.log(res);
 
 
   //  emit("onSuccess");
-  console.log("submit");
+
 };
+
+// const rollBack = () => {
+//   //eliminar al postulante
+//   //eliminar el archivo
+//   //eliminar el pago
+//   console.log("rollback");
+// };
 </script>

@@ -13,7 +13,13 @@ const routes = [
         name: "Home",
         component: () => import("@/views/index.vue"),
       },
+      {
+        path: "d/:postulant",
+        name: "Postulante",
+        component: () => import("@/views/_postulant.vue"),
+      }
     ],
+    
   },
   {
     path: "/a",

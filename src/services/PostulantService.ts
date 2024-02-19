@@ -20,12 +20,14 @@ export default class PostulantService {
     formData.append("documentNumber", data.documentNumber);
     formData.append("paymentId", data.paymentId);
     formData.append("paymentDate", data.paymentDate);
-    formData.append("paymentAmount", data.paymentAmount);
-    formData.append("paymentVoucher", data.paymentVoucher);
+
     const response = await this.http.post(
       "initzialize-preinscription",
       formData
     );
+
+    console.log("response", response);
+
     return response.data;
   }
 }
