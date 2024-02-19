@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import sede from "./sede.ts";
+import routes_convocatorias from "./convocatoria.ts";
+import routes_institucionorigen from "./institucionorigen.ts";
 
 const routes = [
   {
@@ -52,6 +54,8 @@ const routes = [
         component: () => import("@/views/admin/postulants/show.vue"),
       },
       ...sede,
+      ...routes_convocatorias,
+      ...routes_institucionorigen
     ],
   },
 ];
