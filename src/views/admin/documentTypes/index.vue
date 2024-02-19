@@ -1,7 +1,7 @@
 <template>
   <v-toolbar>
     <v-list-item
-      subtitle="Gestion de tipos de documentos "
+      subtitle="Gestion de tipos de documentos"
       title="Tipo de documentos"
     />
     <v-spacer></v-spacer>
@@ -31,7 +31,7 @@
         icon
         @click="editItem(item)"
         class="mr-2"
-        color="green darken-4"
+        color="teal darken-1"
         density="compact"
         variant="tonal"
       >
@@ -75,8 +75,8 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import DialogConfirm from "@/components/DialogConfirm.vue";
 import { ref } from "vue";
+import DialogConfirm from "@/components/DialogConfirm.vue";
 
 const listDocumentTypes = ref([]);
 const loading = ref(false);
@@ -155,7 +155,7 @@ const saveRecord = async () => {
     );
 
     serverItems.value[editedIndex.value] = res.data.documentType;
-
+    dialog.value = false;
     console.log("update record");
   }
 };

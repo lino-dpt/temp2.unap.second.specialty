@@ -1,9 +1,5 @@
 <template>
-  <v-col cols="12" md="3">
-    <v-text-field label="Ubigeo" v-model="ubigeo" readonly :clearable="false"> </v-text-field>
-  </v-col>
-
-  <v-col cols="12" md="9">
+  <v-col cols="12" md="12">
     <v-autocomplete
       v-model="ubigeo"
       :items="items"
@@ -11,7 +7,6 @@
       item-value="id"
       label="Departamento, Provincia, Distrito"
       v-model:search="search"
-
     >
     </v-autocomplete>
   </v-col>
@@ -38,7 +33,6 @@ const ubigeo: Ref<string> = computed({
 });
 const items = ref([]);
 const search = ref("");
-
 
 watch(
   search,

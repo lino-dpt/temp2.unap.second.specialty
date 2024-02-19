@@ -124,7 +124,7 @@
             />
           </v-col>
 
-          <v-col cols="12" md="6">
+          <!-- <v-col cols="12" md="6">
             <v-checkbox
               v-model="form.isDisability"
               label="¿Tiene discapacidad?"
@@ -135,14 +135,14 @@
               label="Tipo de discapacidad"
               v-model="form.disabilityType"
             />
-          </v-col>
-          <v-col cols="12" md="12">
+          </v-col> -->
+          <!-- <v-col cols="12" md="12">
             <v-textarea
               label="Observaciones"
               v-model="form.observations"
               rows="3"
             />
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-container>
       <v-card-actions>
