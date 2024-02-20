@@ -4,6 +4,7 @@ import AdminLayout from "@/layouts/AdminLayout.vue";
 import sede from "./sede.ts";
 import routes_convocatorias from "./convocatoria.ts";
 import routes_institucionorigen from "./institucionorigen.ts";
+import routes_vacantes from "./vacante.ts";
 
 const routes = [
   {
@@ -55,7 +56,8 @@ const routes = [
       },
       ...sede,
       ...routes_convocatorias,
-      ...routes_institucionorigen
+      ...routes_institucionorigen,
+      ...routes_vacantes,
     ],
   },
 ];
