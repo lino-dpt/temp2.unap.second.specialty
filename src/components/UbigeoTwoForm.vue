@@ -7,6 +7,7 @@
       item-value="id"
       label="Departamento, Provincia, Distrito"
       v-model:search="search"
+      :rules="[isRequired]"
     >
     </v-autocomplete>
   </v-col>
@@ -15,6 +16,8 @@
 import axios from "axios";
 import { ref, computed, watch, Ref } from "vue";
 import { throttle } from "lodash";
+
+import { isRequired } from "@/helpers/validations";
 
 const emit = defineEmits(["update:modelValue"]);
 

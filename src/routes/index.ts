@@ -3,24 +3,37 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 
 const routes = [
+  // {
+  //   path: "",
+  //   name: "DefaultLayout",
+  //   component: DefaultLayout,
+  //   children: [
+  //     {
+  //       path: "",
+  //       name: "Home",
+  //       component: () => import("@/views/index.vue"),
+  //     },
+  //   ],
+  // },
+
   {
-    path: "/",
+    path: "/p",
     name: "DefaultLayout",
     component: DefaultLayout,
     children: [
       {
-        path: "",
-        name: "Home",
+        path: ":convocatoria/preinscripcion",
+        name: "Inizializar Preinscripcion",
         component: () => import("@/views/index.vue"),
       },
       {
-        path: "d/:postulant",
-        name: "Postulante",
+        path: ":convocatoria/preinscripcion/:postulant",
+        name: "Preinscripcion",
         component: () => import("@/views/_postulant.vue"),
-      }
+      },
     ],
-    
   },
+
   {
     path: "/a",
     name: "AdminLayout",

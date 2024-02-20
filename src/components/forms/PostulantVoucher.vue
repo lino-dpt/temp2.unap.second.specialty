@@ -3,7 +3,7 @@
     <v-card width="450" class="mx-auto" rounded="0" elevation="0">
       <v-container>
         <v-row class="mt-2">
-          <v-col cols="12" md="4" class="py-1">
+          <v-col cols="12" md="4">
             <v-select
               v-model="form.documentType"
               :items="documentTypes"
@@ -12,15 +12,20 @@
               item-value="id"
               :rules="[isRequired]"
               density="compact"
+              @update:model-value="searchPreinscription(form.documentNumber)"
             />
           </v-col>
 
-          <v-col cols="12" md="8" class="py-1">
+          <v-col cols="12" md="8" class="pb-0">
             <v-text-field
               v-model="form.documentNumber"
               label="N° de documento"
               required
               :rules="[form.documentType === '001' ? isDni : isCE]"
+              @update:model-value="searchPreinscription"
+              autocomplete="off"
+              :counter="form.documentType === '001' ? 8 : 12"
+              :maxLength="form.documentType === '001' ? 8 : 12"
             />
           </v-col>
 
@@ -97,17 +102,38 @@
       />
     </v-card>
   </v-dialog>
+
+  <!-- Se muestra el modal si el ya inicio la preinscripcion -->
+  <v-dialog v-model="dialogContinue">
+    <v-card width="300px" class="mx-auto">
+      <v-card-title class="bg-primary">
+        <small>Ya inicio la preinscripcion</small>
+      </v-card-title>
+      <v-container>
+        <p>Ya inicio la preinscripcion, desea continuar?</p>
+      </v-container>
+      <v-card-actions>
+        <v-btn color="red" @click="dialogContinue = false">No</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn variant="tonal" @click="continuePreinscription">Si</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <script setup lang="ts">
 import { ref, Ref } from "vue";
-import { isDni, isCE, isRequired, isNumber } from "@/helpers/validations";
+
+import { useRouter } from "vue-router";
+
 import CropCompressImage from "@/components/CropCompressImage.vue";
 
+import { isDni, isCE, isRequired, isNumber } from "@/helpers/validations";
 import { PostulantInitPreInscription } from "@/types/postulantTypes";
-
 import PostulantService from "@/services/PostulantService";
 import FileService from "@/services/FileService";
 import PaymentService from "@/services/PaymentService";
+
+const router = useRouter();
 
 const postulantService = new PostulantService();
 const fileService = new FileService();
@@ -116,6 +142,10 @@ const paymentService = new PaymentService();
 const emit = defineEmits(["onSuccess"]);
 const previewImg = ref(null);
 const dialogExample = ref(false);
+
+const dialogContinue = ref(false);
+
+const idHash: Ref<string> = ref("");
 
 const documentTypes = [
   {
@@ -168,6 +198,34 @@ const validateImage = (file: File) => {
   return "";
 };
 
+const searchPreinscription = async (e: string) => {
+  idHash.value = "";
+  if (e.length === 8 && form.value.documentType === "001") {
+    let preinscription = await postulantService.searchByDocument(
+      form.value.documentType,
+      e
+    );
+
+    if (preinscription) {
+      idHash.value = preinscription;
+      dialogContinue.value = true;
+    }
+  } else if (e.length === 12 && form.value.documentType === "004") {
+    let preinscription = await postulantService.searchByDocument(
+      form.value.documentType,
+      e
+    );
+    if (preinscription) {
+      idHash.value = preinscription;
+      dialogContinue.value = true;
+    }
+  }
+};
+
+const continuePreinscription = () => {
+  router.push(`/p/convocatoria-2024/preinscripcion/${idHash.value}`);
+};
+
 const submit = async () => {
   const { valid } = await formRef.value.validate();
   if (form.value.paymentVoucher === null) {
@@ -185,10 +243,7 @@ const submit = async () => {
   let payment = await paymentService.store(form.value);
   console.log(payment);
 
-
-
   //  emit("onSuccess");
-
 };
 
 // const rollBack = () => {
