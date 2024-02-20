@@ -2,7 +2,7 @@ const routes_convocatorias = [
     {
         path: "convocatorias",
         name: "convocatorias", 
-        component: () => import("@/views/admin/convocatoria/index.vue"),
+        component: () => import("@/views/admin/convocatorias/index.vue"),
     },
   ];
 

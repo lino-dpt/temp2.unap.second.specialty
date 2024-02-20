@@ -1,49 +1,27 @@
 <template>
   <v-toolbar>
-    <v-list-item
-      title="Convocatorias"
-      subtitle=""
-    />
+    <v-list-item title="Convocatorias" subtitle="Gestión de convocatorias" />
     <v-spacer></v-spacer>
     <v-btn prepend-icon="mdi-plus" variant="tonal" @click="newRecord">
       Nuevo
     </v-btn>
   </v-toolbar>
-  <v-data-table-server
-    class="border"
-    v-model:items-per-page="itemsPerPage"
-    :headers="headers"
-    :items-length="totalItems"
-    :items="serverItems"
-    :loading="loading"
-    :search="search"
-    item-value="Name"
-    :items-per-page-options="[1, 5, 10, 25, 50]"
-    @update:options="loadItems"
-  >
+  <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
+    :items="serverItems" :loading="loading" :search="search" item-value="Name"
+    :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
     <template v-slot:[`item.Status`]="{ item }">
-      <v-chip :color="item.Status ? 'blue' : 'error'" dark label small>
-        {{ item.Status ? "Activo" : "Inactivo" }}
+      <v-chip :color="item.estado ? 'blue' : 'error'" dark label small>
+        {{ item.estado ? "Activo" : "Inactivo" }}
       </v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-btn
-        icon
-        @click="editItem(item)"
-        class="mr-2"
-        color="green darken-4"
-        density="compact"
-        variant="tonal"
-      >
+      <v-btn icon @click="editItem(item)" class="mr-2" color="green darken-4" density="compact" variant="tonal">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
 
       <v-btn icon color="red" density="compact" variant="tonal">
-        <DialogConfirm
-          @onConfirm="deleteItem(item)"
-          :title="`Eliminar ${item.Name}`"
-          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.Name}?`"
-        ></DialogConfirm>
+        <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.nombre}`"
+          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.nombre}?`"></DialogConfirm>
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -59,7 +37,6 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field v-model="editedItem.Name" label="Nombre" />
             <v-text-field v-model="editedItem.nombre" label="nombre"></v-text-field>
             <v-text-field v-model="editedItem.anio" label="anio"></v-text-field>
             <v-text-field v-model="editedItem.estado" label="estado"></v-text-field>
@@ -85,7 +62,7 @@
 
 <script setup lang="ts">
 import axios from "axios";
-//import DialogConfirm from "@/components/DialogConfirm.vue";
+import DialogConfirm from "@/components/DialogConfirm.vue";
 import { ref } from "vue";
 
 const listDocumentTypes = ref([]);
@@ -100,7 +77,7 @@ const search = ref("");
 const dialog = ref(false);
 const editedItem = ref({});
 const defaultItem = ref({
-  id:"",
+  id: "",
   nombre: "",
   anio: "",
   estado: "",
@@ -117,7 +94,8 @@ const editedIndex = ref(-1);
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
-  let res = await axios.get("http://segundas.unap.pe/api/convocatorias", {
+  // let res = await axios.post("http://segundas.unap.pe/api/convocatorias", {
+  let res = await axios.post("http://servicio_convocatorias.test/api/mostrar_todos_convocatoria", {
     page,
     itemsPerPage,
     sortBy,
@@ -129,7 +107,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   headers.value = data.headers;
   totalItems.value = data.total;
-  serverItems.value = data.data;
+  serverItems.value = data.items.data;
 
   console.log("page", page);
   console.log("itemsPerPage", itemsPerPage);
@@ -157,7 +135,8 @@ const close = () => {
 
 const saveRecord = async () => {
   if (editedIndex.value === -1) {
-    let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
+    // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
+    let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
       nombre: editedItem.value.nombre,
       anio: editedItem.value.anio,
       estado: editedItem.value.estado,
@@ -169,14 +148,15 @@ const saveRecord = async () => {
       modalidad_estudio: editedItem.value.modalidad_estudio,
       id_sede: editedItem.value.id_sede
     });
-    serverItems.value.push({ Status: 1, ...res.data });
+    serverItems.value.push({ estado: 1, ...res.data.data });
 
     dialog.value = false;
   } else {
     console.log("editedItem", editedItem.value);
 
     let res = await axios.patch(
-      "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.Id,
+      // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
+      "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
       {
         nombre: editedItem.value.nombre,
         anio: editedItem.value.anio,
@@ -191,15 +171,15 @@ const saveRecord = async () => {
       }
     );
 
-    serverItems.value[editedIndex.value] = res.data.documentType;
-
+    serverItems.value[editedIndex.value] = res.data.data;
+    dialog.value = false;
     console.log("update record");
   }
 };
 
 const deleteItem = async (item) => {
   let res = await axios.delete(
-    "http://127.0.0.1:8000/api/document-types/" + item.Id
+    "http://servicio_convocatorias.test/api/eliminar_un_convocatoria/" + item.id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
