@@ -1,202 +1,159 @@
 <template>
-  <h1>Sedes</h1>
-  <div style="text-align: center;">
+  <v-toolbar>
+    <v-list-item title="Sedes" subtitle="Gestion de sedes" />
+    <v-spacer></v-spacer>
+    <v-btn prepend-icon="mdi-plus" variant="tonal" @click="newRecord">
+      Nuevo
+    </v-btn>
+  </v-toolbar>
+  <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
+    :items="serverItems" :loading="loading" :search="search" item-value="Name"
+    :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
+    <template v-slot:[`item.Status`]="{ item }">
+      <v-chip :color="item.estado ? 'blue' : 'error'" dark label small>
+        {{ item.estado ? "Activo" : "Inactivo" }}
+      </v-chip>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-btn icon @click="editItem(item)" class="mr-2" color="teal darken-1" density="compact" variant="tonal">
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
 
-    <v-card title="Crear sedes" width="400" class="mx-auto">
-      <button @click="openCreateModal()">Crear</button>
-    </v-card>
-  </div>
-  <br>
-  <br>
-  <v-table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Email</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="sede in sedes" :key="sede.Id">
-        <td>{{ sede.Id }}</td>
-        <td>{{ sede.nombre }}</td>
-        <td>{{ sede.ubigeo }}</td>
-        <td>
-          <router-link :to="`/a/sedes/${sede.Id}`"> ver </router-link>
-          <router-link :to="`/a/sedes/${sede.Id}`"> eliminar </router-link>
-          <button @click="openEditModal(sede)">Editar</button>
-        </td>
-      </tr>
-    </tbody>
-  </v-table>
-
-
-  <!-- Modal for create -->
-  <v-dialog v-model="createModal" max-width="500px">
+      <v-btn icon color="red" density="compact" variant="tonal">
+        <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.Id}`"
+          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.Id}?`"></DialogConfirm>
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </template>
+  </v-data-table-server>
+  <v-dialog v-model="dialog" max-width="500px">
     <v-card>
-      <v-card-title>Create Sede</v-card-title>
-      <v-card-text>
-        <!-- Form for create data -->
-        <!-- <form>
-            <v-text-field v-model="form.codigo" :rules="rules" label="Codigo"></v-text-field>
-            <v-text-field v-model="form.nombre" :rules="rules" label="Nombre sede"></v-text-field>
-            <v-text-field v-model="form.ubigeo" :rules="rules" label="Ubigeo"></v-text-field>
-            <v-text-field v-model="form.estado" :rules="rules" label="Estado"></v-text-field> 
-            <v-btn @click="save()" block class="mt-2">Enviar</v-btn>
-        </form> -->
+      <v-card-title>
+        <span class="headline">
+          {{ editedIndex === -1 ? "Nuevo" : "Editar" }}
+        </span>
+      </v-card-title>
 
-        <v-form @submit.prevent="save">
-          <v-text-field v-model="form.codigo" :rules="rules" label="Codigo"></v-text-field>
-          <v-text-field v-model="form.nombre" :rules="rules" label="Nombre sede"></v-text-field>
-          <v-text-field v-model="form.ubigeo" :rules="rules" label="Ubigeo"></v-text-field>
-          <v-text-field v-model="form.estado" :rules="rules" label="Estado"></v-text-field>
-          <v-btn type="submit" color="primary">Crear</v-btn>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-dialog>
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field v-model="editedItem.codigo" label="Codigo" />
+            <v-text-field v-model="editedItem.nombre" label="Nombre" />
+            <v-text-field v-model="editedItem.ubigeo" label="Ubigeo" />
+            <v-text-field v-model="editedItem.estado" label="Estado" />
+          </v-col>
+        </v-row>
+      </v-container>
 
-  <!-- Modal for editing -->
-  <v-dialog v-model="editModal" max-width="500px">
-    <v-card>
-      <v-card-title>Edit Sede</v-card-title>
-      <v-card-text>
-        <!-- Form for editing data -->
-        <v-form @submit.prevent="editarSede">
-          <v-text-field v-model="editedSede.codigo" label="Código"></v-text-field>
-          <v-text-field v-model="editedSede.nombre" label="Nombre"></v-text-field>
-          <v-text-field v-model="editedSede.ubigeo" label="Ubigeo"></v-text-field>
-          <v-text-field v-model="editedSede.estado" label="Estado"></v-text-field>
-
-          <v-btn type="submit" color="primary">Editar</v-btn>
-        </v-form>
-      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
+        <v-btn variant="tonal" text @click="saveRecord">Guardar</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script setup lang="ts">
+import axios from "axios";
+import { ref } from "vue";
+import DialogConfirm from "@/components/DialogConfirm.vue";
 
-import axios from 'axios';
-import { ref, Ref, watch } from 'vue';
+const listDocumentTypes = ref([]);
+const loading = ref(false);
 
-const _sedes: Ref<object | null> = ref(null);
+const headers = ref([]);
+const itemsPerPage = ref(5);
+const totalItems = ref(0);
+const serverItems = ref([]);
+const search = ref("");
 
-const sedes = ref<Sede[]>([]);
-
-interface Sede {
-  Id: number;
-  codigo: string;
-  nombre: string;
-  ubigeo: string;
-  estado: number;
-  created_at: string;
-  updated_at: string;
-}
-
-let form = ref({
+const dialog = ref(false);
+const editedItem = ref({});
+const defaultItem = ref({
+  Id: "",
   codigo: "",
   nombre: "",
   ubigeo: "",
-  estado: ""
+  estado: "",
+  // Status: true,
 });
-// 'http://segundas.unap.pe/api/sedes/{id}
-const editModal = ref(false);
-const createModal = ref(false);
+const editedIndex = ref(-1);
 
-const editedSede = ref({
-  Id: null,
-  codigo: '',
-  nombre: '',
-  ubigeo: '',
-  estado: '',
-});
+const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
+  loading.value = true;
 
-const createdSede = ref({
-  Id: null,
-  codigo: '',
-  nombre: '',
-  ubigeo: '',
-  estado: '',
-});
-
-const dataUpdated = ref(false);
-
-const openEditModal = (sede) => {
-  // Set the data of the selected sede to the modal form
-  editedSede.value = { ...sede };
-  editModal.value = true;
-};
-
-const openCreateModal = () => {
-  // Set the data of the selected sede to the modal form
-  // createdSede.value = { ...sede };
-  createModal.value = true;
-
-};
-
-const editarSede = async () => {
-  try {
-    // Make an Axios request to update the sede
-    const response = await axios.patch(`http://segundas.unap.pe/api/sede/${editedSede.value.Id}`, editedSede.value);
-    // Handle success
-    console.log(response.data);
-
-    // Close the modal after successful update
-    editModal.value = false;
-    dataUpdated.value = true;
-
-  } catch (error) {
-    // Handle errors
-    console.error(error);
-  }
-};
-
-const save = async () => {
-  const response = await axios.post("http://segundas.unap.pe/api/sede", form.value);
-  console.log(response.data);
-
-  // Close the modal after successful craete
-  createModal.value = false;
-  dataUpdated.value = true;
-
-  form = ref({
-    codigo: "",
-    nombre: "",
-    ubigeo: "",
-    estado: ""
+  let res = await axios.post(`http://servicio_sedes.test/api/mostrar_todos_sede`, {
+    page,
+    itemsPerPage,
+    sortBy,
+    search,
   });
+  let data = await res.data;
 
+  headers.value = data.headers;
+  totalItems.value = data.items.total;
+  serverItems.value = data.items.data;
+
+  console.log("page", page);
+  console.log("itemsPerPage", itemsPerPage);
+  console.log("sortBy", sortBy);
+
+  loading.value = false;
+};
+const editItem = (item) => {
+  editedIndex.value = serverItems.value.indexOf(item);
+  editedItem.value = Object.assign({}, item);
+  dialog.value = true;
 };
 
-watch(dataUpdated, (newValue) => {
-  if (newValue) {
-    get_sedes();
-    // Restablece el indicador de actualización a false después de cargar los datos
-    dataUpdated.value = false;
-  }
-});
+const newRecord = () => {
+  editedIndex.value = -1;
+  editedItem.value = Object.assign({}, defaultItem.value);
+  dialog.value = true;
+};
 
-const get_sedes = async () => {
-  try {
-    const response = await axios.get('http://segundas.unap.pe/api/sedes',);
-    _sedes.value = response.data;
-    sedes.value = response.data.data.data || [];
+const close = () => {
+  editedIndex.value = -1;
+  editedItem.value = Object.assign({}, defaultItem.value);
+  dialog.value = false;
+};
 
-  } catch (error) {
-    console.error('Error fetching sedes:', error);
+const saveRecord = async () => {
+  if (editedIndex.value === -1) {
+    let res = await axios.post("http://servicio_sedes.test/api/crear_sede", {
+      codigo: editedItem.value.codigo,
+      nombre: editedItem.value.nombre,
+      ubigeo: editedItem.value.ubigeo,
+      estado: editedItem.value.estado
+    });
+    serverItems.value.push({ estado: 1, ...res.data.data });
+
+    dialog.value = false;
+  } else {
+    console.log("editedItem", editedItem.value);
+
+    let res = await axios.patch(
+      "http://servicio_sedes.test/api/actualizar_sede/" + editedItem.value.Id,
+      {
+        codigo: editedItem.value.codigo,
+        nombre: editedItem.value.nombre,
+        ubigeo: editedItem.value.ubigeo,
+        estado: editedItem.value.estado
+      }
+    );
+
+    serverItems.value[editedIndex.value] = res.data.data;
+    dialog.value = false;
+    console.log("update record");
   }
 };
 
+const deleteItem = async (item) => {
+  let res = await axios.delete(
+    "http://servicio_sedes.test/api/eliminar_un_sede/" + item.Id
+  );
 
-
-const rules = [
-  (v: any) => !!v || 'You must enter a first name.',
-];
-
-get_sedes();
-
+  serverItems.value.splice(serverItems.value.indexOf(item), 1);
+};
 </script>
-
- 
