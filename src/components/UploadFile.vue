@@ -90,6 +90,7 @@ const uploadFile = (e) => {
   reader.onload = (e) => {
     filePreview.value = e.target.result;
   };
+  
   reader.readAsDataURL(file);
 };
 </script>

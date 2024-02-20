@@ -3,19 +3,11 @@ import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 
 const routes = [
-  // {
-  //   path: "",
-  //   name: "DefaultLayout",
-  //   component: DefaultLayout,
-  //   children: [
-  //     {
-  //       path: "",
-  //       name: "Home",
-  //       component: () => import("@/views/index.vue"),
-  //     },
-  //   ],
-  // },
-
+  {
+    path: "/login",
+    name: "Auth",
+    component: () => import("@/views/auth/login.vue"),
+  },
   {
     path: "/p",
     name: "DefaultLayout",

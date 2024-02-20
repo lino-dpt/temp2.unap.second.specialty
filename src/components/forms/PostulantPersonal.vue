@@ -112,7 +112,7 @@
         <v-text-field
           label="Teléfono"
           v-model="form.phoneNumber"
-          type="number"
+      
           :rules="[isRequired, isNumber]"
         />
       </v-col>
@@ -137,7 +137,7 @@
         <v-text-field
           label="Año de graduación"
           v-model="form.graduationYear"
-          type="number"
+       
           :rules="[isRequired, isNumber]"
           maxLength="4"
         />
