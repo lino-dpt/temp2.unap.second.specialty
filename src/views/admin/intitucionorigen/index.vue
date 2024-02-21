@@ -6,6 +6,11 @@
       Nuevo
     </v-btn>
   </v-toolbar>
+  <v-card-title>
+    <v-col cols="12">
+      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+    </v-col>
+  </v-card-title>
   <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
     :items="serverItems" :loading="loading" :search="search" item-value="Name"
     :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
@@ -17,7 +22,7 @@
 
       <v-btn icon color="red" density="compact" variant="tonal">
         <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.nombre}`"
-          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.nombre}?`"></DialogConfirm>
+          :text="`¿Está seguro de que desea eliminar  ${item.nombre}?`"></DialogConfirm>
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -81,7 +86,8 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
   // let res = await axios.get("http://segundas.unap.pe/api/institucionesOrigen", {
-  let res = await axios.post("http://servicio_institucionorigen.test/api/institucionorigens", {
+  // let res = await axios.post("http://segundas.unap.pe/api/institucionesOrigen", {
+  let res = await axios.post("http://174.138.178.194:8083/api/institucionorigens", {
     page,
     itemsPerPage,
     sortBy,
