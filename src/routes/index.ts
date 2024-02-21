@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "Auth",

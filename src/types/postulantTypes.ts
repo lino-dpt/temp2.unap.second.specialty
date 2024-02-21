@@ -52,6 +52,7 @@ export interface PostulantPreInscription {
 }
 
 export interface Postulant {
+  Id?: string |  null;
   Name: string;
   FatherSurname: string;
   MotherSurname?: string;
