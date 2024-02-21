@@ -6,6 +6,11 @@
       Nuevo
     </v-btn>
   </v-toolbar>
+  <v-card-title>
+    <v-col cols="12">
+      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+    </v-col>
+  </v-card-title>
   <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
     :items="serverItems" :loading="loading" :search="search" item-value="Name"
     :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
