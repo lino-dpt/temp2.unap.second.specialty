@@ -101,8 +101,15 @@
 import { computed, ref } from "vue";
 import { isRequired } from "@/helpers/validations.js";
 
+interface Form {
+  [key: string]: any;
+  errors: Record<string, string>;
+  processing: boolean;
+  isDirty: boolean;
+}
+
 const props = defineProps({
-  formularioJson: Array,
+  formularioJson: Array<Form>,
   modelValue: Object,
 });
 

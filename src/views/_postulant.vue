@@ -82,7 +82,7 @@ const formDefaults: PostulantPreInscription = {
   email: "",
   address: "",
   maritalStatus: "",
-  specialty: 1,
+  specialty: "1",
   fileDocument: null,
   photoAvatar: null,
 };

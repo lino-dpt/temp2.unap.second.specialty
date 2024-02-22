@@ -60,7 +60,7 @@
                     </template>
                     <v-list>
                         <v-list-item
-                            v-for="(item, index) in aspectRatio_options"
+                            v-for="item in aspectRatio_options"
                             :key="item.key"
                             :value="item.key"
                             @click="_aspectRatio = item.key"
@@ -155,7 +155,7 @@ const cropAndOptimize = () => {
         (blob) => {
             let file = new File([blob], "imagen_crop_optimize", {
                 type: blob.type,
-                quality: 0.5,
+                // quality: 0.5,
             });
             emits("onCropper", { file: file, blob: URL.createObjectURL(blob) });
             showModal.value = false;
@@ -168,7 +168,7 @@ const cropAndOptimize = () => {
 const cargarImagen = async (e) => {
     console.log("ini");
     btn_loading.value = true;
-    let res = await loadImageHelper(e);
+    let res =  loadImageHelper(e);
 
     if (res) {
         image.src = res.src;

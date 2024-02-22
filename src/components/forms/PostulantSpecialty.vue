@@ -7,7 +7,7 @@
           v-model="form.specialty"
           :items="items"
           label="Especialidad"
-          item-title="name"
+          item-title="nombre"
           item-value="id"
           :clearable="false"
         />
@@ -25,55 +25,14 @@ defineProps<{
   form: PostulantPreInscription;
 }>();
 
-const items = ref([
-  {
-    id: 1,
-    name: "Especialidad 1",
-  },
-  {
-    id: 2,
-    name: "Especialidad 2",
-  },
-  {
-    id: 3,
-    name: "Especialidad 3",
-  },
-  {
-    id: 4,
-    name: "Especialidad 4",
-  },
-  {
-    id: 5,
-    name: "Especialidad 5",
-  },
-  {
-    id: 6,
-    name: "Especialidad 6",
-  },
-  {
-    id: 7,
-    name: "Especialidad 7",
-  },
-  {
-    id: 8,
-    name: "Especialidad 8",
-  },
-  {
-    id: 9,
-    name: "Especialidad 9",
-  },
-  {
-    id: 10,
-    name: "Especialidad 10",
-  },
-]);
+const items = ref([]);
 
 const init = async () => {
   let res = await axios.get("http://segundas.unap.pe/api/programas");
-  console.log('res.data', res.data);
-  
+  console.log("res.data", res.data);
+
   items.value = res.data;
 };
-// init();
+init();
 </script>
 <style lang="scss"></style>

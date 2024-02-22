@@ -46,7 +46,7 @@ export interface PostulantPreInscription {
   address: string;
   maritalStatus: string;
 
-  specialty: string | number;
+  specialty: string;
   fileDocument: File;
   photoAvatar: File;
 }

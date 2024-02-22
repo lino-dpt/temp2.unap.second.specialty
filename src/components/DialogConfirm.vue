@@ -43,11 +43,11 @@
     </v-menu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const emit = defineEmits(["onConfirm"]);
-const props = defineProps({
+defineProps({
     title: {
         type: String,
         default: "CONFIRMAR",

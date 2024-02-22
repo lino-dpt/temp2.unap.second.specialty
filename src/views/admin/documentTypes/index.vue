@@ -66,8 +66,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
-        <v-btn variant="tonal" text @click="saveRecord">Guardar</v-btn>
+        <v-btn color="red darken-1" @click="close">Cancelar</v-btn>
+        <v-btn variant="tonal" @click="saveRecord">Guardar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -75,10 +75,10 @@
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import DialogConfirm from "@/components/DialogConfirm.vue";
 
-const listDocumentTypes = ref([]);
+// const listDocumentTypes = ref([]);
 const loading = ref(false);
 
 const headers = ref([]);
@@ -87,8 +87,14 @@ const totalItems = ref(0);
 const serverItems = ref([]);
 const search = ref("");
 
+interface DocumentType {
+  Id?: number;
+  Name: string;
+  Status: boolean;
+}
+
 const dialog = ref(false);
-const editedItem = ref({});
+const editedItem: Ref<DocumentType> = ref({} as DocumentType);
 const defaultItem = ref({
   Name: "",
   Status: true,
@@ -116,7 +122,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   loading.value = false;
 };
-const editItem = (item) => {
+const editItem = (item: DocumentType) => {
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   dialog.value = true;
@@ -161,9 +167,7 @@ const saveRecord = async () => {
 };
 
 const deleteItem = async (item) => {
-  let res = await axios.delete(
-    "http://127.0.0.1:8000/api/document-types/" + item.Id
-  );
+  await axios.delete("http://127.0.0.1:8000/api/document-types/" + item.Id);
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
 };
