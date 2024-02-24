@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-list-item title="Convocatorias" subtitle="Gestión de convocatorias" />
+    <v-list-item title="Entrevista" subtitle="Gestión de entrevista" />
     <v-spacer></v-spacer>
     <v-btn prepend-icon="mdi-plus" variant="tonal" @click="newRecord">
       Nuevo
@@ -26,7 +26,7 @@
 
       <v-btn icon color="red" density="compact" variant="tonal">
         <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.nombre}`"
-          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.nombre}?`"></DialogConfirm>
+          :text="`¿Está seguro de que desea eliminar este registro: ${item.nombre}?`"></DialogConfirm>
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -42,16 +42,16 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field v-model="editedItem.nombre" label="nombre"></v-text-field>
-            <v-text-field v-model="editedItem.anio" label="anio"></v-text-field>
-            <v-text-field v-model="editedItem.estado" label="estado"></v-text-field>
-            <v-text-field v-model="editedItem.ciclo" label="ciclo"></v-text-field>
-            <v-text-field v-model="editedItem.ciclo_oti" label="ciclo_oti"></v-text-field>
-            <v-text-field v-model="editedItem.fecha_inicio" label="fecha_inicio"></v-text-field>
-            <v-text-field v-model="editedItem.fecha_fin" label="fecha_fin"></v-text-field>
-            <v-text-field v-model="editedItem.observacion" label="observacion"></v-text-field>
-            <v-text-field v-model="editedItem.modalidad_estudio" label="modalidad_estudio"></v-text-field>
-            <v-text-field v-model="editedItem.id_sede" label="id_sede"></v-text-field>
+            <v-autocomplete v-model="editedItem.id_convocatoria" :items="convocatorias" label="Convocatoria"
+              itemTitle="nombre" itemValue="id" variant="outlined">
+            </v-autocomplete>
+            <v-autocomplete v-model="editedItem.id_programa" :items="programas" label="Programa" itemTitle="nombre"
+              itemValue="id" variant="outlined">
+            </v-autocomplete>
+            <v-autocomplete v-model="editedItem.id_postulante" :items="postulantes" label="Postulante"
+              itemTitle="nombre_completo" itemValue="dni" variant="outlined">
+            </v-autocomplete>
+            <v-checkbox v-model="editedItem.estado" label="Activo"/>
           </v-col>
         </v-row>
       </v-container>
@@ -83,44 +83,93 @@ const dialog = ref(false);
 const editedItem = ref({});
 const defaultItem = ref({
   id: "",
-  nombre: "",
-  anio: "",
-  estado: "",
-  ciclo: "",
-  ciclo_oti: "",
-  fecha_inicio: "",
-  fecha_fin: "",
-  observacion: "",
-  modalidad_estudio: "",
-  id_sede: ""
+  id_convocatoria: "",
+  id_programa: "",
+  id_postulante: "",
+  estado: true
 });
 const editedIndex = ref(-1);
+
+const programas = ref([]);
+
+
+const convocatorias = [
+  { nombre: "CONVOCATORIA 2024 - I", id: 1 },
+];
+
+const postulantes = [
+  { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222" },
+  { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333" },
+  { nombre_completo: "ERO ERADEJA USARLA", dni: "33334444" },
+];
+
+
+const loadProgramas = async () => {
+  try {
+    const response = await axios.get('http://segundas.unap.pe/api/programas');
+    programas.value = response.data;
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+loadProgramas();
 
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
   // let res = await axios.post("http://segundas.unap.pe/api/convocatorias", {
-  // let res = await axios.post("http://servicio_convocatorias.test/api/mostrar_todos_convocatoria", {
-  let res = await axios.post("http://174.138.178.194:8081/api/mostrar_todos_convocatoria", {
+  let res = await axios.post("http://servicio_evaluacionentrevista_se.test/api/entrevista", {
+    // let res = await axios.post("http://174.138.178.194:8081/api/mostrar_todos_convocatoria", {
     page,
     itemsPerPage,
     sortBy,
     search,
   });
   let data = await res.data;
+  // let res = await res;
 
-  console.log("data", data);
 
   headers.value = data.headers;
   totalItems.value = data.total;
-  serverItems.value = data.items.data;
+  let data_items = data.items.data;
 
+  const baseURL = 'http://segundas.unap.pe/api/programa/';
+
+  // Iterate through each item in the data array
+  data_items.forEach(item => {
+    const endpoint = baseURL + item.id_programa;
+
+    // Make the GET request to the API for each item
+    fetch(endpoint)
+      .then(response => response.json())
+      .then(apiResponse => {
+        // Assuming the response structure matches your API response
+        const nombreFromApi = apiResponse.nombre;
+
+        // Replace id_programa with the nombre obtained from the API
+        item.id_programa = nombreFromApi;
+
+        // Now you can use the updated item as needed
+        // console.log(item);
+      })
+      .catch(error => {
+        console.error('Error fetching data from the API:', error);
+      });
+  });
+
+  serverItems.value = data_items;
+  console.log("data_items", data_items);
+  console.log("serverItems.value", serverItems.value);
+  console.log("data", data.items.data);
   console.log("page", page);
   console.log("itemsPerPage", itemsPerPage);
   console.log("sortBy", sortBy);
 
   loading.value = false;
 };
+
 const editItem = (item) => {
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
@@ -140,21 +189,22 @@ const close = () => {
 };
 
 const saveRecord = async () => {
+  console.log("editedItem.value", editedItem.value);
   if (editedIndex.value === -1) {
-    let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
-      // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
-      nombre: editedItem.value.nombre,
-      anio: editedItem.value.anio,
-      estado: editedItem.value.estado,
-      ciclo: editedItem.value.ciclo,
-      ciclo_oti: editedItem.value.ciclo_oti,
-      fecha_inicio: editedItem.value.fecha_inicio,
-      fecha_fin: editedItem.value.fecha_fin,
-      observacion: editedItem.value.observacion,
-      modalidad_estudio: editedItem.value.modalidad_estudio,
-      id_sede: editedItem.value.id_sede
-    });
-    serverItems.value.push({ estado: 1, ...res.data.data });
+    //   let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
+    //     // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
+    //     nombre: editedItem.value.nombre,
+    //     anio: editedItem.value.anio,
+    //     estado: editedItem.value.estado,
+    //     ciclo: editedItem.value.ciclo,
+    //     ciclo_oti: editedItem.value.ciclo_oti,
+    //     fecha_inicio: editedItem.value.fecha_inicio,
+    //     fecha_fin: editedItem.value.fecha_fin,
+    //     observacion: editedItem.value.observacion,
+    //     modalidad_estudio: editedItem.value.modalidad_estudio,
+    //     id_sede: editedItem.value.id_sede
+    //   });
+    // serverItems.value.push({ estado: 1, ...res.data.data });
 
   } else {
     console.log("editedItem", editedItem.value);

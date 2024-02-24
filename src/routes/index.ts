@@ -5,6 +5,7 @@ import sede from "./sede.ts";
 import routes_convocatorias from "./convocatoria.ts";
 import routes_institucionorigen from "./institucionorigen.ts";
 import routes_vacantes from "./vacante.ts";
+import routes_entrevistas from "./entrevistas.ts";
 
 const routes = [
   {
@@ -58,6 +59,7 @@ const routes = [
       ...routes_convocatorias,
       ...routes_institucionorigen,
       ...routes_vacantes,
+      ...routes_entrevistas,
     ],
   },
 ];
