@@ -46,12 +46,12 @@
               itemTitle="nombre" itemValue="id" variant="outlined">
             </v-autocomplete>
             <v-autocomplete v-model="editedItem.id_programa" :items="programas" label="Programa" itemTitle="nombre"
-              itemValue="id" variant="outlined">
+              itemValue="id" variant="outlined" :clearable="false">
             </v-autocomplete>
             <v-autocomplete v-model="editedItem.id_postulante" :items="postulantes" label="Postulante"
               itemTitle="nombre_completo" itemValue="dni" variant="outlined">
             </v-autocomplete>
-            <v-checkbox v-model="editedItem.estado" label="Activo"/>
+            <v-checkbox v-model="editedItem.estado" label="Activo" />
           </v-col>
         </v-row>
       </v-container>
@@ -191,38 +191,28 @@ const close = () => {
 const saveRecord = async () => {
   console.log("editedItem.value", editedItem.value);
   if (editedIndex.value === -1) {
-    //   let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
-    //     // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
-    //     nombre: editedItem.value.nombre,
-    //     anio: editedItem.value.anio,
-    //     estado: editedItem.value.estado,
-    //     ciclo: editedItem.value.ciclo,
-    //     ciclo_oti: editedItem.value.ciclo_oti,
-    //     fecha_inicio: editedItem.value.fecha_inicio,
-    //     fecha_fin: editedItem.value.fecha_fin,
-    //     observacion: editedItem.value.observacion,
-    //     modalidad_estudio: editedItem.value.modalidad_estudio,
-    //     id_sede: editedItem.value.id_sede
-    //   });
-    // serverItems.value.push({ estado: 1, ...res.data.data });
+    // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
+      // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
+    let res = await axios.post("http://servicio_evaluacionentrevista_se.test/api/entrevistastore", {
+      id_convocatoria: editedItem.value.id_convocatoria,
+      id_programa: editedItem.value.id_programa,
+      id_postulante: editedItem.value.id_postulante,
+      estado: editedItem.value.estado
+    });
+    serverItems.value.push({ estado: 1, ...res.data.data });
 
   } else {
     console.log("editedItem", editedItem.value);
 
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
-      "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
+      // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
+      "http://servicio_evaluacionentrevista_se.test/api/entrevista/" + editedItem.value.id,
       {
-        nombre: editedItem.value.nombre,
-        anio: editedItem.value.anio,
-        estado: editedItem.value.estado,
-        ciclo: editedItem.value.ciclo,
-        ciclo_oti: editedItem.value.ciclo_oti,
-        fecha_inicio: editedItem.value.fecha_inicio,
-        fecha_fin: editedItem.value.fecha_fin,
-        observacion: editedItem.value.observacion,
-        modalidad_estudio: editedItem.value.modalidad_estudio,
-        id_sede: editedItem.value.id_sede
+        id_convocatoria: editedItem.value.id_convocatoria,
+        id_programa: editedItem.value.id_programa,
+        id_postulante: editedItem.value.id_postulante,
+        estado: editedItem.value.estado
       }
     );
     console.log(res);
@@ -236,7 +226,7 @@ const saveRecord = async () => {
 
 const deleteItem = async (item) => {
   let res = await axios.delete(
-    "http://servicio_convocatorias.test/api/eliminar_un_convocatoria/" + item.id
+    "http://servicio_evaluacionentrevista_se.test/api/entrevista/" + item.id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
