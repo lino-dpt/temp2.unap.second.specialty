@@ -95,10 +95,14 @@ const submit = async () => {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
     form.value.postulantId = route.params.postulant as string;
+
     let id = await postulantService.storePostulant(form.value);
-    form.value.postulantId = id;
+    console.log('storePostulant', id);
+    
+    // form.value.postulantId = id;
+
     await fileService.storePreinscriptionFiles(form.value);
-    await registrationService.store(form.value);
+    await registrationService.storeRegistration(form.value);
     hasPreinscription.value = true;
     return;
   } catch (error) {
@@ -109,7 +113,7 @@ const submit = async () => {
 const init = async () => {
   loading.value = true;
   let hash = route.params.postulant as string;
-  let res = await postulantService.getPreinscription(hash);
+  let res = await postulantService.searchPostulantById(hash);
   if (res === "The payload is invalid.") {
     router.push("/p/convocatoria-2024/preinscripcion/");
     return;
@@ -117,9 +121,10 @@ const init = async () => {
   _postulant.value = res;
 
   if (_postulant.value) {
-    hasPreinscription.value = await registrationService.searchByPostulantId(
-      _postulant.value.Id
-    );
+    hasPreinscription.value =
+      await registrationService.searchRegistrationByPostulantId(
+        _postulant.value.Id
+      );
   }
 
   loading.value = false;

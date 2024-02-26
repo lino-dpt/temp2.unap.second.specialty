@@ -4,11 +4,8 @@ export interface PostulantInitPreInscription {
   paymentId: string;
   paymentDate: string;
   paymentAmount: string;
-
   paymentVoucher: File;
-
   postulantId?: string | null;
-
   fileId?: string | null;
   fileType?: string | null;
 }
@@ -52,7 +49,7 @@ export interface PostulantPreInscription {
 }
 
 export interface Postulant {
-  Id?: string |  null;
+  Id?: string | null;
   Name: string;
   FatherSurname: string;
   MotherSurname?: string;

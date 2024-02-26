@@ -122,22 +122,19 @@
 </template>
 <script setup lang="ts">
 import { ref, Ref } from "vue";
-
 import { useRouter } from "vue-router";
-
 import CropCompressImage from "@/components/CropCompressImage.vue";
-
 import { isDni, isCE, isRequired, isNumber } from "@/helpers/validations";
 import { PostulantInitPreInscription } from "@/types/postulantTypes";
 import PostulantService from "@/services/PostulantService";
-import FileService from "@/services/FileService";
 import PaymentService from "@/services/PaymentService";
+import FileService from "@/services/FileService";
 
 const router = useRouter();
 
 const postulantService = new PostulantService();
-const fileService = new FileService();
 const paymentService = new PaymentService();
+const fileService = new FileService();
 
 const emit = defineEmits(["onSuccess"]);
 const previewImg = ref(null);
@@ -201,17 +198,16 @@ const validateImage = (file: File) => {
 const searchPreinscription = async (e: string) => {
   idHash.value = "";
   if (e.length === 8 && form.value.documentType === "001") {
-    let preinscription = await postulantService.searchByDocument(
+    let preinscription = await postulantService.searchPostulantByDocument(
       form.value.documentType,
       e
     );
-
     if (preinscription) {
       idHash.value = preinscription;
       dialogContinue.value = true;
     }
   } else if (e.length === 12 && form.value.documentType === "004") {
-    let preinscription = await postulantService.searchByDocument(
+    let preinscription = await postulantService.searchPostulantByDocument(
       form.value.documentType,
       e
     );
@@ -232,24 +228,37 @@ const submit = async () => {
     errorValidationImage.value = "El archivo es requerido";
     return;
   }
-
   errorValidationImage.value = validateImage(form.value.paymentVoucher);
   if (!valid) return;
 
-  let postulant = await postulantService.initzializePreinscription(form.value);
-  form.value.postulantId = postulant.id;
-  let fileId = await fileService.store(form.value);
-  form.value.fileId = fileId.FileId;
-  let payment = await paymentService.store(form.value);
-  console.log(payment);
+  let postulant = await postulantService.startPreinscription(form.value);
 
-  //  emit("onSuccess");
+  form.value.postulantId = postulant.id;
+  let file = await fileService.store(form.value);
+  form.value.fileId = file.FileId;
+  console.log(file);
+  let payment = await paymentService.updateImageUrl(
+    postulant.paymentId,
+    file.Path
+  );
+  console.log(payment);
+  if (payment !== true) {
+    rollBack(postulant.id, payment.paymentId, file.Id);
+  } else {
+    // emit("onSuccess");
+
+    router.push(
+      `/p/convocatoria-2024/preinscripcion/${form.value.postulantId}`
+    );
+    console.log(form.value.postulantId);
+  }
 };
 
-// const rollBack = () => {
-//   //eliminar al postulante
-//   //eliminar el archivo
-//   //eliminar el pago
-//   console.log("rollback");
-// };
+const rollBack = (postulant: string, payment: string, file: string) => {
+  //eliminar al postulante
+  //eliminar el archivo
+  //eliminar el pago
+  console.log("rollback", postulant, payment, file);
+  console.log("rollback");
+};
 </script>
