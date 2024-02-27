@@ -1,6 +1,6 @@
 <template>
   <v-form ref="formRef" class="w-full" @submit.prevent="submit">
-    <v-card width="450" class="mx-auto" rounded="0" elevation="0">
+    <v-card max-width="450" class="mx-auto" rounded="lg" elevation="2">
       <v-container>
         <v-row class="mt-2">
           <v-col cols="12" md="4">
@@ -88,7 +88,9 @@
             </small>
           </v-col>
           <v-col cols="12">
-            <v-btn type="submit" variant="flat" block> Guardar </v-btn>
+            <v-btn type="submit" variant="flat" block>
+              Iniciar preinscripción
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -131,6 +133,8 @@ import PaymentService from "@/services/PaymentService";
 import FileService from "@/services/FileService";
 
 const router = useRouter();
+
+const loading = ref(false);
 
 const postulantService = new PostulantService();
 const paymentService = new PaymentService();
@@ -231,25 +235,45 @@ const submit = async () => {
   errorValidationImage.value = validateImage(form.value.paymentVoucher);
   if (!valid) return;
 
+  loading.value = true;
   let postulant = await postulantService.startPreinscription(form.value);
-
+  if (postulant.error) {
+    console.log(postulant);
+    loading.value = false;
+    return;
+  }
   form.value.postulantId = postulant.id;
+
   let file = await fileService.store(form.value);
+  if (file.error) {
+    console.log(file);
+    loading.value = false;
+    return;
+  }
   form.value.fileId = file.FileId;
-  console.log(file);
+
   let payment = await paymentService.updateImageUrl(
     postulant.paymentId,
     file.Path
   );
+
+  if (payment.error) {
+    console.log(payment);
+    rollBack(postulant.id, payment.paymentId, file.Id);
+    loading.value = false;
+    return;
+  }
+
   console.log(payment);
   if (payment !== true) {
+    loading.value = false;
     rollBack(postulant.id, payment.paymentId, file.Id);
   } else {
-    // emit("onSuccess");
-
+    loading.value = false;
     router.push(
       `/p/convocatoria-2024/preinscripcion/${form.value.postulantId}`
     );
+
     console.log(form.value.postulantId);
   }
 };

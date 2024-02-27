@@ -19,7 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
+    
     /* Allow synthetic default imports */
     "baseUrl": "./",
     "paths": {

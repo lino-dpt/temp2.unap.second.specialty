@@ -1,9 +1,5 @@
 <template>
-  <v-app app id="inspire">
-    <v-main app class="mt-10">
-      <PostulantVoucher />
-    </v-main>
-  </v-app>
+  <PostulantVoucher />
 </template>
 
 <script setup lang="ts">
