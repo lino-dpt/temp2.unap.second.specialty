@@ -15,8 +15,8 @@
     :items="serverItems" :loading="loading" :search="search" item-value="Name"
     :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
     <template v-slot:[`item.Status`]="{ item }">
-      <v-chip :color="item.estado ? 'blue' : 'error'" dark label small>
-        {{ item.estado ? "Activo" : "Inactivo" }}
+      <v-chip :color="item.Status ? 'blue' : 'error'" dark label small>
+        {{ item.Status ? "Entrevistado" : "Pendiente" }}
       </v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
@@ -51,7 +51,7 @@
             <v-autocomplete v-model="editedItem.id_postulante" :items="postulantes" label="Postulante"
               itemTitle="nombre_completo" itemValue="dni" variant="outlined">
             </v-autocomplete>
-            <v-checkbox v-model="editedItem.estado" label="Activo" />
+            <v-checkbox v-model="editedItem.Status" label="Activo" />
           </v-col>
         </v-row>
       </v-container>
@@ -86,7 +86,7 @@ const defaultItem = ref({
   id_convocatoria: "",
   id_programa: "",
   id_postulante: "",
-  estado: true
+  Status: true
 });
 const editedIndex = ref(-1);
 
@@ -120,7 +120,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
   // let res = await axios.post("http://segundas.unap.pe/api/convocatorias", {
-  let res = await axios.post("http://servicio_evaluacionentrevista_se.test/api/entrevista", {
+  let res = await axios.post("http://segunda_especialidad_felix.test/api/entrevista", {
     // let res = await axios.post("http://174.138.178.194:8081/api/mostrar_todos_convocatoria", {
     page,
     itemsPerPage,
@@ -193,7 +193,7 @@ const saveRecord = async () => {
   if (editedIndex.value === -1) {
     // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
       // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
-    let res = await axios.post("http://servicio_evaluacionentrevista_se.test/api/entrevistastore", {
+    let res = await axios.post("http://segunda_especialidad_felix.test/api/entrevistastore", {
       id_convocatoria: editedItem.value.id_convocatoria,
       id_programa: editedItem.value.id_programa,
       id_postulante: editedItem.value.id_postulante,
@@ -207,7 +207,7 @@ const saveRecord = async () => {
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
       // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
-      "http://servicio_evaluacionentrevista_se.test/api/entrevista/" + editedItem.value.id,
+      "http://segunda_especialidad_felix.test/api/entrevista/" + editedItem.value.id,
       {
         id_convocatoria: editedItem.value.id_convocatoria,
         id_programa: editedItem.value.id_programa,
@@ -226,7 +226,7 @@ const saveRecord = async () => {
 
 const deleteItem = async (item) => {
   let res = await axios.delete(
-    "http://servicio_evaluacionentrevista_se.test/api/entrevista/" + item.id
+    "http://segunda_especialidad_felix.test/api/entrevista/" + item.id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);

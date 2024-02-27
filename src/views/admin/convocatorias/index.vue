@@ -142,7 +142,7 @@ const close = () => {
 const saveRecord = async () => {
   if (editedIndex.value === -1) {
     let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
-      // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
+    // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
       nombre: editedItem.value.nombre,
       anio: editedItem.value.anio,
       estado: editedItem.value.estado,
@@ -160,8 +160,8 @@ const saveRecord = async () => {
     console.log("editedItem", editedItem.value);
 
     let res = await axios.patch(
-      // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
-      "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
+      "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
+      // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
       {
         nombre: editedItem.value.nombre,
         anio: editedItem.value.anio,
