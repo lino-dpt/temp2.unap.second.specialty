@@ -26,7 +26,7 @@
       <template #append>
         <v-btn
           icon
-          @click="filePreview = null, input = null"
+          @click="(filePreview = null), (input = null)"
           variant="tonal"
           color="red"
           density="compact"
@@ -71,7 +71,10 @@ const fileDeails = ref({
 
 const uploadFile = (e) => {
   const file = e.target.files[0];
-  if (file.size > 200000) {
+  //validar el tamaño del archivo a "2MB"
+  console.log(file.size);
+  console.log(file);
+  if (file.size > 2000000) {
     alert("El archivo es muy grande");
     return;
   }
@@ -88,7 +91,7 @@ const uploadFile = (e) => {
   reader.onload = (e) => {
     filePreview.value = e.target.result;
   };
-  
+
   reader.readAsDataURL(file);
 };
 </script>

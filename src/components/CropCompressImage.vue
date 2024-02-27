@@ -12,7 +12,7 @@
   </v-btn>
 
   <v-dialog v-model="showModal" width="600px">
-    <v-card>
+    <v-card style="max-height: 90%;">
       <v-toolbar title="Imagen">
         <v-spacer></v-spacer>
 

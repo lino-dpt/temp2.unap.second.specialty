@@ -8,6 +8,7 @@
       itemValue="id"
       :clearable="false"
       @update:model-value="onSelectDepartment"
+      :rules="[isRequired]"
     />
   </v-col>
 
@@ -19,6 +20,7 @@
       itemTitle="name"
       itemValue="id"
       :clearable="false"
+      :rules="[isRequired]"
       @update:model-value="onSelectProvince"
     />
   </v-col>
@@ -30,6 +32,7 @@
       itemTitle="name"
       itemValue="id"
       :clearable="false"
+      :rules="[isRequired]"
     />
   </v-col>
 </template>
@@ -37,6 +40,7 @@
 import { ref, computed, Ref } from "vue";
 import PublicApiService from "@/services/PublicApiService";
 import deparmentsJson from "@/assets/data/json/deparments.json";
+import { isRequired } from "@/helpers/validations";
 
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
