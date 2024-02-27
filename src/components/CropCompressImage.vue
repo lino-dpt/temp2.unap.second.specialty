@@ -11,8 +11,8 @@
     Imagen
   </v-btn>
 
-  <v-dialog v-model="showModal" width="600px">
-    <v-card style="max-height: 90%;">
+  <v-dialog v-model="showModal" width="600px" scrollable>
+    <v-card>
       <v-toolbar title="Imagen">
         <v-spacer></v-spacer>
 
@@ -68,7 +68,7 @@
         </v-menu>
       </v-toolbar>
 
-      <v-container>
+      <v-card-text class="px-10">
         <cropper
           ref="cropperRef"
           :src="image.src"
@@ -78,7 +78,7 @@
             resizable: resizable,
           }"
         />
-      </v-container>
+      </v-card-text>
       <v-card-actions class="py-3">
         <v-spacer></v-spacer>
         <v-btn @click="showModal = false" color="pink" variant="tonal">
@@ -131,6 +131,7 @@ const aspectRatio_options = [
   { label: "16:9", key: 16 / 9 },
   { label: "4:3", key: 4 / 3 },
   { label: "1:1", key: 1 },
+  { label: "3:4", key: 3 / 4 },
   { label: "Libre", key: 0 },
 ];
 
