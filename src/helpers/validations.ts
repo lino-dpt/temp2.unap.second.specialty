@@ -23,3 +23,7 @@ export const isCE = (value: string) =>
   /^[0-9]{12}$/.test(value)
     ? true
     : "El carnet de extranjeria debe tener 12 dígitos.";
+
+//Validar que sea un numero que permita decimales
+export const isDecimal = (value: string) =>
+  /^[0-9]+(\.[0-9]+)?$/.test(value) ? true : "Solo se permite números.";

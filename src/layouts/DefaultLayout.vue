@@ -21,7 +21,7 @@
         </div>
       </v-container>
     </header>
-    <main class="my-10">
+    <main>
       <router-view />
     </main>
     <v-footer class="bg-secondary text-center">

@@ -4,7 +4,7 @@
       <template v-if="loading">
         <div class="h-100 w-100 d-flex justify-center align-center">
           <div class="w-25 mx-auto">
-            <v-progress-linear indetefrminate color="primary" />
+            <v-progress-linear indeterminate color="primary" />
           </div>
         </div>
       </template>
@@ -82,7 +82,7 @@ const formDefaults: PostulantPreInscription = {
   email: "",
   address: "",
   maritalStatus: "",
-  specialty: "1",
+  specialty: null,
   fileDocument: null,
   photoAvatar: null,
 };
@@ -97,9 +97,7 @@ const submit = async () => {
     form.value.postulantId = route.params.postulant as string;
 
     let id = await postulantService.storePostulant(form.value);
-    console.log('storePostulant', id);
-    
-    // form.value.postulantId = id;
+    form.value.postulantId = id;
 
     await fileService.storePreinscriptionFiles(form.value);
     await registrationService.storeRegistration(form.value);
@@ -123,7 +121,7 @@ const init = async () => {
   if (_postulant.value) {
     hasPreinscription.value =
       await registrationService.searchRegistrationByPostulantId(
-        _postulant.value.Id
+        _postulant.value.HashId
       );
   }
 

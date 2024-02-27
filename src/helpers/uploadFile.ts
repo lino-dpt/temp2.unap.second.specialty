@@ -25,6 +25,20 @@ const getMimeType = (file, fallback = null) => {
 const loadImageHelper = (event) => {
     let files = event.target.files;
 
+    //validar que el archivo sea una imagen
+    if (!files[0].type.match("image.*")) {
+        alert("Solo se permiten imagenes");
+        return false;
+    }
+    //validar que el archivo no supere el tamaño maximo 2MB
+
+    if (files[0].size > 2000000) {
+        alert("El archivo no debe superar los 2MB");
+        return false;
+    }
+
+
+
     var image = {
         src: null,
         type: null,

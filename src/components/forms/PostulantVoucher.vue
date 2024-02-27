@@ -1,6 +1,6 @@
 <template>
-  <v-form ref="formRef" class="w-full" @submit.prevent="submit">
-    <v-card max-width="450" class="mx-auto" rounded="lg" elevation="2">
+  <v-form ref="formRef" @submit.prevent="submit">
+    <v-card max-width="450" class="mx-auto my-5" rounded="lg" elevation="2">
       <v-container>
         <v-row class="mt-2">
           <v-col cols="12" md="4">
@@ -48,7 +48,7 @@
             <v-text-field
               v-model="form.paymentAmount"
               label="Monto"
-              :rules="[isRequired]"
+              :rules="[isRequired, isDecimal]"
             />
           </v-col>
 
@@ -88,7 +88,7 @@
             </small>
           </v-col>
           <v-col cols="12">
-            <v-btn type="submit" variant="flat" block>
+            <v-btn type="submit" variant="flat" block :loading="loading">
               Iniciar preinscripción
             </v-btn>
           </v-col>
@@ -126,7 +126,13 @@
 import { ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import CropCompressImage from "@/components/CropCompressImage.vue";
-import { isDni, isCE, isRequired, isNumber } from "@/helpers/validations";
+import {
+  isDni,
+  isCE,
+  isRequired,
+  isNumber,
+  isDecimal,
+} from "@/helpers/validations";
 import { PostulantInitPreInscription } from "@/types/postulantTypes";
 import PostulantService from "@/services/PostulantService";
 import PaymentService from "@/services/PaymentService";
@@ -236,45 +242,48 @@ const submit = async () => {
   if (!valid) return;
 
   loading.value = true;
-  let postulant = await postulantService.startPreinscription(form.value);
-  if (postulant.error) {
-    console.log(postulant);
-    loading.value = false;
-    return;
-  }
-  form.value.postulantId = postulant.id;
+  try {
+    let postulant = await postulantService.startPreinscription(form.value);
+    if (postulant.error) {
+      console.log(postulant);
+      loading.value = false;
+      return;
+    }
+    form.value.postulantId = postulant.id;
 
-  let file = await fileService.store(form.value);
-  if (file.error) {
-    console.log(file);
-    loading.value = false;
-    return;
-  }
-  form.value.fileId = file.FileId;
+    let file = await fileService.store(form.value);
+    if (file.error) {
+      console.log(file);
+      loading.value = false;
+      return;
+    }
+    form.value.fileId = file.FileId;
 
-  let payment = await paymentService.updateImageUrl(
-    postulant.paymentId,
-    file.Path
-  );
-
-  if (payment.error) {
-    console.log(payment);
-    rollBack(postulant.id, payment.paymentId, file.Id);
-    loading.value = false;
-    return;
-  }
-
-  console.log(payment);
-  if (payment !== true) {
-    loading.value = false;
-    rollBack(postulant.id, payment.paymentId, file.Id);
-  } else {
-    loading.value = false;
-    router.push(
-      `/p/convocatoria-2024/preinscripcion/${form.value.postulantId}`
+    let payment = await paymentService.updateImageUrl(
+      postulant.paymentId,
+      file.Path
     );
 
-    console.log(form.value.postulantId);
+    if (payment.error) {
+      console.log(payment);
+      rollBack(postulant.id, payment.paymentId, file.Id);
+      loading.value = false;
+      return;
+    }
+
+    console.log(payment);
+    if (payment !== true) {
+      loading.value = false;
+      rollBack(postulant.id, payment.paymentId, file.Id);
+    } else {
+      loading.value = false;
+      router.push(
+        `/p/convocatoria-2024/preinscripcion/${form.value.postulantId}`
+      );
+    }
+  } catch (error) {
+    loading.value = false;
+    console.log(error);
   }
 };
 

@@ -4,7 +4,7 @@
     <v-row>
       <v-col cols="12">
         <span class="text-caption text-uppercase">
-          Titulo universitario ó superior pedagogico
+          Titulo universitario
         </span>
         <UploadFile v-model="form.fileDocument" />
       </v-col>
