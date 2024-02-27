@@ -12,10 +12,4 @@ export default class AcademicProgramService {
     });
   }
 
-  //getAcademicProgramBySlug
-  // Route::get('get-call-by-slug/{slug}', [CallController::class, 'getCallBySlug']);
-  async getCallBySlug(slug: string) {
-    const response = await this.http.get(`get-call-by-slug/${slug}`);
-    return response.data;
-  }
 }

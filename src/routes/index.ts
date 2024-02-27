@@ -14,12 +14,17 @@ const routes: RouteRecordRaw[] = [
     component: DefaultLayout,
     children: [
       {
-        path: ":convocatoria/preinscripcion",
+        path: "",
+        name: "home",
+        component: () => import("@/views/home.vue"),
+      },
+      {
+        path: ":slug/preinscripcion",
         name: "Inizializar Preinscripcion",
         component: () => import("@/views/index.vue"),
       },
       {
-        path: ":convocatoria/preinscripcion/:postulant",
+        path: ":slug/preinscripcion/:postulant",
         name: "Preinscripcion",
         component: () => import("@/views/_postulant.vue"),
       },

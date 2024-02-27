@@ -12,9 +12,7 @@
             </p>
             <h1 class="">Convocatoria 2024-I</h1>
 
-            <p class="text-caption">
-             Segundas Especialidades
-            </p>
+            <p class="text-caption">Segundas Especialidades</p>
           </div>
 
           <div class="logo">
@@ -26,7 +24,7 @@
     <main>
       <router-view />
     </main>
-    <v-footer class="bg-secondary text-center">
+    <v-footer app class="bg-secondary text-center">
       <v-container>
         <p class="text-primary">
           © {{ new Date().getFullYear() }} Universidad Nacional del Altiplano -

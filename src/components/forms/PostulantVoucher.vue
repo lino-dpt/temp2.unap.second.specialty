@@ -255,6 +255,7 @@ const submit = async () => {
     if (file.error) {
       console.log(file);
       loading.value = false;
+      rollBack();
       return;
     }
     form.value.fileId = file.FileId;
@@ -266,7 +267,7 @@ const submit = async () => {
 
     if (payment.error) {
       console.log(payment);
-      rollBack(postulant.id, payment.paymentId, file.Id);
+      rollBack();
       loading.value = false;
       return;
     }
@@ -274,7 +275,7 @@ const submit = async () => {
     console.log(payment);
     if (payment !== true) {
       loading.value = false;
-      rollBack(postulant.id, payment.paymentId, file.Id);
+      rollBack();
     } else {
       loading.value = false;
       router.push(
@@ -287,11 +288,11 @@ const submit = async () => {
   }
 };
 
-const rollBack = (postulant: string, payment: string, file: string) => {
+const rollBack = () => {
   //eliminar al postulante
   //eliminar el archivo
   //eliminar el pago
-  console.log("rollback", postulant, payment, file);
+  console.log("rollback", form.value);
   console.log("rollback");
 };
 </script>

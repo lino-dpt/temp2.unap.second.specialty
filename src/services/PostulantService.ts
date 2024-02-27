@@ -44,4 +44,13 @@ export default class PostulantService {
     const response = await this.http.post(`store-postulant`, data);
     return response.data;
   }
+
+  //eliminar postulante
+  // Route::delete('delete-postulant', [PostulantController::class, 'deletePostulant']);
+  async deletePostulant(id: string) {
+    const response = await this.http.delete(`delete-postulant/${id}`);
+    return response.data;
+  }
+  
+
 }

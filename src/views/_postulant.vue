@@ -1,43 +1,38 @@
 <template>
-  <v-app app id="inspire">
-    <v-main app class="my-10">
-      <template v-if="loading">
-        <div class="h-100 w-100 d-flex justify-center align-center">
-          <div class="w-25 mx-auto">
-            <v-progress-linear indeterminate color="primary" />
-          </div>
-        </div>
-      </template>
-      <template v-else-if="hasPreinscription && !loading">
-        <v-card max-width="300px" class="mx-auto">
-          <v-container>
-            <h4>Ya realizaste tu preinscripción</h4>
-            <v-divider class="my-4"></v-divider>
-            <v-btn class="mt-4" color="primary" block variant="flat">
-              Descargar solicitud
-            </v-btn>
-          </v-container>
-        </v-card>
-      </template>
-
-      <template v-else>
-        <v-form ref="formRef" @submit.prevent="submit">
-          <v-card max-width="700px" class="mx-auto">
-            <PostulantPersonal :postulant="_postulant" :form="form" />
-            <PostulantSpecialty :form="form" />
-            <PostulantFiles :form="form" />
-            <PostulantPhoto :form="form" />
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="primary" block variant="flat" @click="submit">
-                Guardar
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-form>
-      </template>
-    </v-main>
-  </v-app>
+  <template v-if="loading">
+    <div class="h-100 w-100 d-flex justify-center align-center">
+      <div class="w-25 mx-auto">
+        <v-progress-linear indeterminate color="primary" />
+      </div>
+    </div>
+  </template>
+  <template v-else-if="hasPreinscription && !loading">
+    <v-card max-width="300px" class="mx-auto">
+      <v-container>
+        <h4>Ya realizaste tu preinscripción</h4>
+        <v-divider class="my-4"></v-divider>
+        <v-btn class="mt-4" color="primary" block variant="flat">
+          Descargar solicitud
+        </v-btn>
+      </v-container>
+    </v-card>
+  </template>
+  <template v-else>
+    <v-form ref="formRef" @submit.prevent="submit">
+      <v-card max-width="700px" class="mx-auto">
+        <PostulantPersonal :postulant="_postulant" :form="form" />
+        <PostulantSpecialty :form="form" />
+        <PostulantFiles :form="form" />
+        <PostulantPhoto :form="form" />
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="primary" block variant="flat" @click="submit">
+            Guardar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
+  </template>
 </template>
 
 <script setup lang="ts">
