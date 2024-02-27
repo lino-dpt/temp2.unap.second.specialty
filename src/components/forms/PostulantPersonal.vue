@@ -93,7 +93,7 @@
             <small class="text-body-2">Lugar de nacimiento</small>
           </v-card-title>
           <v-row>
-            <UbigeoTwoForm v-model="form.birthPlace" />
+            <UbigeoForm v-model="form.birthPlace" />
           </v-row>
         </v-card>
       </v-col>
@@ -104,7 +104,7 @@
             <small class="text-body-2">Lugar de residencia</small>
           </v-card-title>
           <v-row>
-            <UbigeoTwoForm v-model="form.residencePlace" />
+            <UbigeoForm v-model="form.residencePlace" />
           </v-row>
         </v-card>
       </v-col>
@@ -150,7 +150,7 @@ import { PostulantPreInscription, Postulant } from "@/types/postulantTypes";
 
 import { isRequired, isNumber, isEmail } from "@/helpers/validations";
 
-import UbigeoTwoForm from "@/components/UbigeoTwoForm.vue";
+import UbigeoForm from "@/components/UbigeoForm.vue";
 import documentTypesJson from "@/assets/data/json/documentTypes.json";
 
 const emit = defineEmits(["onSuccess"]);
