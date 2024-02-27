@@ -5,7 +5,9 @@
       <v-col cols="12" md="12">
         <v-card variant="tonal" rounded="0">
           <CropCompressImage
-            :aspect-ratio="1"
+            :aspect-ratio="3/4"
+            :is-resizable="true"
+            :is-aspect-ratio="false"
             @onCropper="
               (preview_img = $event.blob), (form.photoAvatar = $event.file)
             "

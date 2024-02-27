@@ -14,8 +14,6 @@ export default class PublicApiService {
 
   async _DocumentTypes() {
     let response = await this.http.get("/TYPE_DOCUMENTS/v1/sunedu/");
-    console.log("document types", response.data);
-
     return response.data;
   }
 

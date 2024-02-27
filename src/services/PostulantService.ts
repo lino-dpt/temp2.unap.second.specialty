@@ -17,7 +17,6 @@ export default class PostulantService {
   }
   async startPreinscription(data: PostulantInitPreInscription) {
     const response = await this.http.post("start-preinscription", data);
-    console.log("response", response);
     return response.data;
   }
   //buscar postulante por Numero de documento
@@ -30,9 +29,6 @@ export default class PostulantService {
     const response = await this.http.get(`search-postulant-by-document`, {
       params: { documentNumber, documentType },
     });
-
-    console.log("response", response.data);
-
     return response.data;
   }
 

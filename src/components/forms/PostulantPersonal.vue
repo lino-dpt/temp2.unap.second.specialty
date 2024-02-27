@@ -87,7 +87,7 @@
         />
       </v-col>
 
-      <v-col cols="12 pt-0">
+      <v-col cols="12 pt-0" v-if="postulant.DocumentType === '001'">
         <v-card class="pb-1" flat>
           <v-card-title class="pt-0">
             <small class="text-body-2">Lugar de nacimiento</small>
@@ -97,6 +97,27 @@
           </v-row>
         </v-card>
       </v-col>
+
+      <!-- <v-col cols="12 pt-0" v-else>
+        <v-card class="pb-1" flat>
+          <v-card-title class="pt-0">
+            <small class="text-body-2">País de nacimiento</small>
+          </v-card-title>
+          <v-row>
+            <v-col cols="12">
+              <v-select
+                :items="countriesItems"
+                v-model="form.birthCountry"
+                label="País"
+                itemTitle="name"
+                itemValue="id"
+                :clearable="false"
+                :rules="[isRequired]"
+              />
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-col> -->
 
       <v-col cols="12 pt-0">
         <v-card class="pb-1" flat>
@@ -112,14 +133,13 @@
         <v-text-field
           label="Teléfono"
           v-model="form.phoneNumber"
-      
           :rules="[isRequired, isNumber]"
         />
       </v-col>
 
       <v-col cols="12" md="6">
         <v-text-field
-          label="coreo electrónico"
+          label="Correo electrónico"
           v-model="form.email"
           :rules="[isRequired, isEmail]"
         />
@@ -127,7 +147,7 @@
 
       <v-col cols="12" md="12">
         <v-text-field
-          label="Dirección"
+          label="Dirección de residencia"
           v-model="form.address"
           :rules="[isRequired]"
         />
@@ -137,7 +157,6 @@
         <v-text-field
           label="Año de graduación"
           v-model="form.graduationYear"
-       
           :rules="[isRequired, isNumber]"
           maxLength="4"
         />
@@ -157,7 +176,7 @@ const emit = defineEmits(["onSuccess"]);
 
 defineProps<{
   postulant: Postulant;
-  form: PostulantPreInscription ;
+  form: PostulantPreInscription;
 }>();
 
 const documentTypesItems = documentTypesJson;
