@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/auth/login.vue"),
   },
   {
-    path: "/p",
+    path: "/",
     name: "DefaultLayout",
     component: DefaultLayout,
     children: [

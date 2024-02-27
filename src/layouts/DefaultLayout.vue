@@ -12,7 +12,9 @@
             </p>
             <h1 class="">Convocatoria 2024-I</h1>
 
-            <p class="text-caption">PreInscripción en línea</p>
+            <p class="text-caption">
+             Segundas Especialidades
+            </p>
           </div>
 
           <div class="logo">

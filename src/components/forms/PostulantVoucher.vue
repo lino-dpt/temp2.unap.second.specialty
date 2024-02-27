@@ -229,7 +229,7 @@ const searchPreinscription = async (e: string) => {
 };
 
 const continuePreinscription = () => {
-  router.push(`/p/convocatoria-2024/preinscripcion/${idHash.value}`);
+  router.push(`/convocatoria-2024/preinscripcion/${idHash.value}`);
 };
 
 const submit = async () => {
@@ -278,7 +278,7 @@ const submit = async () => {
     } else {
       loading.value = false;
       router.push(
-        `/p/convocatoria-2024/preinscripcion/${form.value.postulantId}`
+        `/convocatoria-2024/preinscripcion/${form.value.postulantId}`
       );
     }
   } catch (error) {

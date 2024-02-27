@@ -9,6 +9,7 @@
           label="Especialidad"
           item-title="nombre"
           item-value="id"
+          :return-object="false"
           :clearable="false"
         />
       </v-col>

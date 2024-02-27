@@ -14,7 +14,7 @@
             <h4>Ya realizaste tu preinscripción</h4>
             <v-divider class="my-4"></v-divider>
             <v-btn class="mt-4" color="primary" block variant="flat">
-              Descargar constancia
+              Descargar solicitud
             </v-btn>
           </v-container>
         </v-card>
