@@ -42,14 +42,14 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-autocomplete v-model="editedItem.id_convocatoria" :items="convocatorias" label="Convocatoria"
+            <v-autocomplete v-model="editedItem.CallId" :items="convocatorias" label="Convocatoria"
               itemTitle="nombre" itemValue="id" variant="outlined">
             </v-autocomplete>
-            <v-autocomplete v-model="editedItem.id_programa" :items="programas" label="Programa" itemTitle="nombre"
+            <v-autocomplete v-model="editedItem.AcademicProgramId" :items="programas" label="Programa" itemTitle="nombre"
               itemValue="id" variant="outlined" :clearable="false">
             </v-autocomplete>
-            <v-autocomplete v-model="editedItem.id_postulante" :items="postulantes" label="Postulante"
-              itemTitle="nombre_completo" itemValue="dni" variant="outlined">
+            <v-autocomplete v-model="editedItem.PostulantId" :items="postulantes" label="Postulante"
+              itemTitle="nombre_completo" itemValue="Id" variant="outlined">
             </v-autocomplete>
             <v-checkbox v-model="editedItem.Status" label="Activo" />
           </v-col>
@@ -141,30 +141,18 @@ const search = ref("");
 const dialog = ref(false);
 const editedItem = ref({});
 const defaultItem = ref({
-  id: "",
-  id_convocatoria: "",
-  id_programa: "",
-  id_postulante: "",
   //conservar
   Id: "",
   CallId: 1,
-  AcademicProgramId: 1,
-  PostulantId:6,
+  AcademicProgramId: "",
+  PostulantId:"",
   UserId:1,
-  Observations:"observationsdeee",
+  Observations:"SIN OBSERVACIONES.",
   Status: true,
   Date:"2024-02-27T12:34:56"
 });
 
-const indicatorsItem = ref({
-  id: "",
-  id_convocatoria: "",
-  id_programa: "",
-  id_postulante: "",
-  Status: true,
-});
 
-//
 const questionScore1 = ref(0)
 const indicator1 = ref(1)
 const questionScore2 = ref(0)
@@ -213,9 +201,9 @@ const convocatorias = [
 ];
 
 const postulantes = [
-  { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222" },
-  { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333" },
-  { nombre_completo: "ERO ERADEJA USARLA", dni: "33334444" },
+  { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222" , Id:1},
+  { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333" , Id:2},
+  { nombre_completo: "lio lio lio", dni: "33334444" , Id:8}
 ];
 
 
@@ -235,7 +223,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
   // let res = await axios.post("http://segundas.unap.pe/api/convocatorias", {
-  let res = await axios.post("http://segunda_especialidad_felix.test/api/entrevista", {
+  let res = await axios.post("http://174.138.178.194:8086/api/entrevista", {
     // let res = await axios.post("http://174.138.178.194:8081/api/mostrar_todos_convocatoria", {
     page,
     itemsPerPage,
@@ -247,27 +235,19 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
 
   headers.value = data.headers;
-  totalItems.value = data.total;
+  totalItems.value = data.items.total;
   let data_items = data.items.data;
 
   const baseURL = 'http://segundas.unap.pe/api/programa/';
-
-  // Iterate through each item in the data array
+ 
   data_items.forEach(item => {
     const endpoint = baseURL + item.id_programa;
-
-    // Make the GET request to the API for each item
+ 
     fetch(endpoint)
       .then(response => response.json())
-      .then(apiResponse => {
-        // Assuming the response structure matches your API response
-        const nombreFromApi = apiResponse.nombre;
-
-        // Replace id_programa with the nombre obtained from the API
-        item.id_programa = nombreFromApi;
-
-        // Now you can use the updated item as needed
-        // console.log(item);
+      .then(apiResponse => { 
+        const nombreFromApi = apiResponse.nombre; 
+        item.id_programa = nombreFromApi; 
       })
       .catch(error => {
         console.error('Error fetching data from the API:', error);
@@ -304,13 +284,7 @@ const close = () => {
 };
 
 const saveRecord = async () => {
-  const dataenviar = {
-  id_convocatoria: editedItem.value.id_convocatoria,
-      id_programa: editedItem.value.id_programa,
-      id_postulante: editedItem.value.id_postulante,
-      estado: editedItem.value.estado,
-  }
-  
+
   const arrayData = [
     {
       InterviewIndicatorsId: indicator1.value,
@@ -339,13 +313,13 @@ const saveRecord = async () => {
   if (editedIndex.value === -1) {
     // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
       // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
-    let res = await axios.post("http://segunda_especialidad_felix.test/api/entrevistastore", {
+    let res = await axios.post("http://174.138.178.194:8086/api/entrevistastore", {
       interview:  editedItem.value,
       indicators: arrayData
 
     });
     console.log(res)
-    serverItems.value.push({ estado: 1, ...res.data.data });
+    serverItems.value.push({ Status: true, ...res.data.data });
 
   } else {
     console.log("editedItem", editedItem.value);
@@ -353,7 +327,7 @@ const saveRecord = async () => {
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
       // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
-      "http://segunda_especialidad_felix.test/api/entrevista/" + editedItem.value.id,
+      "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
       {
         id_convocatoria: editedItem.value.id_convocatoria,
         id_programa: editedItem.value.id_programa,
@@ -362,17 +336,17 @@ const saveRecord = async () => {
       }
     );
     console.log(res);
-
-    dialog.value = false;
+ 
     serverItems.value[editedIndex.value] = res.data.data;
     dialog.value = false;
     console.log("update record");
   }
+  dialog.value = false;
 };
 
 const deleteItem = async (item) => {
   let res = await axios.delete(
-    "http://segunda_especialidad_felix.test/api/entrevista/" + item.id
+    "http://174.138.178.194:8086/api/entrevista/" + item.id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
