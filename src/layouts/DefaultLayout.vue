@@ -21,10 +21,10 @@
         </div>
       </v-container>
     </header>
-    <main>
+    <v-main app>
       <router-view />
-    </main>
-    <v-footer app class="bg-secondary text-center">
+    </v-main>
+    <v-footer app absolute class="bg-secondary text-center">
       <v-container>
         <p class="text-primary">
           © {{ new Date().getFullYear() }} Universidad Nacional del Altiplano -

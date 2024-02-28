@@ -1,7 +1,5 @@
 <template>
-  <pre>
-    {{ route.params }}
-  </pre>
+  
   <PostulantVoucher />
 </template>
 

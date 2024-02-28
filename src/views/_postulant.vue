@@ -1,38 +1,44 @@
 <template>
-  <template v-if="loading">
-    <div class="h-100 w-100 d-flex justify-center align-center">
-      <div class="w-25 mx-auto">
-        <v-progress-linear indeterminate color="primary" />
+  <div class="h-min-screen">
+    <template v-if="loading">
+      <div class="h-100 w-100 d-flex justify-center align-center">
+        <div class="w-25 mx-auto">
+          <v-progress-linear indeterminate color="primary" />
+        </div>
       </div>
-    </div>
-  </template>
-  <template v-else-if="hasPreinscription && !loading">
-    <v-card max-width="300px" class="mx-auto">
-      <v-container>
-        <h4>Ya realizaste tu preinscripción</h4>
-        <v-divider class="my-4"></v-divider>
-        <v-btn class="mt-4" color="primary" block variant="flat">
-          Descargar solicitud
-        </v-btn>
-      </v-container>
-    </v-card>
-  </template>
-  <template v-else>
-    <v-form ref="formRef" @submit.prevent="submit">
-      <v-card max-width="700px" class="mx-auto">
-        <PostulantPersonal :postulant="_postulant" :form="form" />
-        <PostulantSpecialty :form="form" />
-        <PostulantFiles :form="form" />
-        <PostulantPhoto :form="form" />
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" block variant="flat" @click="submit">
-            Guardar
-          </v-btn>
-        </v-card-actions>
+    </template>
+    <template v-else-if="hasPreinscription && !loading">
+      <v-card max-width="300px" class="mx-auto my-10">
+        <v-container>
+          <h4>Ya realizaste tu preinscripción</h4>
+          <v-divider class="my-4"></v-divider>
+          <a
+            class="v-btn v-theme--light bg-primary v-btn--density-default rounded-lg v-btn--size-default v-btn--variant-flat w-100"
+            :href="`http://174.138.178.198:8097/api/pdf-solicitud/${Preinscription_?.CallId}-${Preinscription_?.AcademicProgramId}-${Preinscription_?.PostulantId}`"
+          >
+            Descargar solicitud
+          </a>
+          
+        </v-container>
       </v-card>
-    </v-form>
-  </template>
+    </template>
+    <template v-else>
+      <v-form ref="formRef" @submit.prevent="submit">
+        <v-card max-width="700px" class="mx-auto">
+          <PostulantPersonal :postulant="_postulant" :form="form" />
+          <PostulantSpecialty :form="form" />
+          <PostulantFiles :form="form" />
+          <PostulantPhoto :form="form" />
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary" block variant="flat" @click="submit">
+              Guardar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -90,18 +96,40 @@ const submit = async () => {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
     form.value.postulantId = route.params.postulant as string;
-
     let id = await postulantService.storePostulant(form.value);
     form.value.postulantId = id;
-
     await fileService.storePreinscriptionFiles(form.value);
-    await registrationService.storeRegistration(form.value);
-    hasPreinscription.value = true;
+    Preinscription_.value = await registrationService.storeRegistration(
+      form.value
+    );
+
+    if (Object.keys(Preinscription_.value).length > 0) {
+      hasPreinscription.value = true;
+    }
     return;
   } catch (error) {
     alert("Ocurrio un error");
   }
 };
+/*            {
+  "Id": 6,
+  "Date": "2024-02-28 21:07:20",
+  "Observation": null,
+  "Status": "1",
+  "IsEnabled": 0,
+  "AcademicProgramId": 5,
+  "PostulantId": 12,
+  "CallId": 1,
+  "CreatedAt": "2024-02-28 21:07:20",
+  "UpdatedAt": "2024-02-28 21:07:20"
+}
+*/
+interface Preinscription {
+  AcademicProgramId: number;
+  PostulantId: number;
+  CallId: number;
+}
+const Preinscription_: Ref<Preinscription | null> = ref(null);
 
 const init = async () => {
   loading.value = true;
@@ -114,10 +142,15 @@ const init = async () => {
   _postulant.value = res;
 
   if (_postulant.value) {
-    hasPreinscription.value =
+    Preinscription_.value =
       await registrationService.searchRegistrationByPostulantId(
         _postulant.value.HashId
       );
+
+    //que no sea un objeto vacio
+    if (Object.keys(Preinscription_.value).length > 0) {
+      hasPreinscription.value = true;
+    }
   }
 
   loading.value = false;
