@@ -36,6 +36,8 @@ export default class FileService {
     formData.append("fileDocument", data.fileDocument);
     formData.append("photoAvatar", data.photoAvatar);
     formData.append("postulantId", data.postulantId);
+    formData.append("documentNumber", data.postulantId);
+    formData.append("specialty", data.specialty);
 
 
     const response = await this.http.post("/documents/preinscription", formData, {
