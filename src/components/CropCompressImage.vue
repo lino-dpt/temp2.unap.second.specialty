@@ -147,13 +147,21 @@ const image = reactive({
 
 const cropAndOptimize = () => {
   const canvas = cropperRef.value.getResult().canvas;
+  //tambien enviar en base64
+
   canvas.toBlob(
     (blob: Blob) => {
       let file = new File([blob], "imagen_crop_optimize", {
         type: blob.type,
         // quality: 0.5,
       });
-      emits("onCropper", { file: file, blob: URL.createObjectURL(blob) });
+
+      emits("onCropper", {
+        file: file,
+        blob: URL.createObjectURL(blob),
+        base64: canvas.toDataURL(),
+      });
+
       showModal.value = false;
     },
     image.type,

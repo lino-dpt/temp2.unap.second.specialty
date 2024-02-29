@@ -1,4 +1,7 @@
-import { PostulantInitPreInscription, PostulantPreInscription } from "@/types/postulantTypes";
+import {
+  PostulantInitPreInscription,
+  PostulantPreInscription,
+} from "@/types/postulantTypes";
 import axios, { AxiosInstance } from "axios";
 export default class FileService {
   public http: AxiosInstance;
@@ -32,21 +35,22 @@ export default class FileService {
   async storePreinscriptionFiles(data: PostulantPreInscription) {
     // "fileDocument": "[object File]",
     // "photoAvatar": "[object File]"
-    const formData = new FormData();
-    formData.append("fileDocument", data.fileDocument);
-    formData.append("photoAvatar", data.photoAvatar);
-    formData.append("postulantId", data.postulantId);
-    formData.append("documentNumber", data.postulantId);
-    formData.append("specialty", data.specialty);
+    // const formData = new FormData();
+    // formData.append("fileDocument", data.fileDocument);
+    // formData.append("photoAvatar", data.photoAvatar);
+    // formData.append("postulantId", data.postulantId);
+    // formData.append("documentNumber", data.postulantId);
+    // formData.append("specialty", data.specialty);
 
-
-    const response = await this.http.post("/documents/preinscription", formData, {
+    const response = await this.http.post("/documents/preinscription", data, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        //quitar =>  strict-origin-when-cross-origin
+        //header para enviar un archivo en base64
+
+        "Content-Type": "application/json",
       },
     });
-    
+
     return response.data;
   }
-
 }
