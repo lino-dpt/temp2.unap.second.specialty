@@ -153,40 +153,14 @@ const defaultItem = ref({
 });
 
 
-const questionScore1 = ref(0)
-const indicator1 = ref(1)
-const questionScore2 = ref(0)
-const indicator2 = ref(2)
-const questionScore3 = ref(0)
-const indicator3 = ref(3)
-const questionScore4 = ref(0)
-const indicator4 = ref(4)
-
-const EnviarP = () => {
-  const arrayData = [
-    {
-      InterviewIndicatorsId: indicator1.value,
-      Score: questionScore1.value,
-      Status: true
-    },
-    {
-      InterviewIndicatorsId: indicator2.value,
-      Score: questionScore2.value,
-      Status: true
-    },
-    {
-      InterviewIndicatorsId: indicator3.value,
-      Score: questionScore3.value,
-      Status: true
-    },
-    {
-      InterviewIndicatorsId: indicator4.value,
-      Score: questionScore4.value,
-      Status: true
-    }
-  ]
-  // console.log(arrayData)
-}
+let questionScore1 = ref(0)
+let indicator1 = ref(1)
+let questionScore2 = ref(0)
+let indicator2 = ref(2)
+let questionScore3 = ref(0)
+let indicator3 = ref(3)
+let questionScore4 = ref(0)
+let indicator4 = ref(4)
 
 
 //
@@ -194,7 +168,6 @@ const EnviarP = () => {
 const editedIndex = ref(-1);
 
 const programas = ref([]);
-const puntajes = ref([]);
 
 
 const convocatorias = [
@@ -306,15 +279,16 @@ let arrayData = [
 
 const editItem = async (item) => {
   editedIndex.value = serverItems.value.indexOf(item);
+  console.log(item);
   editedItem.value = Object.assign({}, item);
   console.log(editedItem.value);
 
 
-
-
   try {
+    
+    const puntajes = ref([]);
     puntajes.value = await loadPuntaje(editedItem.value.Id);
-    // Handle the loaded data here
+    
     console.log('Loaded puntajes:', puntajes.value);
 
     arrayData = puntajes.value;
@@ -323,23 +297,11 @@ const editItem = async (item) => {
 
     const refs = {};
 
-    // Iterate over the array and assign values to refs
-    arrayData.forEach(item => {
-      refs[`questionScore${item.InterviewIndicatorsId}`] = ref(parseFloat(item.Score) || 0);
-      refs[`indicator${item.InterviewIndicatorsId}`] = ref(item.InterviewIndicatorsId);
-    });
 
-    console.log(questionScore1.value); // Output: 8
-    console.log(indicator1.value); // Output: 1
-
-    console.log(questionScore2.value); // Output: 1
-    console.log(indicator2.value); // Output: 2
-
-    console.log(questionScore3.value); // Output: 4
-    console.log(indicator3.value); // Output: 3
-
-    console.log(questionScore4.value); // Output: 4
-    console.log(indicator4.value);
+    questionScore1.value = arrayData[0].Score;
+    questionScore2.value = arrayData[1].Score;
+    questionScore3.value = arrayData[2].Score;
+    questionScore4.value = arrayData[3].Score;
 
   } catch (error) {
     // Handle errors here
