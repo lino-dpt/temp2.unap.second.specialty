@@ -128,8 +128,8 @@
 import axios from "axios";
 import DialogConfirm from "@/components/DialogConfirm.vue";
 import { ref } from "vue";
+import { onMounted } from "vue";
 
-const listDocumentTypes = ref([]);
 const loading = ref(false);
 
 const headers = ref([]);
@@ -173,17 +173,30 @@ const programas = ref([]);
 const convocatorias = [
   { nombre: "CONVOCATORIA 2024", id: 1 },
 ];
-
+/*
 const postulantes = [
   { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222", Id: 1 },
   { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333", Id: 2 },
   { nombre_completo: "lio lio lio", dni: "33334444", Id: 8 }
-];
+];*/
+const postulantes = ref([]);
 
+const loadPostulantes = async () => {
+  try {
+    // const response = await axios.get('http://174.138.178.194:8086/api/postulantes');
+    const response = await axios.get('http://segunda_especialidad_felix.test/api/postulantes');
+    console.log(response.data)
+    postulantes.value = response.data;
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
 const loadProgramas = async () => {
   try {
     const response = await axios.get('http://segundas.unap.pe/api/programas');
+    console.log(response)
     programas.value = response.data;
 
   } catch (error) {
@@ -191,7 +204,12 @@ const loadProgramas = async () => {
   }
 };
 
-const loadPuntaje = async (Id) => {
+onMounted(() =>{
+  loadProgramas();
+  loadPostulantes();
+})
+
+const loadPuntaje = async (Id: number) => {
   try {
     const response = await axios.get('http://segunda_especialidad_felix.test/api/entrevista_puntajes/' + Id);
 
@@ -203,7 +221,6 @@ const loadPuntaje = async (Id) => {
   }
 };
 
-loadProgramas();
 
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
@@ -277,26 +294,18 @@ let arrayData = [
   }
 ];
 
-const editItem = async (item) => {
+const editItem = async (item:typeof defaultItem) => {
+  console.log(item)
   editedIndex.value = serverItems.value.indexOf(item);
-  console.log(item);
   editedItem.value = Object.assign({}, item);
-  console.log(editedItem.value);
-
+  console.log(editedItem.value )
 
   try {
     
     const puntajes = ref([]);
     puntajes.value = await loadPuntaje(editedItem.value.Id);
     
-    console.log('Loaded puntajes:', puntajes.value);
-
     arrayData = puntajes.value;
-
-    console.log('arrayData:', arrayData);
-
-    const refs = {};
-
 
     questionScore1.value = arrayData[0].Score;
     questionScore2.value = arrayData[1].Score;
@@ -307,11 +316,6 @@ const editItem = async (item) => {
     // Handle errors here
     console.error('Error in fetchData:', error);
   }
-
-
-
-
-  console.log("editedItem.value.Id: ", editedItem.value.Id);
 
   dialog.value = true;
 };
@@ -353,8 +357,6 @@ const saveRecord = async () => {
     }
   ]
 
-  // console.log("editedItem.value", {interview:  editedItem.value,
-  // indicators: arrayData});
   if (editedIndex.value === -1) {
     // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
     // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
@@ -365,9 +367,16 @@ const saveRecord = async () => {
     });
     // console.log(res)
     serverItems.value.push({ Status: true, ...res.data.data });
+    dialog.value = false;
 
   } else {
-    // console.log("editedItem", editedItem.value);
+    console.log( // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
+      // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
+      "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
+      {
+        interview: editedItem.value,
+        indicators: arrayData
+      });
 
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
@@ -378,17 +387,17 @@ const saveRecord = async () => {
         indicators: arrayData
       }
     );
-    // console.log(res);
+    console.log(res);
 
     serverItems.value[editedIndex.value] = res.data.data;
     dialog.value = false;
     // console.log("update record");
   }
-  dialog.value = false;
+  
 };
 
 const deleteItem = async (item) => {
-  let res = await axios.delete(
+  await axios.delete(
     "http://174.138.178.194:8086/api/entrevista/" + item.id
   );
 
