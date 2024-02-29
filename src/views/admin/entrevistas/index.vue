@@ -8,7 +8,7 @@
   </v-toolbar>
   <v-card-title>
     <v-col cols="12">
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <v-text-field v-model="search" append-icon="search" label="buscar" single-line hide-details></v-text-field>
     </v-col>
   </v-card-title>
   <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
@@ -195,9 +195,9 @@ const loadPostulantes = async () => {
 
 const loadProgramas = async () => {
   try {
-    const response = await axios.get('http://segundas.unap.pe/api/programas');
-    console.log(response)
+    const response = await axios.get('https://segundas.unap.pe/api/programas');
     programas.value = response.data;
+    console.log(programas.value)
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -232,31 +232,12 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
     sortBy,
     search,
   });
-  let data = await res.data;
-  // let res = await r
-
+  let data = await res.data; 
 
   headers.value = data.headers;
   totalItems.value = data.items.total;
-  let data_items = data.items.data;
-
-  const baseURL = 'http://segundas.unap.pe/api/programa/';
-
-  data_items.forEach(item => {
-    const endpoint = baseURL + item.id_programa;
-
-    fetch(endpoint)
-      .then(response => response.json())
-      .then(apiResponse => {
-        const nombreFromApi = apiResponse.nombre;
-        item.id_programa = nombreFromApi;
-      })
-      .catch(error => {
-        console.error('Error fetching data from the API:', error);
-      });
-  });
-
-  serverItems.value = data_items;
+  serverItems.value = data.items.data;
+  console.log(data.items.data)
   /*
   console.log("data_items", data_items);
   console.log("serverItems.value", serverItems.value);
@@ -268,7 +249,6 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   loading.value = false;
 };
-
 
 
 let arrayData = [
@@ -358,9 +338,8 @@ const saveRecord = async () => {
   ]
 
   if (editedIndex.value === -1) {
-    // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
-    // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
-    let res = await axios.post("http://174.138.178.194:8086/api/entrevistastore", {
+    // let res = await axios.post("http://174.138.178.194:8086/api/entrevistastore", {
+    let res = await axios.post("http://127.0.0.1:8000/api/entrevistastore", {
       interview: editedItem.value,
       indicators: arrayData
 
@@ -370,24 +349,17 @@ const saveRecord = async () => {
     dialog.value = false;
 
   } else {
-    console.log( // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
-      // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
-      "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
-      {
-        interview: editedItem.value,
-        indicators: arrayData
-      });
 
-    let res = await axios.patch(
-      // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
-      // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
-      "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
+    let res = await axios.patch( 
+      // "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
+      "http://127.0.0.1:8000/api/entrevista/" + editedItem.value.Id,
       {
         interview: editedItem.value,
         indicators: arrayData
       }
     );
-    console.log(res);
+
+    console.log(res.data.data);
 
     serverItems.value[editedIndex.value] = res.data.data;
     dialog.value = false;
@@ -396,9 +368,9 @@ const saveRecord = async () => {
   
 };
 
-const deleteItem = async (item) => {
+const deleteItem = async (item: typeof defaultItem) => {
   await axios.delete(
-    "http://174.138.178.194:8086/api/entrevista/" + item.id
+    "http://174.138.178.194:8086/api/entrevista/" + item.Id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
