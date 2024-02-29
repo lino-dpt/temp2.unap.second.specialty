@@ -221,11 +221,9 @@ const loadProgramas = async () => {
 const loadPuntaje = async (Id) => {
   try {
     const response = await axios.get('http://segunda_especialidad_felix.test/api/entrevista_puntajes/' + Id);
-    puntajes.value = response.data.data;
 
-    console.log("puntajes: ", puntajes.value);
+    return response.data.data;
 
-    console.log("ID: ", Id);
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -281,12 +279,78 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = false;
 };
 
-const editItem = (item) => {
+
+
+let arrayData = [
+  {
+    InterviewIndicatorsId: indicator1.value,
+    Score: questionScore1.value,
+    Status: 1
+  },
+  {
+    InterviewIndicatorsId: indicator2.value,
+    Score: questionScore2.value,
+    Status: 1
+  },
+  {
+    InterviewIndicatorsId: indicator3.value,
+    Score: questionScore3.value,
+    Status: 1
+  },
+  {
+    InterviewIndicatorsId: indicator4.value,
+    Score: questionScore4.value,
+    Status: 1
+  }
+];
+
+const editItem = async (item) => {
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   console.log(editedItem.value);
-  loadPuntaje(editedItem.value.Id);
-  console.log(puntajes.value)
+
+
+
+
+  try {
+    puntajes.value = await loadPuntaje(editedItem.value.Id);
+    // Handle the loaded data here
+    console.log('Loaded puntajes:', puntajes.value);
+
+    arrayData = puntajes.value;
+
+    console.log('arrayData:', arrayData);
+
+    const refs = {};
+
+    // Iterate over the array and assign values to refs
+    arrayData.forEach(item => {
+      refs[`questionScore${item.InterviewIndicatorsId}`] = ref(parseFloat(item.Score) || 0);
+      refs[`indicator${item.InterviewIndicatorsId}`] = ref(item.InterviewIndicatorsId);
+    });
+
+    console.log(questionScore1.value); // Output: 8
+    console.log(indicator1.value); // Output: 1
+
+    console.log(questionScore2.value); // Output: 1
+    console.log(indicator2.value); // Output: 2
+
+    console.log(questionScore3.value); // Output: 4
+    console.log(indicator3.value); // Output: 3
+
+    console.log(questionScore4.value); // Output: 4
+    console.log(indicator4.value);
+
+  } catch (error) {
+    // Handle errors here
+    console.error('Error in fetchData:', error);
+  }
+
+
+
+
+  console.log("editedItem.value.Id: ", editedItem.value.Id);
+
   dialog.value = true;
 };
 
