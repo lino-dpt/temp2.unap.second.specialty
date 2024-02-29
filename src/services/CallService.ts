@@ -18,4 +18,10 @@ export default class AcademicProgramService {
     const response = await this.http.get(`get-call-by-slug/${slug}`);
     return response.data;
   }
+  //getActiveCalls
+  // Route::get('get-active-calls', [CallController::class, 'getActiveCalls']);
+  async getActiveCalls() {
+    const response = await this.http.get(`get-active-calls`);
+    return response.data;
+  }
 }

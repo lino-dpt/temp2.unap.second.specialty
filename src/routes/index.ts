@@ -13,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     name: "DefaultLayout",
     component: DefaultLayout,
     children: [
+      //redureccion a la pagina de inicio cuando no se encuentra la ruta
+      {
+        path: "/:pathMatch(.*)*",
+        redirect: { name: "home" },
+      },
       {
         path: "",
         name: "home",

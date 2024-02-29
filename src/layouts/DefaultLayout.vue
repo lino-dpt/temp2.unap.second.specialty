@@ -10,13 +10,12 @@
             <p class="text-caption">
               Universidad Nacional del Altiplano - Puno
             </p>
-            <h1 class="">Convocatoria 2024-I</h1>
-
+            <h1 class="">{{ currentCall? currentCall.Name : "Convocatorias" }}</h1>
             <p class="text-caption">Segundas Especialidades</p>
           </div>
 
           <div class="logo">
-            <img src="/logo_unap.png" max-height="50" max-width="200" />
+            <img src="/logo_unap.png" max-height="50" max-width="180" />
           </div>
         </div>
       </v-container>
@@ -34,7 +33,29 @@
     </v-footer>
   </v-app>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import CallService from "@/services/CallService";
+const route = useRoute();
+const router = useRouter();
+const callService = new CallService();
+const currentCall = ref(null);
+
+const init = async () => {
+  console.log(route.params.slug);
+
+  let callSlug = route.params.slug as string;
+  let call = await callService.getCallBySlug(callSlug);
+
+  if (Object.keys(call).length === 0) {
+    router.push("/");
+    return;
+  }
+  currentCall.value = call;
+};
+init();
+</script>
 <style lang="scss">
 .app-default {
   .v-main {
