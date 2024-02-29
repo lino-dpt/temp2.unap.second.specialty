@@ -35,13 +35,21 @@ export interface PostulantPreInscription {
   marriedSurname: string;
   gender: string;
   birthDate: string;
+
+  birthCountry?: string;
   birthPlace: string;
+
+  residenceCountry?: string;
   residencePlace: string;
+
   graduationYear: string;
   phoneNumber: string;
   email: string;
   address: string;
-  maritalStatus: string;
+  maritalStatus?: string;
+
+  hasDisability: boolean;
+  disabilityType?: string;
 
   specialty: string;
   fileDocument: File;

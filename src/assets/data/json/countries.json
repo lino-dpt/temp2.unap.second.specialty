@@ -1,0 +1,1002 @@
+[
+    {
+        "id": "ABW",
+        "name": "ARUBA"
+    },
+    {
+        "id": "AFG",
+        "name": "AFGANISTÁN"
+    },
+    {
+        "id": "AGO",
+        "name": "ANGOLA"
+    },
+    {
+        "id": "AIA",
+        "name": "ANGUILA"
+    },
+    {
+        "id": "ALA",
+        "name": "ISLAS ÅLAND"
+    },
+    {
+        "id": "ALB",
+        "name": "ALBANIA"
+    },
+    {
+        "id": "AND",
+        "name": "ANDORRA"
+    },
+    {
+        "id": "ARE",
+        "name": "EMIRATOS ÁRABES UNIDOS"
+    },
+    {
+        "id": "ARG",
+        "name": "ARGENTINA"
+    },
+    {
+        "id": "ARM",
+        "name": "ARMENIA"
+    },
+    {
+        "id": "ASM",
+        "name": "SAMOA AMERICANA"
+    },
+    {
+        "id": "ATA",
+        "name": "ANTÁRTIDA"
+    },
+    {
+        "id": "ATF",
+        "name": "TIERRAS AUSTRALES FRANCESAS"
+    },
+    {
+        "id": "ATG",
+        "name": "ANTIGUA Y BARBUDA"
+    },
+    {
+        "id": "AUS",
+        "name": "AUSTRALIA"
+    },
+    {
+        "id": "AUT",
+        "name": "AUSTRIA"
+    },
+    {
+        "id": "AZE",
+        "name": "AZERBAIYÁN"
+    },
+    {
+        "id": "BDI",
+        "name": "BURUNDI"
+    },
+    {
+        "id": "BEL",
+        "name": "BÉLGICA"
+    },
+    {
+        "id": "BEN",
+        "name": "BENÍN"
+    },
+    {
+        "id": "BES",
+        "name": "BONAIRE, SAN EUSATQUIO Y SABA"
+    },
+    {
+        "id": "BFA",
+        "name": "BURKINA FASO"
+    },
+    {
+        "id": "BGD",
+        "name": "BANGLADÉS"
+    },
+    {
+        "id": "BGR",
+        "name": "BULGARIA"
+    },
+    {
+        "id": "BHR",
+        "name": "BARÉIN"
+    },
+    {
+        "id": "BHS",
+        "name": "BAHAMAS"
+    },
+    {
+        "id": "BIH",
+        "name": "BOSNIA Y HERZEGOVINA"
+    },
+    {
+        "id": "BLM",
+        "name": "SAN BARTHÉLEMY"
+    },
+    {
+        "id": "BLR",
+        "name": "BELARÚS"
+    },
+    {
+        "id": "BLZ",
+        "name": "BELICE"
+    },
+    {
+        "id": "BMU",
+        "name": "BERMUDA"
+    },
+    {
+        "id": "BOL",
+        "name": "BOLIVIA"
+    },
+    {
+        "id": "BRA",
+        "name": "BRASIL"
+    },
+    {
+        "id": "BRB",
+        "name": "BARBADOS"
+    },
+    {
+        "id": "BRN",
+        "name": "BRUNEI DARUSSALAM"
+    },
+    {
+        "id": "BTN",
+        "name": "BHUTÁN"
+    },
+    {
+        "id": "BVT",
+        "name": "BOUVET, ISLA"
+    },
+    {
+        "id": "BWA",
+        "name": "BOTSUANA"
+    },
+    {
+        "id": "CAF",
+        "name": "REPÚBLICA CENTROAFRICANA (LA)"
+    },
+    {
+        "id": "CAN",
+        "name": "CANADÁ"
+    },
+    {
+        "id": "CCK",
+        "name": "COCOS / KEELING, (LAS) ISLAS"
+    },
+    {
+        "id": "CHE",
+        "name": "SUIZA"
+    },
+    {
+        "id": "CHL",
+        "name": "CHILE"
+    },
+    {
+        "id": "CHN",
+        "name": "CHINA"
+    },
+    {
+        "id": "CIV",
+        "name": "CÔTE DIVOIRE"
+    },
+    {
+        "id": "CMR",
+        "name": "CAMERÚN"
+    },
+    {
+        "id": "COD",
+        "name": "CONGO (LA REPÚBLICA DEMOCRÁTICA DEL)"
+    },
+    {
+        "id": "COG",
+        "name": "CONGO (EL)"
+    },
+    {
+        "id": "COK",
+        "name": "COOK, (LAS) ISLAS"
+    },
+    {
+        "id": "COL",
+        "name": "COLOMBIA"
+    },
+    {
+        "id": "COM",
+        "name": "COMORAS (LAS)"
+    },
+    {
+        "id": "CPV",
+        "name": "CABO VERDE"
+    },
+    {
+        "id": "CRI",
+        "name": "COSTA RICA"
+    },
+    {
+        "id": "CUB",
+        "name": "CUBA"
+    },
+    {
+        "id": "CUW",
+        "name": "CURAZAO"
+    },
+    {
+        "id": "CXR",
+        "name": "CHRISTMAS, ISLA"
+    },
+    {
+        "id": "CYM",
+        "name": "CAIMÁN, (LAS) ISLAS"
+    },
+    {
+        "id": "CYP",
+        "name": "CHIPRE"
+    },
+    {
+        "id": "CZE",
+        "name": "CHEQUIA"
+    },
+    {
+        "id": "DEU",
+        "name": "ALEMANIA"
+    },
+    {
+        "id": "DJI",
+        "name": "DJIBOUTI"
+    },
+    {
+        "id": "DMA",
+        "name": "DOMINICA"
+    },
+    {
+        "id": "DNK",
+        "name": "DINAMARCA"
+    },
+    {
+        "id": "DOM",
+        "name": "DOMINICANA, (LA) REPÚBLICA"
+    },
+    {
+        "id": "DZA",
+        "name": "ARGELIA"
+    },
+    {
+        "id": "ECU",
+        "name": "ECUADOR"
+    },
+    {
+        "id": "EGY",
+        "name": "EGIPTO"
+    },
+    {
+        "id": "ERI",
+        "name": "ERITREA"
+    },
+    {
+        "id": "ESH",
+        "name": "SÁHARA OCCIDENTAL"
+    },
+    {
+        "id": "ESP",
+        "name": "ESPAÑA"
+    },
+    {
+        "id": "EST",
+        "name": "ESTONIA"
+    },
+    {
+        "id": "ETH",
+        "name": "ETIOPÍA"
+    },
+    {
+        "id": "FIN",
+        "name": "FINLANDIA"
+    },
+    {
+        "id": "FJI",
+        "name": "FIYI"
+    },
+    {
+        "id": "FLK",
+        "name": "MALVINAS [FALKLAND], (LAS) ISLAS"
+    },
+    {
+        "id": "FRA",
+        "name": "FRANCIA"
+    },
+    {
+        "id": "FRO",
+        "name": "FEROE, (LAS) ISLAS"
+    },
+    {
+        "id": "FSM",
+        "name": "MICRONESIA (ESTADOS FEDERADOS DE)"
+    },
+    {
+        "id": "GAB",
+        "name": "GABÓN"
+    },
+    {
+        "id": "GBR",
+        "name": "REINO UNIDO DE GRAN BRETAÑA E IRLANDA DEL NORTE"
+    },
+    {
+        "id": "GEO",
+        "name": "GEORGIA"
+    },
+    {
+        "id": "GGY",
+        "name": "GUERNSEY"
+    },
+    {
+        "id": "GHA",
+        "name": "GHANA"
+    },
+    {
+        "id": "GIB",
+        "name": "GIBRALTAR"
+    },
+    {
+        "id": "GIN",
+        "name": "GUINEA"
+    },
+    {
+        "id": "GLP",
+        "name": "GUADALUPE"
+    },
+    {
+        "id": "GMB",
+        "name": "GAMBIA (LA)"
+    },
+    {
+        "id": "GNB",
+        "name": "GUINEA-BISSAU"
+    },
+    {
+        "id": "GNQ",
+        "name": "GUINEA ECUATORIAL"
+    },
+    {
+        "id": "GRC",
+        "name": "GRECIA"
+    },
+    {
+        "id": "GRD",
+        "name": "GRANADA"
+    },
+    {
+        "id": "GRL",
+        "name": "GROENLANDIA"
+    },
+    {
+        "id": "GTM",
+        "name": "GUATEMALA"
+    },
+    {
+        "id": "GUF",
+        "name": "GUAYANA FRANCESA"
+    },
+    {
+        "id": "GUM",
+        "name": "GUAM"
+    },
+    {
+        "id": "GUY",
+        "name": "GUYANA"
+    },
+    {
+        "id": "HKG",
+        "name": "HONG KONG"
+    },
+    {
+        "id": "HMD",
+        "name": "HEARD (ISLA) E ISLAS MCDONALD"
+    },
+    {
+        "id": "HND",
+        "name": "HONDURAS"
+    },
+    {
+        "id": "HRV",
+        "name": "CROACIA"
+    },
+    {
+        "id": "HTI",
+        "name": "HAITÍ"
+    },
+    {
+        "id": "HUN",
+        "name": "HUNGRÍA"
+    },
+    {
+        "id": "IDN",
+        "name": "INDONESIA"
+    },
+    {
+        "id": "IMN",
+        "name": "ISLA DE MAN"
+    },
+    {
+        "id": "IND",
+        "name": "INDIA"
+    },
+    {
+        "id": "IOT",
+        "name": "TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO (EL)"
+    },
+    {
+        "id": "IRL",
+        "name": "IRLANDA"
+    },
+    {
+        "id": "IRN",
+        "name": "IRÁN (REPÚBLICA ISLÁMICA DE)"
+    },
+    {
+        "id": "IRQ",
+        "name": "IRAK"
+    },
+    {
+        "id": "ISL",
+        "name": "ISLANDIA"
+    },
+    {
+        "id": "ISR",
+        "name": "ISRAEL"
+    },
+    {
+        "id": "ITA",
+        "name": "ITALIA"
+    },
+    {
+        "id": "JAM",
+        "name": "JAMAICA"
+    },
+    {
+        "id": "JEY",
+        "name": "JERSEY"
+    },
+    {
+        "id": "JOR",
+        "name": "JORDANIA"
+    },
+    {
+        "id": "JPN",
+        "name": "JAPÓN"
+    },
+    {
+        "id": "KAZ",
+        "name": "KAZAJISTÁN"
+    },
+    {
+        "id": "KEN",
+        "name": "KENIA"
+    },
+    {
+        "id": "KGZ",
+        "name": "KIRGUISTÁN"
+    },
+    {
+        "id": "KHM",
+        "name": "CAMBOYA"
+    },
+    {
+        "id": "KIR",
+        "name": "KIRIBATI"
+    },
+    {
+        "id": "KNA",
+        "name": "SAINT KITTS Y NEVIS"
+    },
+    {
+        "id": "KOR",
+        "name": "COREA (LA REPÚBLICA DE)"
+    },
+    {
+        "id": "KWT",
+        "name": "KUWAIT"
+    },
+    {
+        "id": "LAO",
+        "name": "LAO, (LA) REPÚBLICA DEMOCRÁTICA POPULAR"
+    },
+    {
+        "id": "LBN",
+        "name": "LÍBANO"
+    },
+    {
+        "id": "LBR",
+        "name": "LIBERIA"
+    },
+    {
+        "id": "LBY",
+        "name": "LIBIA"
+    },
+    {
+        "id": "LCA",
+        "name": "SANTA LUCÍA"
+    },
+    {
+        "id": "LIE",
+        "name": "LIECHTENSTEIN"
+    },
+    {
+        "id": "LKA",
+        "name": "SRI LANKA"
+    },
+    {
+        "id": "LSO",
+        "name": "LESOTO"
+    },
+    {
+        "id": "LTU",
+        "name": "LITUANIA"
+    },
+    {
+        "id": "LUX",
+        "name": "LUXEMBURGO"
+    },
+    {
+        "id": "LVA",
+        "name": "LETONIA"
+    },
+    {
+        "id": "MAC",
+        "name": "MACAO"
+    },
+    {
+        "id": "MAF",
+        "name": "SAN MARTÍN (PARTE FRANCESA)"
+    },
+    {
+        "id": "MAR",
+        "name": "MARRUECOS"
+    },
+    {
+        "id": "MCO",
+        "name": "MÓNACO"
+    },
+    {
+        "id": "MDA",
+        "name": "MOLDOVA (LA REPÚBLICA DE)"
+    },
+    {
+        "id": "MDG",
+        "name": "MADAGASCAR"
+    },
+    {
+        "id": "MDV",
+        "name": "MALDIVAS"
+    },
+    {
+        "id": "MEX",
+        "name": "MÉXICO"
+    },
+    {
+        "id": "MHL",
+        "name": "MARSHALL, (LAS) ISLAS"
+    },
+    {
+        "id": "MKD",
+        "name": "MACEDONIA DEL NORTE"
+    },
+    {
+        "id": "MLI",
+        "name": "MALÍ"
+    },
+    {
+        "id": "MLT",
+        "name": "MALTA"
+    },
+    {
+        "id": "MMR",
+        "name": "MYANMAR"
+    },
+    {
+        "id": "MNE",
+        "name": "MONTENEGRO"
+    },
+    {
+        "id": "MNG",
+        "name": "MONGOLIA"
+    },
+    {
+        "id": "MNP",
+        "name": "MARIANAS SEPTENTRIONALES, (LAS) ISLAS"
+    },
+    {
+        "id": "MOZ",
+        "name": "MOZAMBIQUE"
+    },
+    {
+        "id": "MRT",
+        "name": "MAURITANIA"
+    },
+    {
+        "id": "MSR",
+        "name": "MONTSERRAT"
+    },
+    {
+        "id": "MTQ",
+        "name": "MARTINICA"
+    },
+    {
+        "id": "MUS",
+        "name": "MAURICIO"
+    },
+    {
+        "id": "MWI",
+        "name": "MALAUI"
+    },
+    {
+        "id": "MYS",
+        "name": "MALASIA"
+    },
+    {
+        "id": "MYT",
+        "name": "MAYOTTE"
+    },
+    {
+        "id": "NAM",
+        "name": "NAMIBIA"
+    },
+    {
+        "id": "NCL",
+        "name": "NUEVA CALEDONIA"
+    },
+    {
+        "id": "NER",
+        "name": "NÍGER (EL)"
+    },
+    {
+        "id": "NFK",
+        "name": "NORFOLK, ISLA"
+    },
+    {
+        "id": "NGA",
+        "name": "NIGERIA"
+    },
+    {
+        "id": "NIC",
+        "name": "NICARAGUA"
+    },
+    {
+        "id": "NIU",
+        "name": "NIUE"
+    },
+    {
+        "id": "NLD",
+        "name": "PAÍSES BAJOS (LOS)"
+    },
+    {
+        "id": "NOR",
+        "name": "NORUEGA"
+    },
+    {
+        "id": "NPL",
+        "name": "NEPAL"
+    },
+    {
+        "id": "NRU",
+        "name": "NAURU"
+    },
+    {
+        "id": "NZL",
+        "name": "NUEVA ZELANDIA"
+    },
+    {
+        "id": "OMN",
+        "name": "OMÁN"
+    },
+    {
+        "id": "PAK",
+        "name": "PAKISTÁN"
+    },
+    {
+        "id": "PAN",
+        "name": "PANAMÁ"
+    },
+    {
+        "id": "PCN",
+        "name": "PITCAIRN"
+    },
+    {
+        "id": "PER",
+        "name": "PERÚ"
+    },
+    {
+        "id": "PHL",
+        "name": "FILIPINAS (LAS)"
+    },
+    {
+        "id": "PLW",
+        "name": "PALAU"
+    },
+    {
+        "id": "PNG",
+        "name": "PAPÚA NUEVA GUINEA"
+    },
+    {
+        "id": "POL",
+        "name": "POLONIA"
+    },
+    {
+        "id": "PRI",
+        "name": "PUERTO RICO"
+    },
+    {
+        "id": "PRK",
+        "name": "COREA (LA REPÚBLICA POPULAR DEMOCRÁTICA DE)"
+    },
+    {
+        "id": "PRT",
+        "name": "PORTUGAL"
+    },
+    {
+        "id": "PRY",
+        "name": "PARAGUAY"
+    },
+    {
+        "id": "PSE",
+        "name": "PALESTINA, ESTADO DE"
+    },
+    {
+        "id": "PYF",
+        "name": "POLINESIA FRANCESA"
+    },
+    {
+        "id": "QAT",
+        "name": "CATAR"
+    },
+    {
+        "id": "REU",
+        "name": "REUNIÓN"
+    },
+    {
+        "id": "ROU",
+        "name": "RUMANIA"
+    },
+    {
+        "id": "RUS",
+        "name": "RUSIA, (LA) FEDERACIÓN DE"
+    },
+    {
+        "id": "RWA",
+        "name": "RUANDA"
+    },
+    {
+        "id": "SAU",
+        "name": "ARABIA SAUDITA"
+    },
+    {
+        "id": "SDN",
+        "name": "SUDÁN"
+    },
+    {
+        "id": "SEN",
+        "name": "SENEGAL"
+    },
+    {
+        "id": "SGP",
+        "name": "SINGAPUR"
+    },
+    {
+        "id": "SGS",
+        "name": "GEORGIA DEL SUR (LA) Y LAS ISLAS SANDWICH DEL SUR"
+    },
+    {
+        "id": "SHN",
+        "name": "SANTA ELENA, ASCENSIÓN Y TRISTÁN DE ACUÑA"
+    },
+    {
+        "id": "SJM",
+        "name": "SVALBARD Y JAN MAYEN"
+    },
+    {
+        "id": "SLB",
+        "name": "SALOMÓN, ISLAS"
+    },
+    {
+        "id": "SLE",
+        "name": "SIERRA LEONA"
+    },
+    {
+        "id": "SLV",
+        "name": "EL SALVADOR"
+    },
+    {
+        "id": "SMR",
+        "name": "SAN MARINO"
+    },
+    {
+        "id": "SOM",
+        "name": "SOMALIA"
+    },
+    {
+        "id": "SPM",
+        "name": "SAN PEDRO Y MIQUELÓN"
+    },
+    {
+        "id": "SRB",
+        "name": "SERBIA"
+    },
+    {
+        "id": "SSD",
+        "name": "SUDÁN DEL SUR"
+    },
+    {
+        "id": "STP",
+        "name": "SANTO TOMÉ Y PRÍNCIPE"
+    },
+    {
+        "id": "SUR",
+        "name": "SURINAME"
+    },
+    {
+        "id": "SVK",
+        "name": "ESLOVAQUIA"
+    },
+    {
+        "id": "SVN",
+        "name": "ESLOVENIA"
+    },
+    {
+        "id": "SWE",
+        "name": "SUECIA"
+    },
+    {
+        "id": "SWZ",
+        "name": "ESWATINI"
+    },
+    {
+        "id": "SXM",
+        "name": "SAN MARTÍN (PARTE NEERLANDESA)"
+    },
+    {
+        "id": "SYC",
+        "name": "SEYCHELLES"
+    },
+    {
+        "id": "SYR",
+        "name": "REPÚBLICA ÁRABE SIRIA"
+    },
+    {
+        "id": "TCA",
+        "name": "TURCAS Y CAICOS, (LAS) ISLAS"
+    },
+    {
+        "id": "TCD",
+        "name": "CHAD"
+    },
+    {
+        "id": "TGO",
+        "name": "TOGO"
+    },
+    {
+        "id": "THA",
+        "name": "TAILANDIA"
+    },
+    {
+        "id": "TJK",
+        "name": "TAYIKISTÁN"
+    },
+    {
+        "id": "TKL",
+        "name": "TOKELAU"
+    },
+    {
+        "id": "TKM",
+        "name": "TURKMENISTÁN"
+    },
+    {
+        "id": "TLS",
+        "name": "TIMOR-LESTE"
+    },
+    {
+        "id": "TON",
+        "name": "TONGA"
+    },
+    {
+        "id": "TTO",
+        "name": "TRINIDAD Y TABAGO"
+    },
+    {
+        "id": "TUN",
+        "name": "TÚNEZ"
+    },
+    {
+        "id": "TUR",
+        "name": "TURQUÍA"
+    },
+    {
+        "id": "TUV",
+        "name": "TUVALU"
+    },
+    {
+        "id": "TWN",
+        "name": "TAIWÁN (PROVINCIA DE CHINA)"
+    },
+    {
+        "id": "TZA",
+        "name": "TANZANIA, REPÚBLICA UNIDA DE"
+    },
+    {
+        "id": "UGA",
+        "name": "UGANDA"
+    },
+    {
+        "id": "UKR",
+        "name": "UCRANIA"
+    },
+    {
+        "id": "UMI",
+        "name": "ISLAS MENORES ALEJADAS DE ESTADOS UNIDOS (LAS)"
+    },
+    {
+        "id": "URY",
+        "name": "URUGUAY"
+    },
+    {
+        "id": "USA",
+        "name": "ESTADOS UNIDOS DE AMÉRICA (LOS)"
+    },
+    {
+        "id": "UZB",
+        "name": "UZBEKISTÁN"
+    },
+    {
+        "id": "VAT",
+        "name": "SANTA SEDE (LA)"
+    },
+    {
+        "id": "VCT",
+        "name": "SAN VINCENTE Y LAS GRANADINAS"
+    },
+    {
+        "id": "VEN",
+        "name": "VENEZUELA (REPÚBLICA BOLIVARIANA DE)"
+    },
+    {
+        "id": "VGB",
+        "name": "VÍRGENES BRITÁNICAS, ISLAS"
+    },
+    {
+        "id": "VIR",
+        "name": "VÍRGENES DE LOS ESTADOS UNIDOS, ISLAS"
+    },
+    {
+        "id": "VNM",
+        "name": "VIET NAM"
+    },
+    {
+        "id": "VUT",
+        "name": "VANUATU"
+    },
+    {
+        "id": "WLF",
+        "name": "WALLIS Y FUTUNA"
+    },
+    {
+        "id": "WSM",
+        "name": "SAMOA"
+    },
+    {
+        "id": "YEM",
+        "name": "YEMEN"
+    },
+    {
+        "id": "ZAF",
+        "name": "SUDÁFRICA"
+    },
+    {
+        "id": "ZMB",
+        "name": "ZAMBIA"
+    },
+    {
+        "id": "ZWE",
+        "name": "ZIMBABUE"
+    },
+    {
+        "id": "000",
+        "name": "SIN DATOS"
+    }
+]

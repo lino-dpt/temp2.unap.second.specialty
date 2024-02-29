@@ -46,7 +46,9 @@ watch(
       let currentSelect = items.value.filter((item) => item.id == ubigeo.value);
       if (currentSelect[0]?.text == search.value) return;
     }
-    let res = await axios.get(`http://student.test/ubigeo_name/?term=${val}`);
+    let res = await axios.post(`http://segundas.unap.pe/api/get-ubigeo`, {
+      term: val,
+    });
     console.log("data", res.data);
     items.value = res.data;
   }, 500)

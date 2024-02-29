@@ -1,0 +1,1 @@
+import{ac as e,o as c,j as n}from"./index-BWA7Q-7U.js";const o={};function r(t,a){return c(),n("h1",null,"comfiguraciones")}const _=e(o,[["render",r]]);export{_ as default};

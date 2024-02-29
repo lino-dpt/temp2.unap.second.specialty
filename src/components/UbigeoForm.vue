@@ -62,7 +62,7 @@ const deparmentsItems = deparmentsJson;
 const provincesItems = ref([]);
 const districtsItems = ref([]);
 
-const deparment: Ref<string> = ref("");
+const deparment: Ref<string> = ref(null);
 const province: Ref<string | null> = ref(null);
 // const district: Ref<string> = ref("");
 

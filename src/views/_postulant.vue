@@ -18,13 +18,12 @@
           >
             Descargar solicitud
           </a>
-          
         </v-container>
       </v-card>
     </template>
     <template v-else>
       <v-form ref="formRef" @submit.prevent="submit">
-        <v-card max-width="700px" class="mx-auto">
+        <v-card max-width="850px" class="mx-auto my-10">
           <PostulantPersonal :postulant="_postulant" :form="form" />
           <PostulantSpecialty :form="form" />
           <PostulantFiles :form="form" />
@@ -76,8 +75,10 @@ const formDefaults: PostulantPreInscription = {
   marriedSurname: "",
   gender: "",
   birthDate: "",
-  birthPlace: "",
-  residencePlace: "",
+  birthCountry: null,
+  birthPlace: null,
+  residenceCountry: null,
+  residencePlace: null,
   graduationYear: "",
   phoneNumber: "",
   email: "",
@@ -86,15 +87,21 @@ const formDefaults: PostulantPreInscription = {
   specialty: null,
   fileDocument: null,
   photoAvatar: null,
+
+  hasDisability: false,
+  disabilityType: null,
 };
 
 const form: Ref<PostulantPreInscription> = ref(formDefaults);
 
 const formRef = ref(null);
 const submit = async () => {
+  console.log(form.value);
+
   try {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
+
     form.value.postulantId = route.params.postulant as string;
     let id = await postulantService.storePostulant(form.value);
     form.value.postulantId = id;
