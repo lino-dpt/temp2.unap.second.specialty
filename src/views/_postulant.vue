@@ -30,7 +30,13 @@
           <PostulantPhoto :form="form" />
           <v-card-actions>
             <v-spacer />
-            <v-btn color="primary" block variant="flat" @click="submit">
+            <v-btn
+              color="primary"
+              block
+              variant="flat"
+              @click="submit"
+              :loading="loadingSubmit"
+            >
               Guardar
             </v-btn>
           </v-card-actions>
@@ -63,6 +69,8 @@ const route = useRoute();
 const router = useRouter();
 
 const loading = ref(true);
+
+const loadingSubmit = ref(false);
 
 const _postulant: Ref<Postulant> = ref(null);
 const hasPreinscription = ref(false);
@@ -98,6 +106,8 @@ const formRef = ref(null);
 const submit = async () => {
   console.log(form.value);
 
+  loadingSubmit.value = true;
+
   try {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
@@ -113,9 +123,13 @@ const submit = async () => {
     if (Object.keys(Preinscription_.value).length > 0) {
       hasPreinscription.value = true;
     }
+    loadingSubmit.value = false;
     return;
   } catch (error) {
     alert("Ocurrio un error");
+    loadingSubmit.value = false;
+  } finally {
+    loadingSubmit.value = false;
   }
 };
 /*            {

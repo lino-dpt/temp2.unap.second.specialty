@@ -124,7 +124,7 @@
 </template>
 <script setup lang="ts">
 import { ref, Ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import CropCompressImage from "@/components/CropCompressImage.vue";
 import {
   isDni,
@@ -139,6 +139,7 @@ import PaymentService from "@/services/PaymentService";
 import FileService from "@/services/FileService";
 
 const router = useRouter();
+const route = useRoute();
 
 const loading = ref(false);
 
@@ -278,9 +279,8 @@ const submit = async () => {
       rollBack();
     } else {
       loading.value = false;
-      router.push(
-        `/convocatoria-2024/preinscripcion/${form.value.postulantId}`
-      );
+      let callSlug = route.params.slug as string;
+      router.push(`/${callSlug}/preinscripcion/${form.value.postulantId}`);
     }
   } catch (error) {
     loading.value = false;

@@ -1,11 +1,11 @@
 <template>
-  <v-col cols="12" md="12">
+  <v-col cols="12" md="8">
     <v-autocomplete
       v-model="ubigeo"
       :items="items"
-      item-title="text"
-      item-value="id"
-      label="Departamento, Provincia, Distrito"
+      item-title="title"
+      item-value="value"
+      label="Ubigeo - Departamento, Provincia, Distrito"
       v-model:search="search"
       :rules="[isRequired]"
     >
@@ -46,9 +46,9 @@ watch(
       let currentSelect = items.value.filter((item) => item.id == ubigeo.value);
       if (currentSelect[0]?.text == search.value) return;
     }
-    let res = await axios.post(`http://segundas.unap.pe/api/get-ubigeo`, {
-      term: val,
-    });
+    let res = await axios.get(
+      `http://174.138.178.194:8086/api/search-ubigeo/${val}`
+    );
     console.log("data", res.data);
     items.value = res.data;
   }, 500)

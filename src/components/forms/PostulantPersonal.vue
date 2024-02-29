@@ -212,7 +212,7 @@ import { PostulantPreInscription, Postulant } from "@/types/postulantTypes";
 
 import { isRequired, isNumber, isEmail } from "@/helpers/validations";
 
-import UbigeoTwoForm from "@/components/UbigeoForm.vue";
+import UbigeoTwoForm from "@/components/UbigeoTwoForm.vue";
 import documentTypesJson from "@/assets/data/json/documentTypes.json";
 import countriesJson from "@/assets/data/json/countries.json";
 
