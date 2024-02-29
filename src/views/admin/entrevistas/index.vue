@@ -42,8 +42,8 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-autocomplete v-model="editedItem.CallId" :items="convocatorias" label="Convocatoria"
-              itemTitle="nombre" itemValue="id" variant="outlined">
+            <v-autocomplete v-model="editedItem.CallId" :items="convocatorias" label="Convocatoria" itemTitle="nombre"
+              itemValue="id" variant="outlined">
             </v-autocomplete>
             <v-autocomplete v-model="editedItem.AcademicProgramId" :items="programas" label="Programa" itemTitle="nombre"
               itemValue="id" variant="outlined" :clearable="false">
@@ -57,63 +57,63 @@
 
         <!-- <form   @submit="EnviarP"> -->
         <v-table>
-              <thead>
-                <tr>
-                  <th rowspan="3">N°</th>
-                  <th rowspan="3">ASPECTOS A EVALUAR</th>
-                  <th colspan="4">PUNTAJE</th>
-                </tr>
-                <tr>
-                  <th>4</th>
-                  <th>3</th>
-                  <th>2</th>
-                  <th>1</th>
-                </tr>
-                <tr>
-                  <th>Excelente</th>
-                  <th>Bueno</th>
-                  <th>Regular</th>
-                  <th>Con Dificultades</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>01</td>
-                  <td>Tiene conocimientos básicos acerca de la especialidad.</td>
-                  <td><input type="radio" v-model="questionScore1" value="8" id="1_4" name="score_1"></td>
-                  <td><input type="radio" v-model="questionScore1" value="6" id="1_3" name="score_1"></td>
-                  <td><input type="radio" v-model="questionScore1" value="4" id="1_2" name="score_1"></td>
-                  <td><input type="radio" v-model="questionScore1" value="2" id="1_1" name="score_1"></td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>Expectativas como especialista.</td>
-                  <td><input type="radio" v-model="questionScore2" value="4" id="2_4" name="score_2"></td>
-                  <td><input type="radio" v-model="questionScore2" value="3" id="2_3" name="score_2"></td>
-                  <td><input type="radio" v-model="questionScore2" value="2" id="2_2" name="score_2"></td>
-                  <td><input type="radio" v-model="questionScore2" value="1" id="2_1" name="score_2"></td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>Muestra serenidad y autocontrol emocional.</td>
-                  <td><input type="radio" v-model="questionScore3" value="4" id="3_4" name="score_3"></td>
-                  <td><input type="radio" v-model="questionScore3" value="3" id="3_3" name="score_3"></td>
-                  <td><input type="radio" v-model="questionScore3" value="2" id="3_2" name="score_3"></td>
-                  <td><input type="radio" v-model="questionScore3" value="1" id="3_1" name="score_3"></td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>Tiene conocimientos básicos de investigación.</td>
-                  <td><input type="radio" v-model="questionScore4" value="4" id="4_4" name="score_4"></td>
-                  <td><input type="radio" v-model="questionScore4" value="3" id="4_3" name="score_4"></td>
-                  <td><input type="radio" v-model="questionScore4" value="2" id="4_2" name="score_4"></td>
-                  <td><input type="radio" v-model="questionScore4" value="1" id="4_1" name="score_4"></td>
-                </tr>
-              </tbody>
-            </v-table>
-            <!-- <button type="submit">enviar</button>
+          <thead>
+            <tr>
+              <th rowspan="3">N°</th>
+              <th rowspan="3">ASPECTOS A EVALUAR</th>
+              <th colspan="4">PUNTAJE</th>
+            </tr>
+            <tr>
+              <th>4</th>
+              <th>3</th>
+              <th>2</th>
+              <th>1</th>
+            </tr>
+            <tr>
+              <th>Excelente</th>
+              <th>Bueno</th>
+              <th>Regular</th>
+              <th>Con Dificultades</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Tiene conocimientos básicos acerca de la especialidad.</td>
+              <td><input type="radio" v-model="questionScore1" value="8" id="1_4" name="score_1"></td>
+              <td><input type="radio" v-model="questionScore1" value="6" id="1_3" name="score_1"></td>
+              <td><input type="radio" v-model="questionScore1" value="4" id="1_2" name="score_1"></td>
+              <td><input type="radio" v-model="questionScore1" value="2" id="1_1" name="score_1"></td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Expectativas como especialista.</td>
+              <td><input type="radio" v-model="questionScore2" value="4" id="2_4" name="score_2"></td>
+              <td><input type="radio" v-model="questionScore2" value="3" id="2_3" name="score_2"></td>
+              <td><input type="radio" v-model="questionScore2" value="2" id="2_2" name="score_2"></td>
+              <td><input type="radio" v-model="questionScore2" value="1" id="2_1" name="score_2"></td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Muestra serenidad y autocontrol emocional.</td>
+              <td><input type="radio" v-model="questionScore3" value="4" id="3_4" name="score_3"></td>
+              <td><input type="radio" v-model="questionScore3" value="3" id="3_3" name="score_3"></td>
+              <td><input type="radio" v-model="questionScore3" value="2" id="3_2" name="score_3"></td>
+              <td><input type="radio" v-model="questionScore3" value="1" id="3_1" name="score_3"></td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Tiene conocimientos básicos de investigación.</td>
+              <td><input type="radio" v-model="questionScore4" value="4" id="4_4" name="score_4"></td>
+              <td><input type="radio" v-model="questionScore4" value="3" id="4_3" name="score_4"></td>
+              <td><input type="radio" v-model="questionScore4" value="2" id="4_2" name="score_4"></td>
+              <td><input type="radio" v-model="questionScore4" value="1" id="4_1" name="score_4"></td>
+            </tr>
+          </tbody>
+        </v-table>
+        <!-- <button type="submit">enviar</button>
            </form> -->
-   </v-container>
+      </v-container>
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -145,11 +145,11 @@ const defaultItem = ref({
   Id: "",
   CallId: 1,
   AcademicProgramId: "",
-  PostulantId:"",
-  UserId:1,
-  Observations:"SIN OBSERVACIONES.",
+  PostulantId: "",
+  UserId: 1,
+  Observations: "SIN OBSERVACIONES.",
   Status: true,
-  Date:"2024-02-27T12:34:56"
+  Date: "2024-02-27T12:34:56"
 });
 
 
@@ -167,25 +167,25 @@ const EnviarP = () => {
     {
       InterviewIndicatorsId: indicator1.value,
       Score: questionScore1.value,
-      Status: 2
+      Status: true
     },
     {
       InterviewIndicatorsId: indicator2.value,
       Score: questionScore2.value,
-      Status: 2
+      Status: true
     },
     {
       InterviewIndicatorsId: indicator3.value,
       Score: questionScore3.value,
-      Status: 2
+      Status: true
     },
     {
       InterviewIndicatorsId: indicator4.value,
       Score: questionScore4.value,
-      Status: 2
+      Status: true
     }
   ]
-  console.log(arrayData)
+  // console.log(arrayData)
 }
 
 
@@ -194,16 +194,17 @@ const EnviarP = () => {
 const editedIndex = ref(-1);
 
 const programas = ref([]);
+const puntajes = ref([]);
 
 
 const convocatorias = [
-  { nombre: "CONVOCATORIA 2024 - I", id: 1 },
+  { nombre: "CONVOCATORIA 2024", id: 1 },
 ];
 
 const postulantes = [
-  { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222" , Id:1},
-  { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333" , Id:2},
-  { nombre_completo: "lio lio lio", dni: "33334444" , Id:8}
+  { nombre_completo: "ANDY MAMANI VEGA", dni: "11112222", Id: 1 },
+  { nombre_completo: "YABIA OIDO DELLOS", dni: "22223333", Id: 2 },
+  { nombre_completo: "lio lio lio", dni: "33334444", Id: 8 }
 ];
 
 
@@ -217,6 +218,20 @@ const loadProgramas = async () => {
   }
 };
 
+const loadPuntaje = async (Id) => {
+  try {
+    const response = await axios.get('http://segunda_especialidad_felix.test/api/entrevista_puntajes/' + Id);
+    puntajes.value = response.data.data;
+
+    console.log("puntajes: ", puntajes.value);
+
+    console.log("ID: ", Id);
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
 loadProgramas();
 
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
@@ -224,7 +239,6 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   // let res = await axios.post("http://segundas.unap.pe/api/convocatorias", {
   let res = await axios.post("http://174.138.178.194:8086/api/entrevista", {
-    // let res = await axios.post("http://174.138.178.194:8081/api/mostrar_todos_convocatoria", {
     page,
     itemsPerPage,
     sortBy,
@@ -239,15 +253,15 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   let data_items = data.items.data;
 
   const baseURL = 'http://segundas.unap.pe/api/programa/';
- 
+
   data_items.forEach(item => {
     const endpoint = baseURL + item.id_programa;
- 
+
     fetch(endpoint)
       .then(response => response.json())
-      .then(apiResponse => { 
-        const nombreFromApi = apiResponse.nombre; 
-        item.id_programa = nombreFromApi; 
+      .then(apiResponse => {
+        const nombreFromApi = apiResponse.nombre;
+        item.id_programa = nombreFromApi;
       })
       .catch(error => {
         console.error('Error fetching data from the API:', error);
@@ -255,12 +269,14 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   });
 
   serverItems.value = data_items;
+  /*
   console.log("data_items", data_items);
   console.log("serverItems.value", serverItems.value);
   console.log("data", data.items.data);
   console.log("page", page);
   console.log("itemsPerPage", itemsPerPage);
   console.log("sortBy", sortBy);
+  */
 
   loading.value = false;
 };
@@ -268,6 +284,9 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 const editItem = (item) => {
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
+  console.log(editedItem.value);
+  loadPuntaje(editedItem.value.Id);
+  console.log(puntajes.value)
   dialog.value = true;
 };
 
@@ -289,57 +308,55 @@ const saveRecord = async () => {
     {
       InterviewIndicatorsId: indicator1.value,
       Score: questionScore1.value,
-      Status: 2
+      Status: 1
     },
     {
       InterviewIndicatorsId: indicator2.value,
       Score: questionScore2.value,
-      Status: 2
+      Status: 1
     },
     {
       InterviewIndicatorsId: indicator3.value,
       Score: questionScore3.value,
-      Status: 2
+      Status: 1
     },
     {
       InterviewIndicatorsId: indicator4.value,
       Score: questionScore4.value,
-      Status: 2
+      Status: 1
     }
   ]
-  
-  console.log("editedItem.value", {interview:  editedItem.value,
-      indicators: arrayData});
+
+  // console.log("editedItem.value", {interview:  editedItem.value,
+  // indicators: arrayData});
   if (editedIndex.value === -1) {
     // let res = await axios.post("http://segundas.unap.pe/api/convocatoria", {
-      // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
+    // let res = await axios.post("http://servicio_convocatorias.test/api/crear_convocatoria", {
     let res = await axios.post("http://174.138.178.194:8086/api/entrevistastore", {
-      interview:  editedItem.value,
+      interview: editedItem.value,
       indicators: arrayData
 
     });
-    console.log(res)
+    // console.log(res)
     serverItems.value.push({ Status: true, ...res.data.data });
 
   } else {
-    console.log("editedItem", editedItem.value);
+    // console.log("editedItem", editedItem.value);
 
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/convocatoria/" + editedItem.value.id,
       // "http://servicio_convocatorias.test/api/actualizar_convocatoria/" + editedItem.value.id,
       "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
       {
-        id_convocatoria: editedItem.value.id_convocatoria,
-        id_programa: editedItem.value.id_programa,
-        id_postulante: editedItem.value.id_postulante,
-        estado: editedItem.value.estado
+        interview: editedItem.value,
+        indicators: arrayData
       }
     );
-    console.log(res);
- 
+    // console.log(res);
+
     serverItems.value[editedIndex.value] = res.data.data;
     dialog.value = false;
-    console.log("update record");
+    // console.log("update record");
   }
   dialog.value = false;
 };
