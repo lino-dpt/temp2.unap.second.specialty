@@ -5,7 +5,7 @@
       <v-col cols="12" md="12">
         <v-card variant="tonal" rounded="0">
           <CropCompressImage
-            :aspect-ratio="3/4"
+            :aspect-ratio="3 / 4"
             :is-resizable="true"
             :is-aspect-ratio="false"
             @onCropper="
@@ -35,7 +35,5 @@ defineProps<{
 }>();
 
 const preview_img = ref(null);
-
-
 </script>
 <style lang="scss"></style>

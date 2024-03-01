@@ -11,6 +11,7 @@
           item-value="id"
           :return-object="false"
           :clearable="false"
+          :rules="[isRequired]"
         />
       </v-col>
     </v-row>
@@ -20,6 +21,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { PostulantPreInscription } from "@/types/postulantTypes";
+import { isRequired } from "@/helpers/validations";
 
 const emit = defineEmits(["onSuccess"]);
 defineProps<{

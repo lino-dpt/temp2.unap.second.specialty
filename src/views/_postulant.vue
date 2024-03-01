@@ -83,9 +83,9 @@ const formDefaults: PostulantPreInscription = {
   marriedSurname: "",
   gender: "",
   birthDate: "",
-  birthCountry: null,
+  birthCountry: "PER",
   birthPlace: null,
-  residenceCountry: null,
+  residenceCountry: "PER",
   residencePlace: null,
   graduationYear: "",
   phoneNumber: "",
@@ -110,9 +110,30 @@ const submit = async () => {
     const { valid } = await formRef.value.validate();
     if (!valid) return;
 
+    //validar que tenga documentos
+    if (!form.value.fileDocument) {
+      alert("Debe subir los documentos");
+      loadingSubmit.value = false;
+      return;
+    }
+
+    //validar que tenga foto de postulante
+    if (!form.value.photoAvatar) {
+      alert("Debe subir una foto de postulante");
+      loadingSubmit.value = false;
+      return;
+    }
+
     form.value.postulantId = route.params.postulant as string;
-    let id = await postulantService.storePostulant(form.value);
-    form.value.postulantId = id;
+    let res = await postulantService.storePostulant(form.value);
+
+    if (res.error) {
+      alert(res.error);
+      loadingSubmit.value = false;
+      return;
+    }
+    form.value.postulantId = res;
+
     await fileService.storePreinscriptionFiles(form.value);
     Preinscription_.value = await registrationService.storeRegistration(
       form.value
@@ -130,19 +151,7 @@ const submit = async () => {
     loadingSubmit.value = false;
   }
 };
-/*            {
-  "Id": 6,
-  "Date": "2024-02-28 21:07:20",
-  "Observation": null,
-  "Status": "1",
-  "IsEnabled": 0,
-  "AcademicProgramId": 5,
-  "PostulantId": 12,
-  "CallId": 1,
-  "CreatedAt": "2024-02-28 21:07:20",
-  "UpdatedAt": "2024-02-28 21:07:20"
-}
-*/
+
 interface Preinscription {
   AcademicProgramId: number;
   PostulantId: number;
