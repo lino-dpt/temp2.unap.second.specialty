@@ -371,6 +371,11 @@ const close = () => {
   editedIndex.value = -1;
   editedItem.value = Object.assign({}, defaultItem.value);
   dialog.value = false;
+  
+  questionScore1.value=0;
+  questionScore2.value=0;
+  questionScore3.value=0;
+  questionScore4.value=0;
 };
 
 const saveRecord = async () => {
@@ -439,6 +444,11 @@ const saveRecord = async () => {
         tost.value=true;
         tost_mensaje_error.value=res.data.message;
     }    
+
+    questionScore1.value=0;
+    questionScore2.value=0;
+    questionScore3.value=0;
+    questionScore4.value=0;
   }  
 };
 
