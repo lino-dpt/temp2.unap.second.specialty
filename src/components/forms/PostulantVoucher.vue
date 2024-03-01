@@ -32,7 +32,7 @@
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.paymentId"
-              label="Seriel del voucher"
+              label="N° de operación del voucher"
               :rules="[isRequired, isNumber]"
             />
           </v-col>
@@ -233,7 +233,6 @@ const continuePreinscription = () => {
   // router.push(`/convocatoria-2024/preinscripcion/${idHash.value}`);
   let callSlug = route.params.slug as string;
   router.push(`/${callSlug}/preinscripcion/${idHash.value}`);
-
 };
 
 const submit = async () => {
@@ -256,7 +255,6 @@ const submit = async () => {
 
     let file = await fileService.store(form.value);
     if (file.error) {
-      
       loading.value = false;
       rollBack();
       return;
@@ -284,7 +282,6 @@ const submit = async () => {
     }
   } catch (error) {
     loading.value = false;
-    
   }
 };
 
