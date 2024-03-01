@@ -20,8 +20,8 @@
       </v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-btn icon @click="editItem(item)" class="mr-2" color="green darken-4" density="compact" variant="tonal">
-        <v-icon>mdi-pencil</v-icon>
+      <v-btn  @click="editItem(item)" color ="green dark label small" variant="tonal">
+        Entrevistar
       </v-btn>
 
       <!-- <v-btn icon color="red" density="compact" variant="tonal">
@@ -42,13 +42,13 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-autocomplete v-model="editedItem.CallId" :items="convocatorias" label="Convocatoria" itemTitle="nombre"
+            <v-autocomplete class="mb-4" v-model="editedItem.CallId" :items="convocatorias" label="Convocatoria" itemTitle="nombre"
               itemValue="id" variant="outlined">
             </v-autocomplete>
-            <v-autocomplete v-model="editedItem.AcademicProgramId" :items="programas" label="Programa" itemTitle="nombre"
+            <v-autocomplete class="mb-4" v-model="editedItem.AcademicProgramId" :items="programas" label="Programa" itemTitle="nombre"
               itemValue="id" variant="outlined" :clearable="false">
             </v-autocomplete>
-            <v-autocomplete v-model="editedItem.PostulantId" :items="postulantes" label="Postulante"
+            <v-autocomplete class="mb-4" v-model="editedItem.PostulantId" :items="postulantes" label="Postulante"
               itemTitle="nombre_completo" itemValue="Id" variant="outlined">
             </v-autocomplete>
             <v-checkbox v-model="editedItem.Status" label="Entrevistado" />
