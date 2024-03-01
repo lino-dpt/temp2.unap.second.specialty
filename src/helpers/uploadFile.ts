@@ -49,7 +49,6 @@ const loadImageHelper = (event) => {
             URL.revokeObjectURL(image.src);
         }
 
-        console.log(files[0]);
         const blob = URL.createObjectURL(files[0]);
         image.src = blob;
 

@@ -14,7 +14,7 @@
           <v-divider class="my-4"></v-divider>
           <a
             class="v-btn v-theme--light bg-primary v-btn--density-default rounded-lg v-btn--size-default v-btn--variant-flat w-100"
-            :href="`http://174.138.178.198:8097/api/pdf-solicitud/${Preinscription_?.CallId}-${Preinscription_?.AcademicProgramId}-${Preinscription_?.PostulantId}`"
+            :href="`https://segundas.unap.pe/api/get-solicitud/${Preinscription_?.CallId}-${Preinscription_?.AcademicProgramId}-${Preinscription_?.PostulantId}`"
           >
             Descargar solicitud
           </a>
@@ -104,8 +104,6 @@ const form: Ref<PostulantPreInscription> = ref(formDefaults);
 
 const formRef = ref(null);
 const submit = async () => {
-  console.log(form.value);
-
   loadingSubmit.value = true;
 
   try {

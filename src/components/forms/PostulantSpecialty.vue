@@ -30,8 +30,6 @@ const items = ref([]);
 
 const init = async () => {
   let res = await axios.get("https://segundas.unap.pe/api/programas");
-  console.log("res.data", res.data);
-
   items.value = res.data;
 };
 init();

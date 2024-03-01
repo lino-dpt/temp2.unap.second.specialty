@@ -32,7 +32,7 @@
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.paymentId"
-              label="Serie"
+              label="Seriel del voucher"
               :rules="[isRequired, isNumber]"
             />
           </v-col>
@@ -47,7 +47,7 @@
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.paymentAmount"
-              label="Monto"
+              label="Monto del voucher"
               :rules="[isRequired, isDecimal]"
             />
           </v-col>
@@ -58,13 +58,13 @@
                 <small> Voucher </small>
               </v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn
+              <!-- <v-btn
                 prepend-icon="mdi-information-variant-circle-outline"
                 density="compact"
                 @click="dialogExample = true"
               >
                 <small> Ejemplo</small>
-              </v-btn>
+              </v-btn> -->
             </v-toolbar>
 
             <v-card variant="tonal" rounded="0">
@@ -112,7 +112,7 @@
         <small>Ya inicio la preinscripcion</small>
       </v-card-title>
       <v-container>
-        <p>Ya inicio la preinscripcion, desea continuar?</p>
+        <p>Ya inicio la preinscripcion,¿ desea continuar?</p>
       </v-container>
       <v-card-actions>
         <v-btn color="red" @click="dialogContinue = false">No</v-btn>
@@ -162,7 +162,7 @@ const documentTypes = [
     shortName: "DNI",
   },
   {
-    id: "004",
+    id: "003",
     name: "CARNET/CARNÉ DE EXTRANJERÍA",
     shortName: "CE",
   },
@@ -230,7 +230,10 @@ const searchPreinscription = async (e: string) => {
 };
 
 const continuePreinscription = () => {
-  router.push(`/convocatoria-2024/preinscripcion/${idHash.value}`);
+  // router.push(`/convocatoria-2024/preinscripcion/${idHash.value}`);
+  let callSlug = route.params.slug as string;
+  router.push(`/${callSlug}/preinscripcion/${idHash.value}`);
+
 };
 
 const submit = async () => {
@@ -246,7 +249,6 @@ const submit = async () => {
   try {
     let postulant = await postulantService.startPreinscription(form.value);
     if (postulant.error) {
-      console.log(postulant);
       loading.value = false;
       return;
     }
@@ -254,7 +256,7 @@ const submit = async () => {
 
     let file = await fileService.store(form.value);
     if (file.error) {
-      console.log(file);
+      
       loading.value = false;
       rollBack();
       return;
@@ -267,13 +269,11 @@ const submit = async () => {
     );
 
     if (payment.error) {
-      console.log(payment);
       rollBack();
       loading.value = false;
       return;
     }
 
-    console.log(payment);
     if (payment !== true) {
       loading.value = false;
       rollBack();
@@ -284,7 +284,7 @@ const submit = async () => {
     }
   } catch (error) {
     loading.value = false;
-    console.log(error);
+    
   }
 };
 
@@ -292,7 +292,6 @@ const rollBack = () => {
   //eliminar al postulante
   //eliminar el archivo
   //eliminar el pago
-  console.log("rollback", form.value);
   console.log("rollback");
 };
 </script>

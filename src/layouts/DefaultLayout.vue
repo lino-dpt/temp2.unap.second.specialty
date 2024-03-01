@@ -43,7 +43,7 @@ const callService = new CallService();
 const currentCall = ref(null);
 
 const init = async () => {
-  console.log(route.params.slug);
+  
 
   let callSlug = route.params.slug as string;
   let call = await callService.getCallBySlug(callSlug);

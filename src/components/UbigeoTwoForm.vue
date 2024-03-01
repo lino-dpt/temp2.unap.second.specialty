@@ -49,7 +49,7 @@ watch(
     let res = await axios.get(
       `https://segundas.unap.pe/api/search-ubigeo/${val}`
     );
-    console.log("data", res.data);
+    
     items.value = res.data;
   }, 500)
 );
