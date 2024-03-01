@@ -15,8 +15,8 @@
     :items="serverItems" :loading="loading" :search="search" item-value="Name"
     :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
     <template v-slot:[`item.Status`]="{ item }">
-      <v-chip :color="item.estado ? 'blue' : 'error'" dark label small>
-        {{ item.estado ? "Activo" : "Inactivo" }}
+      <v-chip :color="item.Status ? 'blue' : 'error'" dark label small>
+        {{ item.Status ? "Activo" : "Inactivo" }}
       </v-chip>
     </template>
     <template v-slot:item.actions="{ item }">
@@ -42,10 +42,10 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field v-model="editedItem.codigo" label="Codigo" />
-            <v-text-field v-model="editedItem.nombre" label="Nombre" />
-            <v-text-field v-model="editedItem.ubigeo" label="Ubigeo" />
-            <v-text-field v-model="editedItem.estado" label="Estado" />
+            <v-text-field v-model="editedItem.Code" label="Code" />
+            <v-text-field v-model="editedItem.Name" label="Name" />
+            <v-text-field v-model="editedItem.Address" label="Address" />
+            <v-text-field v-model="editedItem.Status" label="Status" />
           </v-col>
         </v-row>
       </v-container>
@@ -64,7 +64,6 @@ import axios from "axios";
 import { ref } from "vue";
 import DialogConfirm from "@/components/DialogConfirm.vue";
 
-const listDocumentTypes = ref([]);
 const loading = ref(false);
 
 const headers = ref([]);
@@ -74,26 +73,35 @@ const serverItems = ref([]);
 const search = ref("");
 
 const dialog = ref(false);
-const editedItem = ref({});
+const editedItem = ref({
+  Id: "",
+  Code: "",
+  Name: "",
+  Address: "",
+  Status: "",
+});
 const defaultItem = ref({
   Id: "",
-  codigo: "",
-  nombre: "",
-  ubigeo: "",
-  estado: "",
+  Code: "",
+  Name: "",
+  Address: "",
+  Status: "",
   // Status: true,
 });
 const editedIndex = ref(-1);
 
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
+  
   loading.value = true;
 
-  let res = await axios.post(`http://servicio_sedes.test/api/mostrar_todos_sede`, {
+  // let res = await axios.post(`http://servicio_sedes.test/api/mostrar_todos_sede`, {
+  let res = await axios.post('https://segundas.unap.pe/api/sedes', {
     page,
     itemsPerPage,
     sortBy,
     search,
   });
+
   let data = await res.data;
 
   headers.value = data.headers;
@@ -106,7 +114,8 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   loading.value = false;
 };
-const editItem = (item) => {
+
+const editItem = (item: typeof defaultItem) => {
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   dialog.value = true;
@@ -127,12 +136,12 @@ const close = () => {
 const saveRecord = async () => {
   if (editedIndex.value === -1) {
     let res = await axios.post("http://servicio_sedes.test/api/crear_sede", {
-      codigo: editedItem.value.codigo,
-      nombre: editedItem.value.nombre,
-      ubigeo: editedItem.value.ubigeo,
-      estado: editedItem.value.estado
+      Code: editedItem.value.Code,
+      Name: editedItem.value.Name,
+      Address: editedItem.value.Address,
+      Status: editedItem.value.Status
     });
-    serverItems.value.push({ estado: 1, ...res.data.data });
+    serverItems.value.push({ Status: 1, ...res.data.data });
 
     dialog.value = false;
   } else {
@@ -141,10 +150,10 @@ const saveRecord = async () => {
     let res = await axios.patch(
       "http://servicio_sedes.test/api/actualizar_sede/" + editedItem.value.Id,
       {
-        codigo: editedItem.value.codigo,
-        nombre: editedItem.value.nombre,
-        ubigeo: editedItem.value.ubigeo,
-        estado: editedItem.value.estado
+        Code: editedItem.value.Code,
+        Name: editedItem.value.Name,
+        Address: editedItem.value.Address,
+        Status: editedItem.value.Status
       }
     );
 
@@ -154,8 +163,8 @@ const saveRecord = async () => {
   }
 };
 
-const deleteItem = async (item) => {
-  let res = await axios.delete(
+const deleteItem = async (item: typeof defaultItem) => {
+  await axios.delete(
     "http://servicio_sedes.test/api/eliminar_un_sede/" + item.Id
   );
 
