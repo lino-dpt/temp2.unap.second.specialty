@@ -24,11 +24,11 @@
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
 
-      <v-btn icon color="red" density="compact" variant="tonal">
+      <!-- <v-btn icon color="red" density="compact" variant="tonal">
         <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.nombre}`"
           :text="`¿Está seguro de que desea eliminar este registro: ${item.nombre}?`"></DialogConfirm>
         <v-icon>mdi-delete</v-icon>
-      </v-btn>
+      </v-btn> -->
     </template>
   </v-data-table-server>
   <v-dialog v-model="dialog" max-width="80%">
@@ -51,7 +51,7 @@
             <v-autocomplete v-model="editedItem.PostulantId" :items="postulantes" label="Postulante"
               itemTitle="nombre_completo" itemValue="Id" variant="outlined">
             </v-autocomplete>
-            <v-checkbox v-model="editedItem.Status" label="Activo" />
+            <v-checkbox v-model="editedItem.Status" label="Entrevistado" />
           </v-col>
         </v-row>
 
@@ -124,10 +124,7 @@
   </v-dialog>
 
 
-
- 
   <div class="text-center">
-
 
     <v-snackbar
       v-model="tost_exito"
@@ -189,6 +186,7 @@ import axios from "axios";
 import DialogConfirm from "@/components/DialogConfirm.vue";
 import { ref } from "vue";
 import { onMounted } from "vue";
+import { isForInStatement } from "typescript";
 
 
 const loading = ref(false);
@@ -329,9 +327,18 @@ let arrayData = [
 
 const editItem = async (item:typeof defaultItem) => {
   console.log(item)
+
+  if(item.Status == 1){
+    item.Status = true;
+  }
+  else{
+    item.Status=false;
+  }
+
   editedIndex.value = serverItems.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
-  console.log(editedItem.value )
+  console.log(editedItem.value)
+
 
   try {
     
@@ -412,7 +419,9 @@ const saveRecord = async () => {
 
   } else {
 
-    let res = await axios.patch( 
+    console.log(editedItem.value)
+
+    let res = await axios.patch(
       // "http://174.138.178.194:8086/api/entrevista/" + editedItem.value.Id,
       "http://127.0.0.1:8000/api/entrevista/" + editedItem.value.Id,
       {
@@ -420,10 +429,6 @@ const saveRecord = async () => {
         indicators: arrayData
       }
     );
-
-    // res.data.success
-
-    // res.data.message
 
     if (res.data.success) {
         serverItems.value[editedIndex.value] = res.data.data;
@@ -434,17 +439,16 @@ const saveRecord = async () => {
         tost.value=true;
         tost_mensaje_error.value=res.data.message;
     }    
-
-    // console.log("update record");
-  }
-  
+  }  
 };
 
+/*
 const deleteItem = async (item: typeof defaultItem) => {
   await axios.delete(
     "http://174.138.178.194:8086/api/entrevista/" + item.Id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
-};
+};*/
+
 </script>
