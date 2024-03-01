@@ -3,7 +3,7 @@
     <v-card max-width="450" class="mx-auto my-5" rounded="lg" elevation="2">
       <v-container>
         <v-row class="mt-2">
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="12">
             <v-select
               v-model="form.documentType"
               :items="documentTypes"
@@ -16,7 +16,7 @@
             />
           </v-col>
 
-          <v-col cols="12" md="8" class="pb-0">
+          <v-col cols="12" md="12" class="pb-0">
             <v-text-field
               v-model="form.documentNumber"
               label="N° de documento"
@@ -28,7 +28,7 @@
               :maxLength="form.documentType === '001' ? 8 : 12"
             />
           </v-col>
-
+          <!-- 
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.paymentId"
@@ -50,21 +50,21 @@
               label="Monto del voucher"
               :rules="[isRequired, isDecimal]"
             />
-          </v-col>
+          </v-col> -->
 
-          <v-col cols="12" md="12">
+          <!-- <v-col cols="12" md="12">
             <v-toolbar density="compact">
               <v-toolbar-title>
                 <small> Voucher </small>
               </v-toolbar-title>
               <v-spacer></v-spacer>
-              <!-- <v-btn
+              <v-btn
                 prepend-icon="mdi-information-variant-circle-outline"
                 density="compact"
                 @click="dialogExample = true"
               >
                 <small> Ejemplo</small>
-              </v-btn> -->
+              </v-btn>
             </v-toolbar>
 
             <v-card variant="tonal" rounded="0">
@@ -86,7 +86,7 @@
             <small v-if="errorValidationImage" class="text-error ms-2">
               {{ errorValidationImage }}
             </small>
-          </v-col>
+          </v-col> -->
           <v-col cols="12">
             <v-btn type="submit" variant="flat" block :loading="loading">
               Iniciar preinscripción
@@ -125,18 +125,18 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import CropCompressImage from "@/components/CropCompressImage.vue";
+// import CropCompressImage from "@/components/CropCompressImage.vue";
 import {
   isDni,
   isCE,
   isRequired,
-  isNumber,
-  isDecimal,
+  // isNumber,
+  // isDecimal,
 } from "@/helpers/validations";
 import { PostulantInitPreInscription } from "@/types/postulantTypes";
 import PostulantService from "@/services/PostulantService";
-import PaymentService from "@/services/PaymentService";
-import FileService from "@/services/FileService";
+// import PaymentService from "@/services/PaymentService";
+// import FileService from "@/services/FileService";
 
 const router = useRouter();
 const route = useRoute();
@@ -144,11 +144,11 @@ const route = useRoute();
 const loading = ref(false);
 
 const postulantService = new PostulantService();
-const paymentService = new PaymentService();
-const fileService = new FileService();
+// const paymentService = new PaymentService();
+// const fileService = new FileService();
 
 const emit = defineEmits(["onSuccess"]);
-const previewImg = ref(null);
+// const previewImg = ref(null);
 const dialogExample = ref(false);
 
 const dialogContinue = ref(false);
@@ -181,30 +181,30 @@ const form: Ref<PostulantInitPreInscription> = ref({
   fileId: null,
 });
 
-const errorValidationImage = ref("");
+// const errorValidationImage = ref("");
 
-const validateImage = (file: File) => {
-  errorValidationImage.value = "";
-  if (!file) return "El archivo es requerido";
-  const validImageTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/jpg",
-    "image/gif",
-    "image/svg",
-    "image/webp",
-  ];
-  //validar el tipo
-  if (!validImageTypes.includes(file.type)) {
-    return "Solo se permiten archivos de imagen (jpeg, png)";
-  }
-  //validar el tamaño
-  if (file.size > 2000000) {
-    return "El tamaño de la imagen no debe superar los 2MB";
-  }
+// const validateImage = (file: File) => {
+//   errorValidationImage.value = "";
+//   if (!file) return "El archivo es requerido";
+//   const validImageTypes = [
+//     "image/jpeg",
+//     "image/png",
+//     "image/jpg",
+//     "image/gif",
+//     "image/svg",
+//     "image/webp",
+//   ];
+//   //validar el tipo
+//   if (!validImageTypes.includes(file.type)) {
+//     return "Solo se permiten archivos de imagen (jpeg, png)";
+//   }
+//   //validar el tamaño
+//   if (file.size > 2000000) {
+//     return "El tamaño de la imagen no debe superar los 2MB";
+//   }
 
-  return "";
-};
+//   return "";
+// };
 
 const searchPreinscription = async (e: string) => {
   idHash.value = "";
@@ -237,11 +237,13 @@ const continuePreinscription = () => {
 
 const submit = async () => {
   const { valid } = await formRef.value.validate();
-  if (form.value.paymentVoucher === null) {
-    errorValidationImage.value = "El archivo es requerido";
-    return;
-  }
-  errorValidationImage.value = validateImage(form.value.paymentVoucher);
+
+  // if (form.value.paymentVoucher === null) {
+  //   errorValidationImage.value = "El archivo es requerido";
+  //   return;
+  // }
+
+  // errorValidationImage.value = validateImage(form.value.paymentVoucher);
   if (!valid) return;
 
   loading.value = true;
@@ -253,9 +255,15 @@ const submit = async () => {
     }
     form.value.postulantId = postulant.id;
 
-    // si no hay pago no guardar nada? postulant.paymentId
+    if (postulant.id) {
+      let callSlug = route.params.slug as string;
+      router.push(`/${callSlug}/preinscripcion/${form.value.postulantId}`);
+    }
 
+    // si no hay pago no guardar nada? postulant.paymentId
+    /*
     let file = await fileService.store(form.value);
+
     if (file.error) {
       loading.value = false;
       rollBack();
@@ -282,15 +290,16 @@ const submit = async () => {
       let callSlug = route.params.slug as string;
       router.push(`/${callSlug}/preinscripcion/${form.value.postulantId}`);
     }
+    */
   } catch (error) {
     loading.value = false;
   }
 };
 
-const rollBack = () => {
-  //eliminar al postulante
-  //eliminar el archivo
-  //eliminar el pago
-  console.log("rollback");
-};
+// const rollBack = () => {
+//eliminar al postulante
+//eliminar el archivo
+//eliminar el pago
+// console.log("rollback");
+// };
 </script>
