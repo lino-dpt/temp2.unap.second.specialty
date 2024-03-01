@@ -39,7 +39,7 @@
           <v-col cols="12" md="12">
             <v-text-field
               v-model="form.paymentDate"
-              label="Fecha"
+              label="Fecha de pago del voucher"
               type="date"
               :rules="[isRequired]"
             />
