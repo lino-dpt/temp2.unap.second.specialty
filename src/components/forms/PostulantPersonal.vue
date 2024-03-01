@@ -202,6 +202,7 @@
           itemValue="value"
           :clearable="false"
           :rules="[isRequired]"
+          :return-object="false"
         />
       </v-col>
     </v-row>
