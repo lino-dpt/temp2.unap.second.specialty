@@ -72,7 +72,7 @@
                 :aspect-ratio="1"
                 @onCropper="
                   (previewImg = $event.blob),
-                    (form.paymentVoucher = $event.base64)
+                    (form.paymentVoucher = $event.file)
                 "
               />
               <v-img
