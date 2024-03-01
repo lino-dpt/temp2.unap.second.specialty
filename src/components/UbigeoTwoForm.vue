@@ -47,7 +47,7 @@ watch(
       if (currentSelect[0]?.text == search.value) return;
     }
     let res = await axios.get(
-      `http://174.138.178.194:8086/api/search-ubigeo/${val}`
+      `https://segundas.unap.pe/api/search-ubigeo/${val}`
     );
     console.log("data", res.data);
     items.value = res.data;
