@@ -253,6 +253,8 @@ const submit = async () => {
     }
     form.value.postulantId = postulant.id;
 
+    // si no hay pago no guardar nada? postulant.paymentId
+
     let file = await fileService.store(form.value);
     if (file.error) {
       loading.value = false;
