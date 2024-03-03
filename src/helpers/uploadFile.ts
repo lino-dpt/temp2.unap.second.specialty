@@ -32,12 +32,10 @@ const loadImageHelper = (event) => {
     }
     //validar que el archivo no supere el tamaño maximo 2MB
 
-    if (files[0].size > 2000000) {
-        alert("El archivo no debe superar los 2MB");
+    if (files[0].size > 5000000) {
+        alert("El archivo no debe superar los 5MB");
         return false;
     }
-
-
 
     var image = {
         src: null,

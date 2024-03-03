@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar flat density="compact" title="Foto de postulante" />
+  <v-toolbar flat density="compact" title="Foto de postulante (Max. 2MB)" />
   <v-container>
     <v-row>
       <v-col cols="12" md="12">

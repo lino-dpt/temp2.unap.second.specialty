@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar flat density="compact" title="Documentos" />
+  <v-toolbar flat density="compact" title="Documentos (Max. 2MB) " />
   <v-container>
     <v-row>
       <v-col cols="12">
