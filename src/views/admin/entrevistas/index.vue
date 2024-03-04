@@ -54,8 +54,6 @@
             <v-checkbox v-model="editedItem.Status" label="Entrevistado" />
           </v-col>
         </v-row>
-
-        <!-- <form   @submit="EnviarP"> -->
         <v-table>
           <thead>
             <tr>
@@ -111,8 +109,6 @@
             </tr>
           </tbody>
         </v-table>
-        <!-- <button type="submit">enviar</button>
-           </form> -->
       </v-container>
 
       <v-card-actions>
@@ -148,10 +144,7 @@
   </div> 
 
  
- 
- 
   <div class="text-center">
-
 
     <v-snackbar
       v-model="tost"
@@ -173,12 +166,7 @@
       </template>
     </v-snackbar>
   </div> 
-
- 
- 
-
-
-  
+    
 </template>
 
 <script setup lang="ts">
@@ -420,7 +408,7 @@ const saveRecord = async () => {
     }else{
         tost_mensaje_error.value=res.data.message;
         tost.value=true;
-    } 
+    }
 
   } else {
 
