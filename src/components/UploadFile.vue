@@ -73,8 +73,8 @@ const uploadFile = (e) => {
   const file = e.target.files[0];
   //validar el tamaño del archivo a "2MB"
   console.log(file.size);
-  if (file.size > 2000000) {
-    alert("El archivo es muy grande");
+  if (file.size > 5000000) {
+    alert("El archivo es muy grande (Max. 2MB)");
     return;
   }
   if (file.type !== "application/pdf") {
