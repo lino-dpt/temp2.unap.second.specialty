@@ -97,6 +97,82 @@
     </v-card>
   </v-form>
 
+  <v-container>
+    <v-card max-width="800" class="mx-auto my-5">
+
+        <v-list lines="two">
+          <v-list-item
+            subtitle="Cronograma Programas de Segunda Especialidad UNA"
+          >
+            <template #append>
+              <v-btn
+                color="primary"
+                variant="outlined"
+                link
+                href="/uploads/anexos/ANEXO 03 A - CRONOGRAMA.pdf"
+                target="_blank"
+                icon="mdi-download"
+                density="comfortable"
+              >
+     
+              </v-btn>
+            </template>
+          </v-list-item>
+
+          <v-list-item subtitle="Instrumento de Entrevista Personal">
+            <template #append>
+              <v-btn
+                color="primary"
+                variant="outlined"
+                link
+                href="/uploads/anexos/ANEXO 04 - INSTRUMENTO DE ENTREVISTA.pdf"
+                target="_blank"
+                icon="mdi-download"
+                density="comfortable"
+              >
+          
+              </v-btn>
+            </template>
+          </v-list-item>
+
+          <v-list-item subtitle="Carta de Compromiso">
+            <template #append>
+              <v-btn
+                color="primary"
+                variant="outlined"
+                link
+                href="/uploads/anexos/CARTA DE COMPROMISO.pdf"
+                target="_blank"
+                icon="mdi-download"
+                density="comfortable"
+              >
+         
+              </v-btn>
+            </template>
+          </v-list-item>
+
+          <v-list-item subtitle="Declaración Jurada">
+            <template #append>
+              <v-btn
+                color="primary"
+                variant="outlined"
+                link
+                href="/uploads/anexos/DECLARACION JURADA.pdf"
+                target="_blank"
+                icon="mdi-download"
+                density="comfortable"
+              >
+              
+              </v-btn>
+            </template>
+          </v-list-item>
+
+          
+        </v-list>
+
+    </v-card>
+  </v-container>
+
   <v-dialog v-model="dialogExample">
     <v-card width="300px" class="mx-auto">
       <v-img
