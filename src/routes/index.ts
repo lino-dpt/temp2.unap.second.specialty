@@ -2,6 +2,11 @@ import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
+import sede from "./sede.ts";
+import routes_convocatorias from "./convocatoria.ts";
+import routes_institucionorigen from "./institucionorigen.ts";
+import routes_vacantes from "./vacante.ts";
+import routes_entrevistas from "./entrevistas.ts";
 
 import AuthService from "@/services/AuthService";
 
