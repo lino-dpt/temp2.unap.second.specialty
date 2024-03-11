@@ -1,6 +1,11 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
+
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
+
+import AuthService from "@/services/AuthService";
+
+//de authService usar e current user para verificar si el usuario esta autenticado en las rutas protegidas /a
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,6 +17,7 @@ const routes: RouteRecordRaw[] = [
     path: "/",
     name: "DefaultLayout",
     component: DefaultLayout,
+
     children: [
       //redureccion a la pagina de inicio cuando no se encuentra la ruta
       {
@@ -40,6 +46,7 @@ const routes: RouteRecordRaw[] = [
     path: "/a",
     name: "AdminLayout",
     component: AdminLayout,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "",
@@ -84,6 +91,20 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const authService = new AuthService();
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const isAuthenticated = await authService.validateToken();
+
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else if (to.name === "Auth" && isAuthenticated) {
+    next("/a");
+  } else {
+    next();
+  }
 });
 
 export default router;

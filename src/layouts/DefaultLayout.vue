@@ -10,7 +10,9 @@
             <p class="text-caption">
               Universidad Nacional del Altiplano - Puno
             </p>
-            <h1 class="">{{ currentCall? currentCall.Name : "Convocatorias" }}</h1>
+            <h1 class="">
+              {{ currentCall ? currentCall.Name : "Convocatorias" }}
+            </h1>
             <p class="text-caption">Segundas Especialidades</p>
           </div>
 
@@ -43,8 +45,6 @@ const callService = new CallService();
 const currentCall = ref(null);
 
 const init = async () => {
-  
-
   let callSlug = route.params.slug as string;
   let call = await callService.getCallBySlug(callSlug);
 
