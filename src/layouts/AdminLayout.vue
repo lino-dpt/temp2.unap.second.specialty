@@ -9,9 +9,7 @@
         />
       </v-avatar>
       <v-spacer></v-spacer>
-      <v-btn icon variant="tonal" density="comfortable">
-        <v-icon>mdi-bell</v-icon>
-      </v-btn>
+
       <v-menu offset-y>
         <template v-slot:activator="{ props }">
           <v-btn
@@ -25,16 +23,9 @@
           </v-btn>
         </template>
         <v-list nav>
-          <v-list-item
-            v-for="(item, index) in listMenuAccount"
-            :key="index"
-            :title="item.title"
-            link
-            :to="item.to ? 'item.to' : '#'"
-            @click="item.action ? item.action : null"
-          >
+          <v-list-item title="Cerrar sesión" @click="signOut()">
             <template #append>
-              <v-icon :color="item.color">{{ item.icon }}</v-icon>
+              <v-icon color="red"> mdi-logout </v-icon>
             </template>
           </v-list-item>
         </v-list>
@@ -62,7 +53,6 @@
               v-for="(subItem, i) in item.children"
               :key="i"
               :title="subItem.title"
-              :prepend-icon="subItem.icon"
               :value="subItem.title"
               :to="subItem.to"
             />
@@ -74,40 +64,47 @@
     <v-main>
       <router-view />
     </v-main>
-    <v-footer app color="grey" height="44"></v-footer>
+    <!-- <v-footer app absolute color="grey" height="44"></v-footer> -->
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import AuthService from "@/services/AuthService";
 
-const singOut = () => {
-  console.log("singOut");
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const authService = new AuthService();
+const signOut = async () => {
+  await authService.signOut();
+  router.push("/login");
 };
 
-const listMenuAccount = [
-  {
-    title: "Perfil",
-    icon: "mdi-account",
-    color: "grey",
-    to: "/a/profile",
-    action: null,
-  },
-  {
-    title: "Configuración",
-    icon: "mdi-cog",
-    color: "grey",
-    to: "/a/settings",
-    action: null,
-  },
-  {
-    title: "Cerrar sesión",
-    icon: "mdi-logout",
-    color: "red",
-    to: null,
-    action: singOut,
-  },
-];
+// const listMenuAccount = [
+//   {
+//     title: "Perfil",
+//     icon: "mdi-account",
+//     color: "grey",
+//     to: "/a/profile",
+//     action: null,
+//   },
+//   {
+//     title: "Configuración",
+//     icon: "mdi-cog",
+//     color: "grey",
+//     to: "/a/settings",
+//     action: null,
+//   },
+//   {
+//     title: "Cerrar sesión",
+//     icon: "mdi-logout",
+//     color: "red",
+//     to: null,
+//     action: signOut,
+//   },
+// ];
 
 const menu = ref([
   {
@@ -122,41 +119,41 @@ const menu = ref([
     to: "/a/postulants",
     children: [],
   },
-  {
-    title: "Usuarios",
-    icon: "mdi-account-group",
-    to: "/a/users",
-    children: [],
-  },
+  // {
+  //   title: "Usuarios",
+  //   icon: "mdi-account-group",
+  //   to: "/a/users",
+  //   children: [],
+  // },
 
-  {
-    title: "Seguridad",
-    icon: "mdi-lock",
-    to: "/a/security",
-    children: [
-      {
-        title: "Roles",
-        icon: "mdi-account-group",
-        to: "/a/security",
-      },
-      {
-        title: "Permisos",
-        icon: "mdi-account-group",
-        to: "/a/security",
-      },
-    ],
-  },
-  {
-    title: "Configuración",
-    icon: "mdi-cog",
-    to: "/a/settings",
-    children: [
-      {
-        title: "Tipos de documentos",
-        icon: "mdi-account-group",
-        to: "/a/document-types",
-      },
-    ],
-  },
+  // {
+  //   title: "Seguridad",
+  //   icon: "mdi-lock",
+  //   to: "/a/security",
+  //   children: [
+  //     {
+  //       title: "Roles",
+  //       icon: "mdi-account-group",
+  //       to: "/a/security",
+  //     },
+  //     {
+  //       title: "Permisos",
+  //       icon: "mdi-account-group",
+  //       to: "/a/security",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "Configuración",
+  //   icon: "mdi-cog",
+  //   to: "/a/settings",
+  //   children: [
+  //     {
+  //       title: "Tipos de documentos",
+  //       icon: "mdi-account-group",
+  //       to: "/a/document-types",
+  //     },
+  //   ],
+  // },
 ]);
 </script>

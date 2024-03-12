@@ -2,11 +2,11 @@ import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
-import sede from "./sede.ts";
-import routes_convocatorias from "./convocatoria.ts";
-import routes_institucionorigen from "./institucionorigen.ts";
-import routes_vacantes from "./vacante.ts";
-import routes_entrevistas from "./entrevistas.ts";
+// import sede from "./sede.ts";
+// import routes_convocatorias from "./convocatoria.ts";
+// import routes_institucionorigen from "./institucionorigen.ts";
+// import routes_vacantes from "./vacante.ts";
+// import routes_entrevistas from "./entrevistas.ts";
 
 import AuthService from "@/services/AuthService";
 
@@ -49,7 +49,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: "/a",
-    name: "AdminLayout",
+    name: "a",
     component: AdminLayout,
     meta: { requiresAuth: true },
     children: [
@@ -79,8 +79,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/admin/postulants/index.vue"),
       },
       {
-        path: "postulants/:id",
-        name: "Postulant",
+        //path: "postulants/show/:id/?:tab",
+        path: "postulants/show/:id/:tab?",
+        name: "postulant.show",
         component: () => import("@/views/admin/postulants/show.vue"),
       },
 
@@ -99,6 +100,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  console.log(from);
+
   const authService = new AuthService();
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const isAuthenticated = await authService.validateToken();

@@ -8,21 +8,45 @@
   </v-toolbar>
   <v-card-title>
     <v-col cols="12">
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-col>
   </v-card-title>
-  <v-data-table-server class="border" v-model:items-per-page="itemsPerPage" :headers="headers" :items-length="totalItems"
-    :items="serverItems" :loading="loading" :search="search" item-value="Name"
-    :items-per-page-options="[1, 5, 10, 25, 50]" @update:options="loadItems">
-
+  <v-data-table-server
+    class="border"
+    v-model:items-per-page="itemsPerPage"
+    :headers="headers"
+    :items-length="totalItems"
+    :items="serverItems"
+    :loading="loading"
+    :search="search"
+    item-value="Name"
+    :items-per-page-options="[1, 5, 10, 25, 50]"
+    @update:options="loadItems"
+  >
     <template v-slot:item.actions="{ item }">
-      <v-btn icon @click="editItem(item)" class="mr-2" color="green darken-4" density="compact" variant="tonal">
+      <v-btn
+        icon
+        @click="editItem(item)"
+        class="mr-2"
+        color="green darken-4"
+        density="compact"
+        variant="tonal"
+      >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
 
       <v-btn icon color="red" density="compact" variant="tonal">
-        <DialogConfirm @onConfirm="deleteItem(item)" :title="`Eliminar ${item.nombre}`"
-          :text="`¿Está seguro de que desea eliminar  ${item.nombre}?`"></DialogConfirm>
+        <DialogConfirm
+          @onConfirm="deleteItem(item)"
+          :title="`Eliminar ${item.nombre}`"
+          :text="`¿Está seguro de que desea eliminar  ${item.nombre}?`"
+        ></DialogConfirm>
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -38,10 +62,22 @@
       <v-container>
         <v-row>
           <v-col cols="12">
-            <v-text-field v-model="editedItem.nombre" label="nombre"></v-text-field>
-            <v-text-field v-model="editedItem.codigo" label="codigo"></v-text-field>
-            <v-text-field v-model="editedItem.ubigeo" label="ubigeo"></v-text-field>
-            <v-text-field v-model="editedItem.pais_id" label="pais_id"></v-text-field>
+            <v-text-field
+              v-model="editedItem.nombre"
+              label="nombre"
+            ></v-text-field>
+            <v-text-field
+              v-model="editedItem.codigo"
+              label="codigo"
+            ></v-text-field>
+            <v-text-field
+              v-model="editedItem.ubigeo"
+              label="ubigeo"
+            ></v-text-field>
+            <v-text-field
+              v-model="editedItem.pais_id"
+              label="pais_id"
+            ></v-text-field>
             <v-text-field v-model="editedItem.tipo" label="tipo"></v-text-field>
           </v-col>
         </v-row>
@@ -49,8 +85,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
-        <v-btn variant="tonal" text @click="saveRecord">Guardar</v-btn>
+        <v-btn color="red darken-1" @click="close">Cancelar</v-btn>
+        <v-btn variant="tonal" @click="saveRecord">Guardar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -59,9 +95,9 @@
 <script setup lang="ts">
 import axios from "axios";
 import DialogConfirm from "@/components/DialogConfirm.vue";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
-const listDocumentTypes = ref([]);
+// const listDocumentTypes = ref([]);
 const loading = ref(false);
 
 const headers = ref([]);
@@ -70,15 +106,24 @@ const totalItems = ref(0);
 const serverItems = ref([]);
 const search = ref("");
 
+interface IItem {
+  id: string;
+  nombre: string;
+  codigo: string;
+  ubigeo: string;
+  tipo: string;
+  pais_id: string;
+}
+
 const dialog = ref(false);
-const editedItem = ref({});
+const editedItem: Ref<IItem | null> = ref(null);
 const defaultItem = ref({
   id: "",
   nombre: "",
   codigo: "",
   ubigeo: "",
   tipo: "",
-  pais_id: ""
+  pais_id: "",
 });
 const editedIndex = ref(-1);
 
@@ -87,12 +132,15 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
 
   // let res = await axios.get("http://segundas.unap.pe/api/institucionesOrigen", {
   // let res = await axios.post("http://segundas.unap.pe/api/institucionesOrigen", {
-  let res = await axios.post("http://174.138.178.194:8083/api/institucionorigens", {
-    page,
-    itemsPerPage,
-    sortBy,
-    search,
-  });
+  let res = await axios.post(
+    "http://174.138.178.194:8083/api/institucionorigens",
+    {
+      page,
+      itemsPerPage,
+      sortBy,
+      search,
+    }
+  );
   let data = await res.data;
 
   console.log("data", data);
@@ -128,13 +176,16 @@ const close = () => {
 const saveRecord = async () => {
   if (editedIndex.value === -1) {
     // let res = await axios.post("http://segundas.unap.pe/api/institucionOrigen", {
-    let res = await axios.post("http://servicio_institucionorigen.test/api/institucionorigensstore", {
-      nombre: editedItem.value.nombre,
-      codigo: editedItem.value.codigo,
-      ubigeo: editedItem.value.ubigeo,
-      pais_id: editedItem.value.pais_id,
-      tipo: editedItem.value.tipo
-    });
+    let res = await axios.post(
+      "http://servicio_institucionorigen.test/api/institucionorigensstore",
+      {
+        nombre: editedItem.value.nombre,
+        codigo: editedItem.value.codigo,
+        ubigeo: editedItem.value.ubigeo,
+        pais_id: editedItem.value.pais_id,
+        tipo: editedItem.value.tipo,
+      }
+    );
     serverItems.value.push({ ...res.data.data });
 
     dialog.value = false;
@@ -143,13 +194,14 @@ const saveRecord = async () => {
 
     let res = await axios.patch(
       // "http://segundas.unap.pe/api/institucionOrigen/" + editedItem.value.id,
-      "http://servicio_institucionorigen.test/api/institucionorigens/" + editedItem.value.id,
+      "http://servicio_institucionorigen.test/api/institucionorigens/" +
+        editedItem.value.id,
       {
         nombre: editedItem.value.nombre,
         codigo: editedItem.value.codigo,
         ubigeo: editedItem.value.ubigeo,
         pais_id: editedItem.value.pais_id,
-        tipo: editedItem.value.tipo
+        tipo: editedItem.value.tipo,
       }
     );
 
@@ -160,12 +212,11 @@ const saveRecord = async () => {
 };
 
 const deleteItem = async (item) => {
-  let res = await axios.delete(
+  await axios.delete(
     // "http://segundas.unap.pe/api/institucionOrigen/" + item.id
     "http://servicio_institucionorigen.test/api/institucionorigens/" + item.id
   );
 
   serverItems.value.splice(serverItems.value.indexOf(item), 1);
 };
-
 </script>

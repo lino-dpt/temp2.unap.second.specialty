@@ -18,8 +18,8 @@ export default class AcademicProgramService {
     const response = await this.http.post(`sign-in`, credentials);
     if (response.data.status === true) {
 
-      console.log('el token se guardo en el localstorage');
-      
+      // console.log('el token se guardo en el localstorage');
+
       localStorage.setItem("token", response.data.token);
     }
     return response.data;
@@ -38,5 +38,15 @@ export default class AcademicProgramService {
     } catch (error) {
       return false;
     }
+  }
+  // Route::post('/sign-out', [App\Http\Controllers\Api\Auth\AuthController::class, 'signOut'])->middleware('auth:sanctum');
+  async signOut() {
+    const response = await this.http.post(`sign-out`, null, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    localStorage.removeItem("token");
+    return response.data;
   }
 }

@@ -1,0 +1,1 @@
+const t=e=>!!e||"Campo Obligatorio.",s=e=>/.+@.+\..+/.test(e)?!0:"El email debe ser válido.",i=e=>/^[0-9]+$/.test(e)?!0:"Solo se permite números.",r=e=>/^[0-9]{8}$/.test(e)?!0:"El DNI debe tener 8 dígitos.",o=e=>/^[0-9]{12}$/.test(e)?!0:"El carnet de extranjeria debe tener 12 dígitos.";export{r as a,o as b,i as c,s as d,t as i};

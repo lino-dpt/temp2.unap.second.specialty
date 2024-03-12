@@ -21,7 +21,6 @@ export default class PostulantService {
   }
   //buscar postulante por Numero de documento
   // Route::get('search-postulant-by-document', [PostulantController::class, 'searchPostulantByDocument']);
-
   async searchPostulantByDocument(
     documentType: string,
     documentNumber: string
@@ -34,7 +33,6 @@ export default class PostulantService {
 
   //buscar postulante por Id
   // Route::get('search-postulant-by-id', [PostulantController::class, 'searchPostulantById']);
-
   async searchPostulantById(id: string) {
     const response = await this.http.get(`search-postulant-by-id/${id}`);
     return response.data;
@@ -51,6 +49,6 @@ export default class PostulantService {
     const response = await this.http.delete(`delete-postulant/${id}`);
     return response.data;
   }
-  
+
 
 }

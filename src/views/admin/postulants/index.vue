@@ -2,9 +2,6 @@
   <v-toolbar>
     <v-list-item subtitle="Gestion de postulantes" title="Postulantes" />
     <v-spacer></v-spacer>
-    <v-btn prepend-icon="mdi-plus" variant="tonal" @click="newRecord">
-      Nuevo
-    </v-btn>
   </v-toolbar>
   <v-data-table-server
     class="border"
@@ -25,57 +22,22 @@
     </template>
     <template v-slot:item.actions="{ item }">
       <v-btn
-        icon
-        @click="editItem(item)"
-        class="mr-2"
-        color="teal darken-1"
-        density="compact"
+        prepend-icon="mdi-plus"
+        color="primary"
         variant="tonal"
+        link
+        :to="`/a/postulants/show/${item.Id}/generals`"
       >
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-
-      <v-btn icon color="red" density="compact" variant="tonal">
-        <DialogConfirm
-          @onConfirm="deleteItem(item)"
-          :title="`Eliminar ${item.Name}`"
-          :text="`¿Está seguro de que desea eliminar el tipo de documento ${item.Name}?`"
-        ></DialogConfirm>
-        <v-icon>mdi-delete</v-icon>
+        Detalles
       </v-btn>
     </template>
   </v-data-table-server>
-  <v-dialog v-model="dialog" max-width="500px">
-    <v-card>
-      <v-card-title>
-        <span class="headline">
-          {{ editedIndex === -1 ? "Nuevo" : "Editar" }}
-        </span>
-      </v-card-title>
-
-      <v-container>
-        <v-row>
-          <v-col cols="12">
-            <v-text-field v-model="editedItem.Name" label="Nombre" />
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="red darken-1" @click="close">Cancelar</v-btn>
-        <v-btn variant="tonal" @click="saveRecord">Guardar</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
 </template>
 
 <script setup lang="ts">
 import axios from "axios";
-import { ref, Ref } from "vue";
-import DialogConfirm from "@/components/DialogConfirm.vue";
+import { ref } from "vue";
 
-// const listDocumentTypes = ref([]);
 const loading = ref(false);
 
 const headers = ref([]);
@@ -84,25 +46,11 @@ const totalItems = ref(0);
 const serverItems = ref([]);
 const search = ref("");
 
-interface DocumentType {
-  Id?: number;
-  Name: string;
-  Status: boolean;
-}
-
-const dialog = ref(false);
-const editedItem: Ref<DocumentType> = ref({} as DocumentType);
-const defaultItem = ref({
-  Name: "",
-  Status: true,
-});
-const editedIndex = ref(-1);
-
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
 
   let res = await axios.post(
-    `http://127.0.0.1:6060/api/postulants/list`,
+    `https://data.segundas.unap.edu.pe/api/postulants/list`,
     {
       page,
       itemsPerPage,
@@ -122,59 +70,10 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   totalItems.value = data.items.total;
   serverItems.value = data.items.data;
 
-  console.log("page", page);
-  console.log("itemsPerPage", itemsPerPage);
-  console.log("sortBy", sortBy);
+  // console.log("page", page);
+  // console.log("itemsPerPage", itemsPerPage);
+  // console.log("sortBy", sortBy);
 
   loading.value = false;
-};
-const editItem = (item: DocumentType) => {
-  editedIndex.value = serverItems.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
-  dialog.value = true;
-};
-
-const newRecord = () => {
-  editedIndex.value = -1;
-  editedItem.value = Object.assign({}, defaultItem.value);
-  dialog.value = true;
-};
-
-const close = () => {
-  editedIndex.value = -1;
-  editedItem.value = Object.assign({}, defaultItem.value);
-  dialog.value = false;
-};
-
-const saveRecord = async () => {
-  if (editedIndex.value === -1) {
-    let res = await axios.post("http://127.0.0.1:6060/api/document-types/", {
-      Name: editedItem.value.Name,
-      Status: editedItem.value.Status,
-    });
-    serverItems.value.push({ Status: 1, ...res.data.documentType });
-
-    dialog.value = false;
-  } else {
-    console.log("editedItem", editedItem.value);
-
-    let res = await axios.put(
-      "http://127.0.0.1:8000/api/document-types/" + editedItem.value.Id,
-      {
-        Name: editedItem.value.Name,
-        Status: editedItem.value.Status,
-      }
-    );
-
-    serverItems.value[editedIndex.value] = res.data.documentType;
-    dialog.value = false;
-    console.log("update record");
-  }
-};
-
-const deleteItem = async (item) => {
-  await axios.delete("http://127.0.0.1:8000/api/document-types/" + item.Id);
-
-  serverItems.value.splice(serverItems.value.indexOf(item), 1);
 };
 </script>
