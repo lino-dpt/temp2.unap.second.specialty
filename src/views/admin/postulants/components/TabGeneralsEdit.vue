@@ -67,6 +67,19 @@
             <v-list-item-title>
               {{ item.Value }}
             </v-list-item-title>
+            <template #append>
+              <v-btn
+              variant="tonal"
+                size="small"
+                icon
+                color="primary"
+                @click="
+                  (dialogMediaContacts = true), (formMediaContacts = item)
+                "
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
           </v-list-item>
         </v-card>
       </v-col>
@@ -178,7 +191,39 @@
       </v-card>
     </v-form>
   </v-dialog>
-  
+
+  <v-dialog v-model="dialogMediaContacts" width="400">
+    <v-form ref="formMediaContactsRef" @submit.prevent="submitMediaContacts">
+      <v-card
+        max-width="600"
+        prepend-icon="mdi-pencil"
+        title="Editar medio de contacto"
+      >
+        <v-card-text>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                v-model="formMediaContacts.Value"
+                label="Value"
+                :rules="[(v) => !!v || 'El nombre es requerido']"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <template v-slot:actions>
+          <v-btn
+            color="red"
+            variant="tonal"
+            class="ms-auto px-4"
+            text="cancelar"
+            @click="dialogMediaContacts = false"
+          ></v-btn>
+          <v-spacer></v-spacer>
+          <v-btn type="submit" class="ms-auto px-4" text="guardar"></v-btn>
+        </template>
+      </v-card>
+    </v-form>
+  </v-dialog>
 </template>
 <script setup lang="ts">
 import axios from "axios";
@@ -191,8 +236,18 @@ const props = defineProps({
 });
 
 const formGenerals = ref(null);
+const formMediaContactsRef = ref(null);
 
 const dialogGenerals = ref(false);
+const dialogMediaContacts = ref(false);
+
+const formMediaContacts = ref({
+  Id: null,
+  Type: null,
+  Value: null,
+  Status: null,
+  PostulantId: null,
+});
 
 const fromGeneral = ref({
   id: props.data?.Id,
@@ -243,7 +298,28 @@ const submitGenerals = async () => {
     alert(res.data.details);
   }
 
-
   //   await updatePostulantGenerals(fromGeneral.value);
+};
+
+const submitMediaContacts = async () => {
+  let { valid } = await formMediaContactsRef.value.validate();
+  if (!valid) return;
+
+  let res = await axios.post(
+    `https://data.segundas.unap.edu.pe/api/postulants/update-media-contacts/`,
+    formMediaContacts.value,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+
+  if (res.data === true) {
+    dialogMediaContacts.value = false;
+    emit("onUpdate", true);
+  } else {
+    alert(res.data.details);
+  }
 };
 </script>
