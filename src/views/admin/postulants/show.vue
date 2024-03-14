@@ -22,13 +22,14 @@
       CV
     </v-tab> -->
   </v-tabs>
-  <template v-if="tab === 'generals'">
-    <TabGenerals :data="dataGenerals" />
-  </template>
+    <template v-if="tab === 'generals'">
+      <TabGenerals :data="dataGenerals" />
+    </template>
 
-  <template v-else>
-    <TabCv />
-  </template>
+    <template v-else>
+      <TabCv />
+    </template>
+
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
@@ -44,8 +45,6 @@ const dataGenerals = ref(null);
 
 const onchangeTab = async (value: string) => {
   if (value === "generals") {
-    // console.log("generals");
-
     dataGenerals.value = await getPostulantsGenerals(route.params.id as string);
   }
 };

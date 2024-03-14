@@ -29,14 +29,16 @@
                 <v-col cols="12">
                   <v-text-field
                     v-model="form.email"
-                    label="Usuario"
-                    append-inner-icon="mdi-account"
+                    label="Correo/Usuario"
+                    prepend-inner-icon="mdi-account"
                     :rules="[isRequired]"
+                    :clearable="false"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     v-model="form.password"
+                    prepend-inner-icon="mdi-key"
                     :append-inner-icon="
                       passwordHide ? 'mdi-eye' : 'mdi-eye-off'
                     "
@@ -44,14 +46,15 @@
                     @click:append-inner="() => (passwordHide = !passwordHide)"
                     label="Contraseña"
                     :rules="[isRequired]"
+                    :clearable="false"
                   ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
             <v-card-actions>
-              <v-btn color="primary" type="submit" block variant="flat"
-                >Ingresar</v-btn
-              >
+              <v-btn color="primary" type="submit" :loading="loading">
+                Ingresar
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -74,6 +77,8 @@ import { useRouter } from "vue-router";
 import { isRequired } from "@/helpers/validations";
 import AuthService from "@/services/AuthService";
 
+const loading = ref(false);
+
 const formRef = ref(null);
 const passwordHide = ref(true);
 const authService = new AuthService();
@@ -88,13 +93,15 @@ const form = ref({
 const submit = async () => {
   const { valid } = await formRef.value.validate();
   if (!valid) return;
+  loading.value = true;
 
   let res = await authService.signIn(form.value);
   if (res.status === true) {
     router.push("/a");
+    loading.value = false;
     return;
   }
-  alert(res);
+  loading.value = false;
 };
 </script>
 <style lang="scss">

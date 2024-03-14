@@ -15,14 +15,22 @@ export default class AcademicProgramService {
   //inicio de sesión
   // Route::post('/sign-in', [App\Http\Controllers\Api\Auth\AuthController::class , 'signIn']);
   async signIn(credentials: { email: string; password: string }) {
-    const response = await this.http.post(`sign-in`, credentials);
-    if (response.data.status === true) {
 
-      // console.log('el token se guardo en el localstorage');
+    try {
 
-      localStorage.setItem("token", response.data.token);
+      const response = await this.http.post(`sign-in`, credentials);
+
+      if (response.data.status === true) {
+        localStorage.setItem("token", response.data.token);
+      }
+
+      return response.data;
     }
-    return response.data;
+    catch (error) {
+
+      alert("Error en el inicio de sesión, verifique sus credenciales");
+      return error.response.data;
+    }
   }
   //current user
   // Route::get('/validate-token', [App\Http\Controllers\Api\Auth\AuthController::class , 'currentUser'])->middleware('auth:sanctum');

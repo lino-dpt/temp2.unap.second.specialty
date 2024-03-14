@@ -1,6 +1,16 @@
+
 export default {
   VCard: {
-    rounded: "lg",
+    rounded: "",
+    VCardActions: {
+      class: "px-4",
+      VBtn: {
+        block: true,
+        rounded: "xl",
+        color: "primary",
+        variant: "flat",
+      }
+    }
   },
   VAlert: {
     density: "comfortable",
@@ -14,7 +24,7 @@ export default {
   VBtn: {
     // density: "compact",
     color: "primary",
-    rounded: "lg",
+    rounded: "xl",
     variant: "flat",
   },
   VChip: {
@@ -78,6 +88,7 @@ export default {
     color: "primary",
     hideDetails: "auto",
     clearable: true,
+    rounded: "lg",
   },
 
   VSelect: {
