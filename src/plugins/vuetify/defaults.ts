@@ -5,7 +5,7 @@ export default {
     VCardActions: {
       class: "px-4",
       VBtn: {
-        block: true,
+        block: false,
         rounded: "xl",
         color: "primary",
         variant: "flat",
