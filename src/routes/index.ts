@@ -84,6 +84,12 @@ const routes: RouteRecordRaw[] = [
         name: "postulant.show",
         component: () => import("@/views/admin/postulants/show.vue"),
       },
+      {
+        //path: "postulants/show/:id/?:tab",
+        path: "postulants/edit/:id",
+        name: "postulant.edit",
+        component: () => import("@/views/admin/postulants/edit.vue"),
+      },
 
       {
         path: "document-types",

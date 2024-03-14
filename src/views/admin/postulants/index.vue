@@ -53,6 +53,17 @@
           :to="`/a/postulants/show/${item.Id}/generals`"
         >
         </v-btn>
+
+        <v-btn
+          color="info"
+          variant="tonal"
+          icon="mdi-pencil"
+          size="small"
+          class="mr-2"
+          v-if="role === 'ADMIN'"
+          link
+          :to="`/a/postulants/edit/${item.Id}`"
+        ></v-btn>
       </div>
     </template>
   </v-data-table-server>
