@@ -13,14 +13,14 @@
     >
       General
     </v-tab>
-    <!-- <v-tab
+    <v-tab
       rounded="0"
       link
       :to="`/a/postulants/show/${route.params.id}/cv`"
       value="cv"
     >
       CV
-    </v-tab> -->
+    </v-tab>
   </v-tabs>
     <template v-if="tab === 'generals'">
       <TabGenerals :data="dataGenerals" />

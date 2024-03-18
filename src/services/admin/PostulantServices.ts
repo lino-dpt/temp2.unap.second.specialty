@@ -52,5 +52,10 @@ export const addYerOfExperience = async (data: any) => {
     return response.data;
 }
 
+export const removeEvaluation = async (id: string) => {
+    const response = await http.delete("postulants/evaluation/" + id);
+    return response.data;
+}
+
 
 export const getPostulantsCV = async () => { };

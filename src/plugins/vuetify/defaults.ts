@@ -6,7 +6,8 @@ export default {
       class: "px-4",
       VBtn: {
         block: false,
-        rounded: "xl",
+        rounded: "lg",
+        class: "px-4",
         color: "primary",
         variant: "flat",
       }
