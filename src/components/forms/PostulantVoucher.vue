@@ -87,11 +87,17 @@
               {{ errorValidationImage }}
             </small>
           </v-col> -->
-          <v-col cols="12">
+
+          <v-col cols="12" md="12">
+            <v-alert type="info" variant="tonal" title="Aviso">
+              Las preinscripciones finalizarón.
+            </v-alert>
+          </v-col>
+          <!-- <v-col cols="12">
             <v-btn type="submit" variant="flat" block :loading="loading">
               Iniciar preinscripción
             </v-btn>
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-container>
     </v-card>
@@ -99,77 +105,69 @@
 
   <v-container>
     <v-card max-width="800" class="mx-auto my-5">
+      <v-list lines="two">
+        <v-list-item
+          subtitle="Cronograma Programas de Segunda Especialidad UNA"
+        >
+          <template #append>
+            <v-btn
+              color="primary"
+              variant="outlined"
+              link
+              href="/uploads/anexos/ANEXO 03 A - CRONOGRAMA.pdf"
+              target="_blank"
+              icon="mdi-download"
+              density="comfortable"
+            >
+            </v-btn>
+          </template>
+        </v-list-item>
 
-        <v-list lines="two">
-          <v-list-item
-            subtitle="Cronograma Programas de Segunda Especialidad UNA"
-          >
-            <template #append>
-              <v-btn
-                color="primary"
-                variant="outlined"
-                link
-                href="/uploads/anexos/ANEXO 03 A - CRONOGRAMA.pdf"
-                target="_blank"
-                icon="mdi-download"
-                density="comfortable"
-              >
-     
-              </v-btn>
-            </template>
-          </v-list-item>
+        <v-list-item subtitle="Instrumento de Entrevista Personal">
+          <template #append>
+            <v-btn
+              color="primary"
+              variant="outlined"
+              link
+              href="/uploads/anexos/ANEXO 04 - INSTRUMENTO DE ENTREVISTA.pdf"
+              target="_blank"
+              icon="mdi-download"
+              density="comfortable"
+            >
+            </v-btn>
+          </template>
+        </v-list-item>
 
-          <v-list-item subtitle="Instrumento de Entrevista Personal">
-            <template #append>
-              <v-btn
-                color="primary"
-                variant="outlined"
-                link
-                href="/uploads/anexos/ANEXO 04 - INSTRUMENTO DE ENTREVISTA.pdf"
-                target="_blank"
-                icon="mdi-download"
-                density="comfortable"
-              >
-          
-              </v-btn>
-            </template>
-          </v-list-item>
+        <v-list-item subtitle="Carta de Compromiso">
+          <template #append>
+            <v-btn
+              color="primary"
+              variant="outlined"
+              link
+              href="/uploads/anexos/CARTA DE COMPROMISO.pdf"
+              target="_blank"
+              icon="mdi-download"
+              density="comfortable"
+            >
+            </v-btn>
+          </template>
+        </v-list-item>
 
-          <v-list-item subtitle="Carta de Compromiso">
-            <template #append>
-              <v-btn
-                color="primary"
-                variant="outlined"
-                link
-                href="/uploads/anexos/CARTA DE COMPROMISO.pdf"
-                target="_blank"
-                icon="mdi-download"
-                density="comfortable"
-              >
-         
-              </v-btn>
-            </template>
-          </v-list-item>
-
-          <v-list-item subtitle="Declaración Jurada">
-            <template #append>
-              <v-btn
-                color="primary"
-                variant="outlined"
-                link
-                href="/uploads/anexos/DECLARACION JURADA.pdf"
-                target="_blank"
-                icon="mdi-download"
-                density="comfortable"
-              >
-              
-              </v-btn>
-            </template>
-          </v-list-item>
-
-          
-        </v-list>
-
+        <v-list-item subtitle="Declaración Jurada">
+          <template #append>
+            <v-btn
+              color="primary"
+              variant="outlined"
+              link
+              href="/uploads/anexos/DECLARACION JURADA.pdf"
+              target="_blank"
+              icon="mdi-download"
+              density="comfortable"
+            >
+            </v-btn>
+          </template>
+        </v-list-item>
+      </v-list>
     </v-card>
   </v-container>
 
@@ -312,6 +310,7 @@ const continuePreinscription = () => {
 };
 
 const submit = async () => {
+  return;
   const { valid } = await formRef.value.validate();
 
   // if (form.value.paymentVoucher === null) {
