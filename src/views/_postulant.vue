@@ -1,5 +1,4 @@
 <template>
-  
   <div class="h-min-screen">
     <template v-if="loading">
       <div class="h-100 w-100 d-flex justify-center align-center">
@@ -105,6 +104,7 @@ const form: Ref<PostulantPreInscription> = ref(formDefaults);
 
 const formRef = ref(null);
 const submit = async () => {
+  return;
   loadingSubmit.value = true;
 
   try {
