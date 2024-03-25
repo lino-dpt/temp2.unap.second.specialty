@@ -5,8 +5,17 @@
   </v-toolbar>
   <v-card rounded="0" elevation="0" class="bg-light border">
     <v-row class="pa-2">
-      <v-col cols="6"> </v-col>
-      <v-col cols="6">
+      <v-col cols="4">
+        <v-btn
+          color="green"
+          @click="exportExcel"
+          prepend-icon="mdi-file-excel"
+          class="mr-2"
+        >
+          Excel
+        </v-btn>
+      </v-col>
+      <v-col cols="8">
         <v-text-field v-model="search" label="Buscar" />
       </v-col>
     </v-row>
@@ -25,7 +34,7 @@
     items-per-page-text="Registros por página"
     loading-text="Cargando registros"
     multi-sort
-    :items-per-page-options="[5, 10, 25, 50]"
+    :items-per-page-options="[5, 10, 25, 50, 100, 1000, 10000]"
     @update:options="loadItems"
   >
     <template v-slot:[`item.AcademicProgramName`]="{ item }">
@@ -109,6 +118,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref } from "vue";
+import ExportJsonExcel from "js-export-excel";
 
 const loading = ref(false);
 const loadingForm = ref(false);
@@ -124,6 +134,51 @@ const academicsPrograms = ref([]);
 
 const dialogChangeAcademicProgram = ref(false);
 const formRef = ref(null);
+
+const exportExcel = async () => {
+  var option: any = {};
+  option.fileName = "Postulantes";
+
+  let data = serverItems.value.map((item) => {
+    return {
+      Nombres: item.FullName,
+      DNI: item.DocumentType + "-" + item.DocumentNumber,
+      "F. Nacimiento": item.BirthDate,
+      Género: item.Gender,
+      Celular: item.PhoneNumber,
+      "Programa académico": item.AcademicProgramName,
+    };
+  });
+
+  option.datas = [
+    {
+      sheetData: data,
+      sheetHeader: [
+        "Nombres",
+        "DNI",
+        "F. Nacimiento",
+        "Género",
+        "Celular",
+        "Programa académico",
+      ],
+      sheetFilter: [
+        "Nombres",
+        "DNI",
+        "F. Nacimiento",
+        "Género",
+        "Celular",
+        "Programa académico",
+      ],
+      sheetName: "Postulantes",
+    },
+  ];
+
+  var toExcel = new ExportJsonExcel(option);
+
+  toExcel.saveExcel();
+
+  return;
+};
 
 const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   loading.value = true;
