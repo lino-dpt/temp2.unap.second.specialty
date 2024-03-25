@@ -146,6 +146,7 @@ const exportExcel = async () => {
       "F. Nacimiento": item.BirthDate,
       Género: item.Gender,
       Celular: item.PhoneNumber,
+      Correo: item.Email,
       "Programa académico": item.AcademicProgramName,
     };
   });
@@ -159,6 +160,7 @@ const exportExcel = async () => {
         "F. Nacimiento",
         "Género",
         "Celular",
+        "Correo",
         "Programa académico",
       ],
       sheetFilter: [
@@ -167,6 +169,7 @@ const exportExcel = async () => {
         "F. Nacimiento",
         "Género",
         "Celular",
+        "Correo",
         "Programa académico",
       ],
       sheetName: "Postulantes",
@@ -205,10 +208,29 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   );
 
   let data = await res.data;
+  let _items_ = [];
+
+  //agrupalos los que tengan el mismo id  y a una se le agrega el email y el phone number
+  for (let i = 0; i < data.items.data.length; i++) {
+    let item = data.items.data[i];
+    let _item_ = _items_.find((x) => x.Id === item.Id);
+
+    if (_item_) {
+      if (item.PhoneNumber) {
+        _item_.PhoneNumber = item.PhoneNumber;
+      } else {
+        _item_.Email = item.Email;
+      }
+    } else {
+      _items_.push(item);
+    }
+  }
+
+ 
 
   headers.value = data.headers;
   totalItems.value = data.items.total;
-  serverItems.value = data.items.data;
+  serverItems.value = _items_;
   role.value = data.role;
   academicsPrograms.value = data.academicsPrograms;
 
