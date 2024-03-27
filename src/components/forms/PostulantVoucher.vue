@@ -88,16 +88,16 @@
             </small>
           </v-col> -->
 
-          <v-col cols="12" md="12">
+          <!-- <v-col cols="12" md="12">
             <v-alert type="info" variant="tonal" title="Aviso">
               Las preinscripciones finalizarón.
             </v-alert>
-          </v-col>
-          <!-- <v-col cols="12">
+          </v-col> -->
+          <v-col cols="12">
             <v-btn type="submit" variant="flat" block :loading="loading">
               Iniciar preinscripción
             </v-btn>
-          </v-col> -->
+          </v-col>
         </v-row>
       </v-container>
     </v-card>
@@ -310,7 +310,7 @@ const continuePreinscription = () => {
 };
 
 const submit = async () => {
-  return;
+  
   const { valid } = await formRef.value.validate();
 
   // if (form.value.paymentVoucher === null) {

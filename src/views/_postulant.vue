@@ -104,7 +104,7 @@ const form: Ref<PostulantPreInscription> = ref(formDefaults);
 
 const formRef = ref(null);
 const submit = async () => {
-  return;
+  
   loadingSubmit.value = true;
 
   try {

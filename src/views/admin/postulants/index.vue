@@ -208,6 +208,7 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
   );
 
   let data = await res.data;
+  
   let _items_ = [];
 
   //agrupalos los que tengan el mismo id  y a una se le agrega el email y el phone number
@@ -225,8 +226,6 @@ const loadItems = async ({ page, itemsPerPage, sortBy, search }) => {
       _items_.push(item);
     }
   }
-
- 
 
   headers.value = data.headers;
   totalItems.value = data.items.total;
