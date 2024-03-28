@@ -119,6 +119,13 @@ const menu = ref([
     to: "/a/postulants",
     children: [],
   },
+
+  // {
+  //   title: "Resultados",
+  //   icon: "mdi-file-check",
+  //   to: "/a/results",
+  //   children: [],
+  // },
   // {
   //   title: "Usuarios",
   //   icon: "mdi-account-group",

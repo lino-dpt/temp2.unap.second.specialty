@@ -18,11 +18,17 @@ const routes: RouteRecordRaw[] = [
     name: "Auth",
     component: () => import("@/views/auth/login.vue"),
   },
+
+  {
+    path: "/resultados",
+    name: "Resultados",
+    component: () => import("@/views/results.vue"),
+  },
+
   {
     path: "/",
     name: "DefaultLayout",
     component: DefaultLayout,
-
     children: [
       //redureccion a la pagina de inicio cuando no se encuentra la ruta
       {
@@ -34,6 +40,7 @@ const routes: RouteRecordRaw[] = [
         name: "home",
         component: () => import("@/views/home.vue"),
       },
+     
       {
         path: ":slug/preinscripcion",
         name: "Inizializar Preinscripcion",
@@ -89,6 +96,12 @@ const routes: RouteRecordRaw[] = [
         path: "postulants/edit/:id",
         name: "postulant.edit",
         component: () => import("@/views/admin/postulants/edit.vue"),
+      },
+
+      {
+        path: "results",
+        name: "Results",
+        component: () => import("@/views/admin/results/index.vue"),
       },
 
       {
