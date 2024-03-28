@@ -92,7 +92,7 @@ const faculties = ref([
     programs: [
       {
         id: 1,
-        nombre: "Salud Pública",
+        nombre: "Salud Pública y Epidemiología",
         pathFile: null,
       },
       {
@@ -283,7 +283,7 @@ const faculties = ref([
   },
   {
     id: 9,
-    nombre: "Facultad Ciencias Jurídicas y Políticas",
+    nombre: "Facultad de Ciencias Jurídicas y Políticas",
     programs: [
       {
         id: 6,
@@ -295,10 +295,10 @@ const faculties = ref([
     id: 10,
     nombre: "Facultad Ingeniería Estadística e Informática",
     programs: [
-      {
-        id: 5,
-        nombre: "Formulación y Evaluación de Proyectos de Inversión",
-      },
+      // {
+      //   id: 5,
+      //   nombre: "Formulación y Evaluación de Proyectos de Inversión",
+      // },
     ],
   },
   {
@@ -321,7 +321,7 @@ const faculties = ref([
     programs: [
       {
         id: 40,
-        nombre: "Segunda especialidad en Ingeniería Sanitaria Ambiental FIQ",
+        nombre: "Ingeniería Sanitaria Ambiental",
       },
     ],
   },
