@@ -4,7 +4,7 @@
     <v-spacer></v-spacer>
   </v-toolbar>
   <v-card>
-    <v-list-item v-for="program in programs" :key="program.id">
+    <v-list-item v-for="program in programs" :key="program.id" class="border-b">
       <v-list-item-title>{{ program.ProgramName }}</v-list-item-title>
       <template #append>
         <v-btn
@@ -82,7 +82,7 @@ const submit = async () => {
 
   const data = await response.json();
 
-  if (data.success) {
+  if (data) {
     await getPrograms();
   }
   dialog.value = false;
