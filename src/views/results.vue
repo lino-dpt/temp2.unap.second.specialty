@@ -50,7 +50,7 @@
                   <v-card-actions>
                     <v-btn
                       link
-                      :disabled="!program.pathFile"
+                      :disabled="program.pathFile == null"
                       target="_blank"
                       :href="program.pathFile ? program.pathFile as string : '#'"
                       block
@@ -70,6 +70,9 @@
           </v-container>
         </v-card>
       </v-container>
+      <pre>
+        {{ programs }}
+      </pre>
     </v-main>
     <v-footer app absolute class="bg-secondary text-center">
       <v-container>
@@ -92,11 +95,12 @@ const faculties = ref([
       {
         id: 1,
         nombre: "Salud Pública",
-        pathFile: "/results/Salud Publica y Epidemiologia.pdf",
+        pathFile: null,
       },
       {
         id: 2,
         nombre: "Biotecnología de la Reproducción Animal",
+        pathFile: null,
       },
       {
         id: 3,
@@ -325,7 +329,31 @@ const faculties = ref([
   },
 ]);
 
-const init = async () => {};
+const programs = ref([]);
+const getPrograms = async () => {
+  const response = await fetch("https://data.segundas.unap.edu.pe/api/results");
+  const data = await response.json();
+  return data;
+};
+
+const init = async () => {
+  programs.value = await getPrograms();
+
+  faculties.value.map((faculty) => {
+    faculty.programs.forEach((program) => {
+      const programData = programs.value.find(
+        (p) => p.ProgramId === program.id
+      );
+      if (programData) {
+        program.pathFile = programData.Path
+          ? "https://data.segundas.unap.edu.pe/uploads/" + programData.Path
+          : null;
+      }
+    });
+
+    return faculty;
+  });
+};
 init();
 </script>
 <style lang="scss">
