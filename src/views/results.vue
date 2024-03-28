@@ -159,16 +159,16 @@ const faculties = ref([
       },
     ],
   },
-  {
-    id: 4,
-    nombre: "Facultad Ingeniería de Minas",
-    programs: [
-      {
-        id: 16,
-        nombre: "Seguridad, Salud Ocupacional Medio Ambiente",
-      },
-    ],
-  },
+  // {
+  //   id: 4,
+  //   nombre: "Facultad Ingeniería de Minas",
+  //   programs: [
+  //     {
+  //       id: 16,
+  //       nombre: "Seguridad, Salud Ocupacional Medio Ambiente",
+  //     },
+  //   ],
+  // },
   {
     id: 5,
     nombre: "Facultad Ciencias de la Educación",
@@ -291,16 +291,16 @@ const faculties = ref([
       },
     ],
   },
-  {
-    id: 10,
-    nombre: "Facultad Ingeniería Estadística e Informática",
-    programs: [
-      // {
-      //   id: 5,
-      //   nombre: "Formulación y Evaluación de Proyectos de Inversión",
-      // },
-    ],
-  },
+  // {
+  //   id: 10,
+  //   nombre: "Facultad Ingeniería Estadística e Informática",
+  //   programs: [
+  //     {
+  //       id: 5,
+  //       nombre: "Formulación y Evaluación de Proyectos de Inversión",
+  //     },
+  //   ],
+  // },
   {
     id: 11,
     nombre: "Facultad Ciencias Biológicas",
