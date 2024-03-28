@@ -321,7 +321,7 @@ const faculties = ref([
     programs: [
       {
         id: 16,
-        nombre: "Seguridad, Salud Ocupacional Medio Ambiente",
+        nombre: "Segunda especialidad en Ingeniería Sanitaria Ambiental SIQ",
       },
     ],
   },
