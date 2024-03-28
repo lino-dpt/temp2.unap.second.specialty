@@ -320,8 +320,8 @@ const faculties = ref([
     nombre: "Facultad Ingeniería Química",
     programs: [
       {
-        id: 16,
-        nombre: "Segunda especialidad en Ingeniería Sanitaria Ambiental SIQ",
+        id: 40,
+        nombre: "Segunda especialidad en Ingeniería Sanitaria Ambiental FIQ",
       },
     ],
   },
