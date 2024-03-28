@@ -70,9 +70,7 @@
           </v-container>
         </v-card>
       </v-container>
-      <pre>
-        {{ programs }}
-      </pre>
+      
     </v-main>
     <v-footer app absolute class="bg-secondary text-center">
       <v-container>
